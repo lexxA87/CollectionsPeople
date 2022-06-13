@@ -16,9 +16,9 @@ app.use(express.static(path.resolve(__dirname, "build")));
 
 app.use("/admin", admin);
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "build", "index.html"));
+// });
 
 mongoose
   .connect(DB_URL, { useNewUrlParser: true })
