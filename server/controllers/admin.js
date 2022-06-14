@@ -5,11 +5,11 @@ AdminJS.registerAdapter(require("@adminjs/mongoose"));
 
 const adminJs = new AdminJS({
   resources: [User],
-  dashboard: {
-    component: AdminJS.bundle(
-      "../../src/components/adminDashboard/Dashboard.jsx"
-    ),
-  },
+  // dashboard: {
+  //   component: AdminJS.bundle(
+  //     "../../src/components/adminDashboard/Dashboard.jsx"
+  //   ),
+  // },
   rootPath: "/admin",
 });
 
