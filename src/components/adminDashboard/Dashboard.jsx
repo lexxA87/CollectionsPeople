@@ -3,7 +3,7 @@ import React from "react";
 // import { Box } from "adminjs";
 
 function Dashboard() {
-  return <h2>Dashboard</h2>;
+  return <h2>Dashboard Yooo!</h2>;
   // return <Box>Dashboard</Box>;
 }
 
