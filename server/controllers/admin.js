@@ -1,6 +1,7 @@
 const AdminJS = require("adminjs");
 const AdminJSExpress = require("@adminjs/express");
 const User = require("../models/User");
+const Collection = require("../models/Collection");
 AdminJS.registerAdapter(require("@adminjs/mongoose"));
 
 const adminJs = new AdminJS({
@@ -11,6 +12,9 @@ const adminJs = new AdminJS({
         // ...your options go here
         listProperties: ["_id", "name", "email", "role"],
       },
+    },
+    {
+      resource: Collection,
     },
   ],
   branding: {

@@ -6,7 +6,12 @@ const User = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   collections: [{ type: ObjectId, ref: "Collection" }],
-  role: { type: String, enum: ["admin", "user"], required: true },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    required: true,
+    default: "user",
+  },
 });
 
 module.exports = model("User", User);
