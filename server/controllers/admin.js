@@ -4,7 +4,15 @@ const User = require("../models/User");
 AdminJS.registerAdapter(require("@adminjs/mongoose"));
 
 const adminJs = new AdminJS({
-  resources: [User],
+  resources: [
+    {
+      resource: User,
+      options: {
+        // ...your options go here
+        listProperties: ["_id", "name", "email", "role"],
+      },
+    },
+  ],
   branding: {
     companyName: "Admin Collections-People",
   },
