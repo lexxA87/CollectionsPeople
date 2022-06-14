@@ -5,7 +5,7 @@ const handleError = (res, error) => {
 };
 
 const getCollection = (req, res) => {
-  Collection.findById(req.params.id)
+  Collection.findById(req.query.id)
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
 };
@@ -17,20 +17,16 @@ const getCollections = (req, res) => {
 };
 
 const putCollection = (req, res) => {
-  const { title, description, author } = req.body;
-  const { id } = req.params;
-  Collection.findByIdAndUpdate(
-    id,
-    { title, description, author },
-    { new: true }
-  )
+  const { title, description, theme } = req.body;
+  const { id } = req.query;
+  Collection.findByIdAndUpdate(id, { title, description, theme }, { new: true })
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
 };
 
 const deleteCollection = (req, res) => {
-  Collection.findByIdAndDelete(req.params.id)
-    .then(() => res.status(200).json(req.params.id))
+  Collection.findByIdAndDelete(req.query.id)
+    .then(() => res.status(200).json(req.query.id))
     .catch((error) => handleError(res, error));
 };
 
