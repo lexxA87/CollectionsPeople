@@ -4,7 +4,7 @@ const { Schema, model, ObjectId } = mongoose;
 const Comment = new Schema({
   text: { type: String, required: true },
   author: { type: ObjectId, ref: "User", required: true },
-  item: { type: ObjectId, ref: "Item", required: true },
+  itemParent: { type: ObjectId, ref: "Item", required: true },
 });
 
 module.exports = model("Comment", Comment);

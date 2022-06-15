@@ -6,6 +6,7 @@ const admin = require("./server/controllers/admin");
 const authRoutes = require("./server/routes/api.auth.routes");
 const apiCollection = require("./server/routes/api.collection.routes");
 const apiItemCollection = require("./server/routes/api.itemCollection.routes");
+const apiComment = require("./server/routes/api.comment.routes");
 
 const PORT = process.env.PORT || config.get("serverPort");
 const DB_URL = config.get("MongoDBUrl");
@@ -21,6 +22,7 @@ app.use("/admin", admin);
 app.use("/auth", authRoutes);
 app.use(apiCollection);
 app.use(apiItemCollection);
+app.use(apiComment);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
