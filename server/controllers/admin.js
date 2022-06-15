@@ -14,7 +14,7 @@ const adminJs = new AdminJS({
       resource: User,
       options: {
         // ...your options go here
-        listProperties: ["_id", "name", "email", "role"],
+        listProperties: ["_id", "name", "email", "role", "blocked"],
       },
     },
     {
