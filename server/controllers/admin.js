@@ -2,7 +2,10 @@ const AdminJS = require("adminjs");
 const AdminJSExpress = require("@adminjs/express");
 const User = require("../models/User");
 const Collection = require("../models/Collection");
-const ItemColl = require("../models/ItemCollection");
+const ItemCollection = require("../models/ItemCollection");
+const Tag = require("../models/Tag");
+const Comment = require("../models/Comment");
+
 AdminJS.registerAdapter(require("@adminjs/mongoose"));
 
 const adminJs = new AdminJS({
@@ -18,7 +21,13 @@ const adminJs = new AdminJS({
       resource: Collection,
     },
     {
-      resource: ItemColl,
+      resource: ItemCollection,
+    },
+    {
+      resource: Tag,
+    },
+    {
+      resource: Comment,
     },
   ],
   branding: {
