@@ -12,6 +12,10 @@ const User = new Schema({
     required: true,
     default: "user",
   },
+  blocked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = model("User", User);
