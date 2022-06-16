@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, Text, H2 } from "@adminjs/design-system";
 
 function Dashboard(props) {
-  const redirect = useNavigate();
+  let redirect = useNavigate();
   // const redirectClick = redirect("/", { replace: true });
 
   return (
