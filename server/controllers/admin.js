@@ -5,6 +5,7 @@ const Collection = require("../models/Collection");
 const ItemCollection = require("../models/ItemCollection");
 const Tag = require("../models/Tag");
 const Comment = require("../models/Comment");
+const Theme = require("../models/Theme");
 
 AdminJS.registerAdapter(require("@adminjs/mongoose"));
 
@@ -28,6 +29,9 @@ const adminJs = new AdminJS({
     },
     {
       resource: Comment,
+    },
+    {
+      resource: Theme,
     },
   ],
   branding: {
