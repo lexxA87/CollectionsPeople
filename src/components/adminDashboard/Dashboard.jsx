@@ -1,12 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-
-import styled from "styled-components";
-import { Box, Text, H2, ButtonCSS } from "@adminjs/design-system";
-
-const MyStyledLink = styled(NavLink)`
-  ${ButtonCSS}
-`;
+import {
+  Box,
+  Text,
+  H2,
+  Button,
+  NavigationElement,
+} from "@adminjs/design-system";
 
 function Dashboard(props) {
   return (
@@ -29,7 +28,14 @@ function Dashboard(props) {
         </Text>
 
         <Box justifyContent="center" alignItems="center" flex mt="default">
-          <MyStyledLink to="/">Exit</MyStyledLink>
+          <Box
+            borderStyle="solid"
+            borderColor="love"
+            borderWidth={1}
+            bg="errorLight"
+          >
+            <NavigationElement href="/" label="Go out" />
+          </Box>
         </Box>
       </Box>
     </Box>
