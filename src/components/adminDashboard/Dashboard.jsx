@@ -1,14 +1,26 @@
 import React from "react";
-// import { withRouter } from "react-router-dom";
-import { Box } from "@adminjs/design-system";
+import { useNavigate } from "react-router-dom";
+import { Card, Button } from "react-bootstrap";
 
 function Dashboard() {
-  // return <h2>Dashboard Yooo!</h2>;
+  const redirect = useNavigate();
+
   return (
-    <Box variant="grey">
-      <h2>Dashboard Yooo!</h2>
-      <p>Click something!</p>
-    </Box>
+    <Card className="text-center">
+      <Card.Body>
+        <Card.Title>Welcome to admin dashboard!</Card.Title>
+        <Card.Text>
+          You can do most things with data base "Collections People"
+        </Card.Text>
+        <Button
+          variant="outline-danger"
+          size="lg"
+          onClick={() => redirect("/")}
+        >
+          Exit from..
+        </Button>
+      </Card.Body>
+    </Card>
   );
 }
 
