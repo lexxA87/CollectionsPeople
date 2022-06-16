@@ -11,7 +11,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<h1>React</h1>} />
-          <Route path="/admin" element={<Dashboard />} />
+          {/* <Route path="/admin" element={<Dashboard />} /> */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
