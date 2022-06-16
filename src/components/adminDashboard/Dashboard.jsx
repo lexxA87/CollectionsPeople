@@ -1,12 +1,14 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import { Box, Button, Text, H2 } from "@adminjs/design-system";
+import styled from "styled-components";
+import { Box, Text, H2, ButtonCSS } from "@adminjs/design-system";
+
+const MyStyledLink = styled(NavLink)`
+  ${ButtonCSS}
+`;
 
 function Dashboard(props) {
-  let redirect = useNavigate();
-  // const redirectClick = redirect("/", { replace: true });
-
   return (
     <Box flex width={["auto", "auto", "auto"]}>
       <Box
@@ -16,24 +18,22 @@ function Dashboard(props) {
         position="relative"
       >
         <H2 fontWeight="lighter" textAlign="center">
-          Welcome!!!
+          Welcome to Admin's dashboard!
         </H2>
         <Text fontWeight="lighter" textAlign="center" mt="default">
-          Yoooooo!
+          You can make most things here with data-base "Collections People".
+          Have a good work!
         </Text>
-        <Text mt="xl" textAlign="center">
-          <Button
-            variant="danger"
-            rounded={true}
-            onClick={() => redirect("/", { replace: true })}
-          >
-            Exit
-          </Button>
+        <Text fontWeight="lighter" textAlign="center" mt="default">
+          OR
         </Text>
+
+        <Box justifyContent="center" alignItems="center" flex mt="default">
+          <MyStyledLink to="/">Exit</MyStyledLink>
+        </Box>
       </Box>
     </Box>
   );
 }
 
-// export default withRouter(Dashboard);
 export default Dashboard;
