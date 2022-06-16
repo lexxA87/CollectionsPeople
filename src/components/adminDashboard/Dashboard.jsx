@@ -1,26 +1,37 @@
 import React from "react";
-// import { useNavigate } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
-  // const redirect = useNavigate();
+import { Box, Button, Text, H2 } from "@adminjs/design-system";
+
+function Dashboard(props) {
+  const redirect = useNavigate();
+  // const redirectClick = redirect("/", { replace: true });
 
   return (
-    <Card className="text-center">
-      <Card.Body>
-        <Card.Title>Welcome to admin dashboard!</Card.Title>
-        <Card.Text>
-          You can do most things with data base "Collections People"
-        </Card.Text>
-        <Button
-          variant="outline-danger"
-          size="lg"
-          // onClick={() => redirect("/")}
-        >
-          Exit from..
-        </Button>
-      </Card.Body>
-    </Card>
+    <Box flex width={["auto", "auto", "auto"]}>
+      <Box
+        p="x3"
+        flexGrow={2}
+        display={["block", "block", "block"]}
+        position="relative"
+      >
+        <H2 fontWeight="lighter" textAlign="center">
+          Welcome!!!
+        </H2>
+        <Text fontWeight="lighter" textAlign="center" mt="default">
+          Yoooooo!
+        </Text>
+        <Text mt="xl" textAlign="center">
+          <Button
+            variant="danger"
+            rounded={true}
+            onClick={() => redirect("/", { replace: true })}
+          >
+            Exit
+          </Button>
+        </Text>
+      </Box>
+    </Box>
   );
 }
 

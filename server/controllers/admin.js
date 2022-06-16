@@ -38,9 +38,7 @@ const adminJs = new AdminJS({
     companyName: "Admin Collections-People",
   },
   dashboard: {
-    component: AdminJS.bundle(
-      "../../src/components/adminDashboard/Dashboard.jsx"
-    ),
+    component: AdminJS.bundle("../../src/components/adminDashboard/Dashboard"),
   },
   rootPath: "/admin",
 });
