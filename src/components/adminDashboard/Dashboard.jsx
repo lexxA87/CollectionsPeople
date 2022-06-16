@@ -1,9 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 
 function Dashboard() {
-  const redirect = useNavigate();
+  // const redirect = useNavigate();
 
   return (
     <Card className="text-center">
@@ -15,7 +15,7 @@ function Dashboard() {
         <Button
           variant="outline-danger"
           size="lg"
-          onClick={() => redirect("/")}
+          // onClick={() => redirect("/")}
         >
           Exit from..
         </Button>
