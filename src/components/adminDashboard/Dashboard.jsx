@@ -3,7 +3,6 @@ import {
   Box,
   Text,
   H2,
-  Button,
   NavigationElement,
 } from "@adminjs/design-system";
 
