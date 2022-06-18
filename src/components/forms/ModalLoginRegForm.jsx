@@ -15,7 +15,7 @@ function ModalLoginRegForm(props) {
   return (
     <Modal show={showLoginModal} onHide={handleClose}>
       {showLogin ? (
-        <LoginForm setShowLogin={setShowLogin} />
+        <LoginForm setShowLogin={setShowLogin} handleClose={handleClose} />
       ) : (
         <RegistrationForm setShowLogin={setShowLogin} />
       )}

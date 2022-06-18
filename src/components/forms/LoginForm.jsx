@@ -3,6 +3,7 @@ import { Form, FloatingLabel, Button, Modal, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { userLogin } from "../../api/userAPI";
+import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -14,13 +15,21 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginForm(props) {
-  const { setShowLogin } = props;
+  const { setShowLogin, handleClose } = props;
   const [isLoading, setLoading] = useState(false);
+  const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
 
   const loginSubmit = async (values) => {
     setLoading(true);
     const res = await userLogin(values);
-    console.log(res);
+    if (res.user) {
+      console.log(res.user.name);
+      localStorage.setItem("token", res.token);
+      setCurrentUser(res.user);
+      handleClose();
+    } else {
+      alert(res);
+    }
     setLoading(false);
   };
 
