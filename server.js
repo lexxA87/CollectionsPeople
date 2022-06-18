@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const config = require("config");
+const cors = require("cors");
 const admin = require("./server/controllers/admin");
 const authRoutes = require("./server/routes/api.auth.routes");
 const apiCollection = require("./server/routes/api.collection.routes");
@@ -15,12 +16,13 @@ const DB_URL = config.get("MongoDBUrl");
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.use(express.static(__dirname));
 app.use(express.static(path.resolve(__dirname, "build")));
 
 app.use("/admin", admin);
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use(apiCollection);
 app.use(apiItemCollection);
 app.use(apiComment);

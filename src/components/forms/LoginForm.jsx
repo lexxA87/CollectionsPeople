@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, FloatingLabel, Button, Modal, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { userLogin } from "../../api/userAPI";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -10,11 +11,19 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .max(8, "Must be 8 characters or less")
     .required("Required"),
-  // email: Yup.string().email("Invalid email address").required("Required"),
 });
 
 function LoginForm(props) {
   const { setShowLogin } = props;
+  const [isLoading, setLoading] = useState(false);
+
+  const loginSubmit = async (values) => {
+    setLoading(true);
+    const res = await userLogin(values);
+    console.log(res);
+    setLoading(false);
+  };
+
   return (
     <>
       <Modal.Header closeButton>
@@ -23,7 +32,7 @@ function LoginForm(props) {
       <Modal.Body>
         <Formik
           validationSchema={validationSchema}
-          onSubmit={console.log}
+          onSubmit={loginSubmit}
           initialValues={{
             name: "",
             password: "",
@@ -72,7 +81,7 @@ function LoginForm(props) {
                 </Form.Control.Feedback>
               </FloatingLabel>
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={isLoading}>
                 Login
               </Button>
             </Form>

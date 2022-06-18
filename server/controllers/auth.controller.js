@@ -60,14 +60,14 @@ const userLogin = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (user.blocked) {
-      return res.status(403).json({ message: "User was blocked" });
-    }
-
     const isPassValid = bcrypt.compareSync(password, user.password);
 
     if (!isPassValid) {
       return res.status(400).json({ message: "Invalid password" });
+    }
+
+    if (user.blocked) {
+      return res.status(403).json({ message: "User was blocked" });
     }
 
     const token = jwt.sign({ id: user.id }, config.get("secretKey"), {
