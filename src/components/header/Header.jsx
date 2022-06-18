@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Navbar,
@@ -8,9 +8,15 @@ import {
   Button,
   ToggleButtonGroup,
   ToggleButton,
+  Modal,
 } from "react-bootstrap";
 
 function Header() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleCloseLoginModal = () => setShowLoginModal(false);
+  const handleShowLoginModal = () => setShowLoginModal(true);
+
   return (
     <Navbar bg="light" expand="lg" sticky="top" className="shadow-sm rounded">
       <Container fluid>
@@ -29,12 +35,6 @@ function Header() {
             <Button variant="outline-success">Search</Button>
           </Form>
 
-          {/* <Form.Check
-            className="d-flex mx-auto my-3"
-            type="switch"
-            id="switchTheme"
-            label="Dark theme"
-          /> */}
           <Form className="d-flex mx-auto my-3">
             <Form.Switch label="Dark theme" />
           </Form>
@@ -60,9 +60,29 @@ function Header() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <Button variant="success" className="mx-auto my-3">
+          <Button
+            variant="success"
+            className="mx-auto my-3"
+            onClick={handleShowLoginModal}
+          >
             Login
           </Button>
+          <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Woohoo, you're reading this text in a modal!
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseLoginModal}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleCloseLoginModal}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Navbar.Collapse>
       </Container>
     </Navbar>
