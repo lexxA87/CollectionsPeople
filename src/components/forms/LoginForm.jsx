@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FloatingLabel, Button, Modal } from "react-bootstrap";
+import { Form, FloatingLabel, Button, Modal, Alert } from "react-bootstrap";
 
 function LoginForm(props) {
   const { setShowLogin } = props;
@@ -28,8 +28,12 @@ function LoginForm(props) {
             Login
           </Button>
         </Form>
-        OR
-        <Button onClick={() => setShowLogin(false)}>To Registration</Button>
+        <Alert variant="light">
+          Or go to{" "}
+          <Alert.Link onClick={() => setShowLogin(false)}>
+            Registration
+          </Alert.Link>
+        </Alert>
       </Modal.Body>
     </>
   );

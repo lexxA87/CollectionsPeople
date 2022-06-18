@@ -60,13 +60,13 @@ function Header() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <Button
-            variant="success"
-            className="mx-auto my-3"
-            onClick={handleShowLoginModal}
-          >
-            Login
-          </Button>
+          <div className="mx-auto my-3">
+            User
+            <Button variant="outline-success" onClick={handleShowLoginModal}>
+              Login
+            </Button>
+          </div>
+
           <ModalLoginRegForm
             showLoginModal={showLoginModal}
             handleCloseLoginModal={handleCloseLoginModal}
