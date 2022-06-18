@@ -34,11 +34,10 @@ const userRegistration = async (req, res) => {
       email,
       password: hashPassword,
       name,
-      role: "user",
     });
     await user.save();
 
-    return res.json({
+    return res.status(200).json({
       message: "User was created",
       user: {
         id: user.id,
@@ -61,6 +60,10 @@ const userLogin = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    if (user.blocked) {
+      return res.status(403).json({ message: "User was blocked" });
+    }
+
     const isPassValid = bcrypt.compareSync(password, user.password);
 
     if (!isPassValid) {
@@ -71,12 +74,13 @@ const userLogin = async (req, res) => {
       expiresIn: "1d",
     });
 
-    return res.json({
+    return res.status(200).json({
       token,
       user: {
         id: user.id,
         email: user.email,
         name: user.name,
+        role: user.role,
       },
     });
   } catch (e) {
