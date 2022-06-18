@@ -8,8 +8,8 @@ import {
   Button,
   ToggleButtonGroup,
   ToggleButton,
-  Modal,
 } from "react-bootstrap";
+import ModalLoginRegForm from "../forms/ModalLoginRegForm";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -67,22 +67,10 @@ function Header() {
           >
             Login
           </Button>
-          <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Woohoo, you're reading this text in a modal!
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseLoginModal}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleCloseLoginModal}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          <ModalLoginRegForm
+            showLoginModal={showLoginModal}
+            handleCloseLoginModal={handleCloseLoginModal}
+          />
         </Navbar.Collapse>
       </Container>
     </Navbar>
