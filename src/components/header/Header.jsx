@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Navbar,
@@ -11,12 +11,25 @@ import {
 } from "react-bootstrap";
 import ModalLoginRegForm from "../forms/ModalLoginRegForm";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
+import { userAuth } from "../../api/userAPI.js";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const currentUser = useCurrentUserStore((state) => state.currentUser);
+  const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+
+  const authUserWithToken = async () => {
+    const user = await userAuth();
+    setCurrentUser(user);
+    setIsAuth(true);
+  };
+
+  useEffect(() => {
+    authUserWithToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const logout = () => {
     setIsAuth(false);

@@ -17,3 +17,19 @@ export const userRegistration = async (user) => {
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
 };
+
+export const userAuth = async () => {
+  return await axios
+    .get(`${configData.BASE_URL}api/auth/auth`, {
+      headers: { authorization: `${localStorage.getItem("token")}` },
+    })
+    .then((res) => {
+      localStorage.setItem("token", res.data.token);
+      return res.data.user;
+    })
+    .catch((error) => {
+      localStorage.removeItem("token");
+      console.log(error.response.data.message);
+      return error.response.data.message;
+    });
+};
