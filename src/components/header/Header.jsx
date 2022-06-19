@@ -24,9 +24,14 @@ function Header() {
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
 
   const authUserWithToken = async () => {
-    const user = await userAuth();
-    setCurrentUser(user);
-    setIsAuth(true);
+    if (localStorage.getItem("token")) {
+      const user = await userAuth();
+      if (user.name) {
+        setCurrentUser(user);
+        setIsAuth(true);
+      }
+    }
+
     setIsLoadingUser(false);
   };
 

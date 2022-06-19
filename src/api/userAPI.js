@@ -29,7 +29,6 @@ export const userAuth = async () => {
     })
     .catch((error) => {
       localStorage.removeItem("token");
-      console.log(error.response.data.message);
       return error.response.data.message;
     });
 };

@@ -1,19 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useCurrentUserStore } from "./data/stores/useCurrentUserStore";
 import Header from "./components/header/Header";
+import UserPage from "./components/userPage/UserPage";
+import MainPage from "./components/mainPage/MainPage";
 
 function App() {
-  useEffect(() => {
-    console.log("useEffect app");
-  });
+  const isAuth = useCurrentUserStore((state) => state.isAuth);
 
   return (
     <BrowserRouter>
       <Container>
         <Header />
         <Routes>
-          <Route path="/" element={<h1>React</h1>} />
+          <Route path="/" element={<MainPage />} />
+          {isAuth && <Route path="/userpage" element={<UserPage />} />}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Container>
