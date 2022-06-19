@@ -9,6 +9,7 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Spinner,
+  Stack,
 } from "react-bootstrap";
 import ModalLoginRegForm from "../forms/ModalLoginRegForm";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
@@ -84,13 +85,23 @@ function Header() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <div className="d-flex mx-auto my-3 col-lg-3 justify-content-end">
+          <Stack
+            direction="horizontal"
+            gap={3}
+            className="d-flex mx-auto my-3 col-lg-3 justify-content-end"
+          >
             {isLoadingUser ? (
               <Spinner animation="border" variant="secondary" />
             ) : isAuth ? (
               <>
-                {currentUser.name}
-                <Button variant="outline-danger" onClick={logout}>
+                <div className="text-center">
+                  Welcome
+                  <br />
+                  <NavLink className="fw-bolder" to="userpage">
+                    {currentUser.name}
+                  </NavLink>
+                </div>
+                <Button variant="outline-danger" onClick={logout} size="sm">
                   Logout
                 </Button>
               </>
@@ -104,7 +115,7 @@ function Header() {
                 </Button>
               </>
             )}
-          </div>
+          </Stack>
 
           <ModalLoginRegForm
             showLoginModal={showLoginModal}
