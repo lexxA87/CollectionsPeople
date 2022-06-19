@@ -89,4 +89,27 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { userRegistration, userLogin };
+const userAuth = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    const token = jwt.sign({ id: user.id }, config.get("secretKey"), {
+      expiresIn: "1d",
+    });
+
+    return res.status(200).json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
+    });
+  } catch (e) {
+    console.log(e);
+    res.send({ message: "Server error" });
+  }
+};
+
+module.exports = { userRegistration, userLogin, userAuth };
