@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, FloatingLabel, Button, Modal, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { userRegistration } from "../../api/userAPI";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -15,6 +16,21 @@ const validationSchema = Yup.object().shape({
 
 function RegistrationForm(props) {
   const { setShowLogin } = props;
+  const [isLoading, setLoading] = useState(false);
+
+  const registrationSubmit = async (values) => {
+    setLoading(true);
+    const res = await userRegistration(values);
+    if (res.user) {
+      console.log(res.user.name);
+      alert(res.message);
+      setShowLogin(true);
+    } else {
+      alert(res);
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Modal.Header closeButton>
@@ -23,7 +39,7 @@ function RegistrationForm(props) {
       <Modal.Body>
         <Formik
           validationSchema={validationSchema}
-          onSubmit={console.log}
+          onSubmit={registrationSubmit}
           initialValues={{
             name: "",
             password: "",
@@ -90,7 +106,7 @@ function RegistrationForm(props) {
                 </Form.Control.Feedback>
               </FloatingLabel>
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={isLoading}>
                 Registration
               </Button>
             </Form>

@@ -62,7 +62,7 @@ function Header() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <div className="mx-auto my-3">
+          <div className="mx-auto me-1">
             {currentUser.name}
             <Button variant="outline-success" onClick={handleShowLoginModal}>
               Login
