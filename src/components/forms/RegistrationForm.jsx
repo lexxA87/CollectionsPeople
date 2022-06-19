@@ -22,7 +22,6 @@ function RegistrationForm(props) {
     setLoading(true);
     const res = await userRegistration(values);
     if (res.user) {
-      console.log(res.user.name);
       alert(res.message);
       setShowLogin(true);
     } else {

@@ -18,14 +18,14 @@ function LoginForm(props) {
   const { setShowLogin, handleClose } = props;
   const [isLoading, setLoading] = useState(false);
   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
+  const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
 
   const loginSubmit = async (values) => {
     setLoading(true);
     const res = await userLogin(values);
-    if (res.user) {
-      console.log(res.user.name);
-      localStorage.setItem("token", res.token);
-      setCurrentUser(res.user);
+    if (res.name) {
+      setCurrentUser(res);
+      setIsAuth(true);
       handleClose();
     } else {
       alert(res);

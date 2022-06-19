@@ -4,7 +4,10 @@ import configData from "../data/config.json";
 export const userLogin = async (user) => {
   return await axios
     .post(`${configData.BASE_URL}api/auth/login`, user)
-    .then((res) => res.data)
+    .then((res) => {
+      localStorage.setItem("token", res.data.token);
+      return res.data.user;
+    })
     .catch((error) => error.response.data.message);
 };
 

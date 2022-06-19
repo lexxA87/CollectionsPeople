@@ -15,6 +15,12 @@ import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const currentUser = useCurrentUserStore((state) => state.currentUser);
+  const isAuth = useCurrentUserStore((state) => state.isAuth);
+  const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+
+  const logout = () => {
+    setIsAuth(false);
+  };
 
   const handleCloseLoginModal = () => setShowLoginModal(false);
   const handleShowLoginModal = () => setShowLoginModal(true);
@@ -62,12 +68,20 @@ function Header() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          <div className="mx-auto me-1">
-            {currentUser.name}
-            <Button variant="outline-success" onClick={handleShowLoginModal}>
-              Login
-            </Button>
-          </div>
+          {isAuth ? (
+            <div className="mx-auto me-1">
+              {currentUser.name}
+              <Button variant="outline-danger" onClick={logout}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <div className="mx-auto me-1">
+              <Button variant="outline-success" onClick={handleShowLoginModal}>
+                Login
+              </Button>
+            </div>
+          )}
 
           <ModalLoginRegForm
             showLoginModal={showLoginModal}
