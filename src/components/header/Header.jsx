@@ -8,6 +8,7 @@ import {
   Button,
   ToggleButtonGroup,
   ToggleButton,
+  Spinner,
 } from "react-bootstrap";
 import ModalLoginRegForm from "../forms/ModalLoginRegForm";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
@@ -15,6 +16,7 @@ import { userAuth } from "../../api/userAPI.js";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isLoadingUser, setIsLoadingUser] = useState(true);
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
   const isAuth = useCurrentUserStore((state) => state.isAuth);
@@ -24,6 +26,7 @@ function Header() {
     const user = await userAuth();
     setCurrentUser(user);
     setIsAuth(true);
+    setIsLoadingUser(false);
   };
 
   useEffect(() => {
@@ -45,8 +48,8 @@ function Header() {
           <Navbar.Brand className="fw-semibold">Collections</Navbar.Brand>
         </NavLink>
         <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Form className="d-flex mx-auto my-3">
+        <Navbar.Collapse id="navbarScroll" className="row">
+          <Form className="d-flex mx-auto my-3 col-lg-4">
             <FormControl
               type="search"
               placeholder="Search"
@@ -56,12 +59,12 @@ function Header() {
             <Button variant="outline-success">Search</Button>
           </Form>
 
-          <Form className="d-flex mx-auto my-3">
+          <Form className="d-flex mx-auto my-3 col-lg-3 justify-content-center">
             <Form.Switch label="Dark theme" />
           </Form>
 
           <ToggleButtonGroup
-            className="d-flex mx-auto my-3"
+            className="d-flex mx-auto my-3 col-lg-2 col-sm-6"
             name="lang"
             defaultValue="en_US"
           >
@@ -81,20 +84,27 @@ function Header() {
             </ToggleButton>
           </ToggleButtonGroup>
 
-          {isAuth ? (
-            <div className="mx-auto me-1">
-              {currentUser.name}
-              <Button variant="outline-danger" onClick={logout}>
-                Logout
-              </Button>
-            </div>
-          ) : (
-            <div className="mx-auto me-1">
-              <Button variant="outline-success" onClick={handleShowLoginModal}>
-                Login
-              </Button>
-            </div>
-          )}
+          <div className="d-flex mx-auto my-3 col-lg-3 justify-content-end">
+            {isLoadingUser ? (
+              <Spinner animation="border" variant="secondary" />
+            ) : isAuth ? (
+              <>
+                {currentUser.name}
+                <Button variant="outline-danger" onClick={logout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="outline-success"
+                  onClick={handleShowLoginModal}
+                >
+                  Login
+                </Button>
+              </>
+            )}
+          </div>
 
           <ModalLoginRegForm
             showLoginModal={showLoginModal}
