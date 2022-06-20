@@ -14,7 +14,7 @@ function App() {
       <Container>
         <Header />
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPage bg="dark" />} />
           {isAuth && <Route path="/userpage" element={<UserPage />} />}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

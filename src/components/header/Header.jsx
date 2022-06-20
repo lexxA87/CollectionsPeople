@@ -13,6 +13,7 @@ import {
 } from "react-bootstrap";
 import ModalLoginRegForm from "../forms/ModalLoginRegForm";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
+import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { userAuth } from "../../api/userAPI.js";
 
 function Header() {
@@ -22,6 +23,8 @@ function Header() {
   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+  const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const setDarkTheme = useDarkTheme((state) => state.setDarkTheme);
 
   const authUserWithToken = async () => {
     if (localStorage.getItem("token")) {
@@ -48,7 +51,13 @@ function Header() {
   const handleShowLoginModal = () => setShowLoginModal(true);
 
   return (
-    <Navbar bg="light" expand="lg" sticky="top" className="shadow-sm rounded">
+    <Navbar
+      bg={isDarkTheme ? "dark" : "light"}
+      variant={isDarkTheme ? "dark" : "light"}
+      expand="lg"
+      sticky="top"
+      className="shadow-sm rounded"
+    >
       <Container fluid>
         <NavLink className="text-decoration-none" to="/">
           <Navbar.Brand className="fw-semibold">Collections</Navbar.Brand>
@@ -66,7 +75,12 @@ function Header() {
           </Form>
 
           <Form className="d-flex mx-auto my-3 col-lg-3 justify-content-center">
-            <Form.Switch label="Dark theme" />
+            <Form.Switch
+              defaultChecked={isDarkTheme}
+              label="Dark theme"
+              isValid={isDarkTheme}
+              onChange={(e) => setDarkTheme(e.target.checked)}
+            />
           </Form>
 
           <ToggleButtonGroup
@@ -77,14 +91,14 @@ function Header() {
             <ToggleButton
               id="tbg-check-1"
               value="en_US"
-              variant="outline-secondary"
+              variant={isDarkTheme ? "outline-success" : "outline-secondary"}
             >
               English
             </ToggleButton>
             <ToggleButton
               id="tbg-check-2"
               value="ru"
-              variant="outline-secondary"
+              variant={isDarkTheme ? "outline-success" : "outline-secondary"}
             >
               Russian
             </ToggleButton>
@@ -96,10 +110,17 @@ function Header() {
             className="d-flex mx-auto my-3 col-lg-3 justify-content-end"
           >
             {isLoadingUser ? (
-              <Spinner animation="border" variant="secondary" />
+              <Spinner
+                animation="border"
+                variant={isDarkTheme ? "success" : "secondary"}
+              />
             ) : isAuth ? (
               <>
-                <div className="text-center">
+                <div
+                  className={
+                    isDarkTheme ? "text-center text-success" : "text-center"
+                  }
+                >
                   Welcome
                   <br />
                   <NavLink className="fw-bolder" to="userpage">
