@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Navbar,
@@ -15,6 +15,9 @@ import ModalLoginRegForm from "../forms/ModalLoginRegForm";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { userAuth } from "../../api/userAPI.js";
+import { useTranslation } from "react-i18next";
+import LocaleContext from "../../data/configLang/LocaleContext";
+import i18n from "../../data/configLang/i18n";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -25,6 +28,14 @@ function Header() {
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const setDarkTheme = useDarkTheme((state) => state.setDarkTheme);
+  const { t } = useTranslation();
+  const { locale } = useContext(LocaleContext);
+
+  function changeLocale(l) {
+    if (locale !== l) {
+      i18n.changeLanguage(l);
+    }
+  }
 
   const authUserWithToken = async () => {
     if (localStorage.getItem("token")) {
@@ -69,17 +80,17 @@ function Header() {
           <Form className="d-flex mx-auto my-3 col-lg-4">
             <FormControl
               type="search"
-              placeholder="Search"
+              placeholder={t("search")}
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success">{t("search")}</Button>
           </Form>
 
           <Form className="d-flex mx-auto my-3 col-lg-3 justify-content-center">
             <Form.Switch
               defaultChecked={isDarkTheme}
-              label="Dark theme"
+              label={t("darkTheme")}
               isValid={isDarkTheme}
               onChange={(e) => setDarkTheme(e.target.checked)}
             />
@@ -88,11 +99,12 @@ function Header() {
           <ToggleButtonGroup
             className="d-flex mx-auto my-3 col-lg-2 col-sm-6"
             name="lang"
-            defaultValue="en_US"
+            defaultValue="en"
+            onChange={(e) => changeLocale(e)}
           >
             <ToggleButton
               id="tbg-check-1"
-              value="en_US"
+              value="en"
               variant={isDarkTheme ? "outline-success" : "outline-secondary"}
             >
               English
@@ -102,7 +114,7 @@ function Header() {
               value="ru"
               variant={isDarkTheme ? "outline-success" : "outline-secondary"}
             >
-              Russian
+              Русский
             </ToggleButton>
           </ToggleButtonGroup>
 
@@ -123,14 +135,14 @@ function Header() {
                     isDarkTheme ? "text-center text-success" : "text-center"
                   }
                 >
-                  Welcome
+                  {t("greeting")}
                   <br />
                   <NavLink className="fw-bolder" to="userpage">
                     {currentUser.name}
                   </NavLink>
                 </div>
                 <Button variant="outline-danger" onClick={logout} size="sm">
-                  Logout
+                  {t("logout")}
                 </Button>
               </>
             ) : (
@@ -139,7 +151,7 @@ function Header() {
                   variant="outline-success"
                   onClick={handleShowLoginModal}
                 >
-                  Login
+                  {t("logout")}
                 </Button>
               </>
             )}
