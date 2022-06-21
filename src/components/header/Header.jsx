@@ -99,7 +99,7 @@ function Header() {
           <ToggleButtonGroup
             className="d-flex mx-auto my-3 col-lg-2 col-sm-6"
             name="lang"
-            defaultValue="en"
+            defaultValue={locale}
             onChange={(e) => changeLocale(e)}
           >
             <ToggleButton
@@ -151,7 +151,7 @@ function Header() {
                   variant="outline-success"
                   onClick={handleShowLoginModal}
                 >
-                  {t("logout")}
+                  {t("login")}
                 </Button>
               </>
             )}
