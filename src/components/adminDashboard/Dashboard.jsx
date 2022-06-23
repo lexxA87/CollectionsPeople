@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Text,
-  H2,
-  NavigationElement,
-} from "@adminjs/design-system";
+import { Box, Text, H2, NavigationElement } from "@adminjs/design-system";
 
 function Dashboard(props) {
   return (
@@ -16,11 +11,10 @@ function Dashboard(props) {
         position="relative"
       >
         <H2 fontWeight="lighter" textAlign="center">
-          Welcome to Admin's dashboard!
+          Welcome to Admin dashboard!
         </H2>
         <Text fontWeight="lighter" textAlign="center" mt="default">
-          You can make most things here with data-base "Collections People".
-          Have a good work!
+          You can make most things here with "Collections". Have a good work!
         </Text>
         <Text fontWeight="lighter" textAlign="center" mt="default">
           OR
