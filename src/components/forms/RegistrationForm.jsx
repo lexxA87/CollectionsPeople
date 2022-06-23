@@ -5,21 +5,28 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { userRegistration } from "../../api/userAPI";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .max(60, "Must be 60 characters or less")
-    .required("Required"),
-  password: Yup.string()
-    .min(4, "Must be 4 characters or more")
-    .max(20, "Must be 20 characters or less")
-    .required("Required"),
-  email: Yup.string().email("Invalid email address").required("Required"),
-});
-
 function RegistrationForm(props) {
   const { setShowLogin } = props;
   const [isLoading, setLoading] = useState(false);
   const { t } = useTranslation();
+
+  Yup.setLocale({
+    mixed: {
+      required: "required",
+    },
+    string: {
+      email: "invalid_email",
+    },
+  });
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().max(60, t("field_too_big")).required(),
+    password: Yup.string()
+      .min(4, t("field_too_short"))
+      .max(20, t("field_too_big"))
+      .required(),
+    email: Yup.string().email().required(),
+  });
 
   const registrationSubmit = async (values) => {
     setLoading(true);
@@ -70,7 +77,7 @@ function RegistrationForm(props) {
                   isInvalid={!!errors.name}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.name}
+                  {t(errors.name)}
                 </Form.Control.Feedback>
               </FloatingLabel>
 
@@ -87,7 +94,7 @@ function RegistrationForm(props) {
                   isInvalid={!!errors.email}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.email}
+                  {t(errors.email)}
                 </Form.Control.Feedback>
               </FloatingLabel>
 
@@ -104,7 +111,7 @@ function RegistrationForm(props) {
                   onChange={handleChange}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.password}
+                  {t(errors.password)}
                 </Form.Control.Feedback>
               </FloatingLabel>
 
