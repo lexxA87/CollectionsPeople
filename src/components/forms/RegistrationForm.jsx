@@ -20,7 +20,10 @@ function RegistrationForm(props) {
   });
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().max(60, t("field_too_big")).required(),
+    name: Yup.string()
+      .max(60, t("field_too_big"))
+      .min(2, t("field_too_short"))
+      .required(),
     password: Yup.string()
       .min(4, t("field_too_short"))
       .max(20, t("field_too_big"))
