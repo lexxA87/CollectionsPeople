@@ -73,7 +73,9 @@ function Header() {
     >
       <Container fluid>
         <NavLink className="text-decoration-none" to="/">
-          <Navbar.Brand className="fw-semibold">Collections</Navbar.Brand>
+          <Navbar.Brand className="fw-semibold">
+            <i className="bi bi-collection mx-2"></i>Collections
+          </Navbar.Brand>
         </NavLink>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="row">
