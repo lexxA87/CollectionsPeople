@@ -24,9 +24,8 @@ function App() {
       style={
         isDarkTheme
           ? {
-              backgroundImage: `url(${
-                process.env.PUBLIC_URL + "/Background.jpg"
-              })`,
+              backgroundImage: `url("images/Background.jpg")`,
+              backgroundSize: "cover",
             }
           : null
       }

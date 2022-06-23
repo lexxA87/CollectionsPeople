@@ -67,9 +67,7 @@ function Header() {
       variant={isDarkTheme ? "dark" : "light"}
       expand="lg"
       sticky="top"
-      className={
-        isDarkTheme ? "border-bottom border-success" : "shadow-sm rounded"
-      }
+      className={isDarkTheme ? "border-bottom" : "shadow-sm rounded"}
     >
       <Container fluid>
         <NavLink className="text-decoration-none" to="/">
