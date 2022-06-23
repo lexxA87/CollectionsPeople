@@ -3,5 +3,11 @@
   "darkTheme": "Тёмная тема",
   "greeting": "Привет, ",
   "login": "Войти",
-  "logout": "Выйти"
+  "logout": "Выйти",
+  "registration": "Регистрация",
+  "orGoTo": "Или ",
+  "close": "Закрыть",
+  "email": "Адресс электронной почты",
+  "name": "Имя",
+  "password": "Пароль"
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button, Modal } from "react-bootstrap";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
@@ -6,6 +7,7 @@ import RegistrationForm from "./RegistrationForm";
 function ModalLoginRegForm(props) {
   const { showLoginModal, handleCloseLoginModal } = props;
   const [showLogin, setShowLogin] = useState(true);
+  const { t } = useTranslation();
 
   const handleClose = () => {
     handleCloseLoginModal();
@@ -21,7 +23,7 @@ function ModalLoginRegForm(props) {
       )}
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Close
+          {t("close")}
         </Button>
       </Modal.Footer>
     </Modal>

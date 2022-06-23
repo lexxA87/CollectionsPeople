@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Form, FloatingLabel, Button, Modal, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -6,10 +7,10 @@ import { userRegistration } from "../../api/userAPI";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
-    .max(15, "Must be 15 characters or less")
+    .max(60, "Must be 60 characters or less")
     .required("Required"),
   password: Yup.string()
-    .max(8, "Must be 8 characters or less")
+    .max(4, "Must be 4 characters or more")
     .required("Required"),
   email: Yup.string().email("Invalid email address").required("Required"),
 });
@@ -17,6 +18,7 @@ const validationSchema = Yup.object().shape({
 function RegistrationForm(props) {
   const { setShowLogin } = props;
   const [isLoading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const registrationSubmit = async (values) => {
     setLoading(true);
@@ -33,7 +35,7 @@ function RegistrationForm(props) {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Registration</Modal.Title>
+        <Modal.Title>{t("registration")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -57,7 +59,7 @@ function RegistrationForm(props) {
             <Form className="mb-3" noValidate onSubmit={handleSubmit}>
               <FloatingLabel
                 controlId="floatingInput"
-                label="Name"
+                label={t("name")}
                 className="mb-3"
               >
                 <Form.Control
@@ -73,7 +75,7 @@ function RegistrationForm(props) {
 
               <FloatingLabel
                 controlId="emailInput"
-                label="Email address"
+                label={t("email")}
                 className="mb-3"
               >
                 <Form.Control
@@ -90,7 +92,7 @@ function RegistrationForm(props) {
 
               <FloatingLabel
                 controlId="floatingPassword"
-                label="Password"
+                label={t("password")}
                 className="mb-3"
               >
                 <Form.Control
@@ -106,14 +108,16 @@ function RegistrationForm(props) {
               </FloatingLabel>
 
               <Button variant="primary" type="submit" disabled={isLoading}>
-                Registration
+                {t("registration")}
               </Button>
             </Form>
           )}
         </Formik>
         <Alert variant="light">
-          Or go to{" "}
-          <Alert.Link onClick={() => setShowLogin(true)}>Login</Alert.Link>
+          {t("orGoTo")}
+          <Alert.Link onClick={() => setShowLogin(true)}>
+            {t("login")}
+          </Alert.Link>
         </Alert>
       </Modal.Body>
     </>

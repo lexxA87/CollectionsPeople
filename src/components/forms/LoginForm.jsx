@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, FloatingLabel, Button, Modal, Alert } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { userLogin } from "../../api/userAPI";
@@ -7,10 +8,10 @@ import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
-    .max(15, "Must be 15 characters or less")
+    .max(60, "Must be 60 characters or less")
     .required("Required"),
   password: Yup.string()
-    .max(8, "Must be 8 characters or less")
+    .min(4, "Must be 4 characters or more")
     .required("Required"),
 });
 
@@ -19,6 +20,7 @@ function LoginForm(props) {
   const [isLoading, setLoading] = useState(false);
   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+  const { t } = useTranslation();
 
   const loginSubmit = async (values) => {
     setLoading(true);
@@ -36,9 +38,9 @@ function LoginForm(props) {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Login</Modal.Title>
+        <Modal.Title>{t("login")}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body bg="dark" variant="dark">
         <Formik
           validationSchema={validationSchema}
           onSubmit={loginSubmit}
@@ -59,7 +61,7 @@ function LoginForm(props) {
             <Form className="mb-3" noValidate onSubmit={handleSubmit}>
               <FloatingLabel
                 controlId="floatingInput"
-                label="Name"
+                label={t("name")}
                 className="mb-3"
               >
                 <Form.Control
@@ -75,7 +77,7 @@ function LoginForm(props) {
 
               <FloatingLabel
                 controlId="floatingPassword"
-                label="Password"
+                label={t("password")}
                 className="mb-3"
               >
                 <Form.Control
@@ -90,16 +92,16 @@ function LoginForm(props) {
                 </Form.Control.Feedback>
               </FloatingLabel>
 
-              <Button variant="primary" type="submit" disabled={isLoading}>
-                Login
+              <Button variant="success" type="submit" disabled={isLoading}>
+                {t("login")}
               </Button>
             </Form>
           )}
         </Formik>
         <Alert variant="light">
-          Or go to{" "}
+          {t("orGoTo")}
           <Alert.Link onClick={() => setShowLogin(false)}>
-            Registration
+            {t("registration")}
           </Alert.Link>
         </Alert>
       </Modal.Body>

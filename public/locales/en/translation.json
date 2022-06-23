@@ -3,5 +3,11 @@
   "darkTheme": "Dark Theme",
   "greeting": "Welcome",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "registration": "Registraton",
+  "orGoTo": "Or go to ",
+  "close": "Close",
+  "email": "Email address",
+  "name": "Name",
+  "password": "Password"
 }
