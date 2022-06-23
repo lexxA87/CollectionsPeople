@@ -18,7 +18,19 @@ function App() {
   i18n.on("languageChanged", (lng) => setLocale(i18n.language));
 
   return (
-    <div className={isDarkTheme ? "bg-dark min-vh-100" : ""}>
+    // <div className={isDarkTheme ? "bg-dark min-vh-100" : ""}>
+    <div
+      className="bg-image min-vh-100"
+      style={
+        isDarkTheme
+          ? {
+              backgroundImage: `url(${
+                process.env.PUBLIC_URL + "/Background.jpg"
+              })`,
+            }
+          : null
+      }
+    >
       <BrowserRouter>
         <LocaleContext.Provider value={{ locale, setLocale }}>
           <Suspense fallback={<Loading />}>
