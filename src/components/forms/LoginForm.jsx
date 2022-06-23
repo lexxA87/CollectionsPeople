@@ -7,9 +7,7 @@ import { userLogin } from "../../api/userAPI";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .max(60, "Must be 60 characters or less")
-    .required("Required"),
+  email: Yup.string().email("Invalid email address").required("Required"),
   password: Yup.string()
     .min(4, "Must be 4 characters or more")
     .required("Required"),
@@ -60,18 +58,19 @@ function LoginForm(props) {
           }) => (
             <Form className="mb-3" noValidate onSubmit={handleSubmit}>
               <FloatingLabel
-                controlId="floatingInput"
-                label={t("name")}
+                controlId="emailInput"
+                label={t("email")}
                 className="mb-3"
               >
                 <Form.Control
-                  name="name"
-                  value={values.name}
+                  type="email"
+                  name="email"
+                  value={values.email}
                   onChange={handleChange}
-                  isInvalid={!!errors.name}
+                  isInvalid={!!errors.email}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.name}
+                  {errors.email}
                 </Form.Control.Feedback>
               </FloatingLabel>
 

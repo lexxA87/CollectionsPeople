@@ -13,11 +13,11 @@ router.post(
   "/registration",
   [
     check("email", "Uncorrect email").isEmail(),
-    check("name", "Uncorrect name").isLength({ min: 1, max: 20 }),
+    check("name", "Uncorrect name").isLength({ min: 2, max: 20 }),
     check(
       "password",
-      "Password should be longer than 3 and shorter than 12"
-    ).isLength({ min: 1, max: 12 }),
+      "Password should be longer than 3 and shorter than 20"
+    ).isLength({ min: 4, max: 20 }),
   ],
   userRegistration
 );
