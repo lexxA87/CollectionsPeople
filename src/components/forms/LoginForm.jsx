@@ -6,19 +6,29 @@ import * as Yup from "yup";
 import { userLogin } from "../../api/userAPI";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email address").required("Required"),
-  password: Yup.string()
-    .min(4, "Must be 4 characters or more")
-    .required("Required"),
-});
-
 function LoginForm(props) {
   const { setShowLogin, handleClose } = props;
   const [isLoading, setLoading] = useState(false);
   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
   const { t } = useTranslation();
+
+  Yup.setLocale({
+    mixed: {
+      required: "required",
+    },
+    string: {
+      email: "invalid_email",
+    },
+  });
+
+  const validationSchema = Yup.object().shape({
+    password: Yup.string()
+      .min(4, t("field_too_short"))
+      .max(20, t("field_too_big"))
+      .required(),
+    email: Yup.string().email().required(),
+  });
 
   const loginSubmit = async (values) => {
     setLoading(true);
@@ -43,7 +53,7 @@ function LoginForm(props) {
           validationSchema={validationSchema}
           onSubmit={loginSubmit}
           initialValues={{
-            name: "",
+            email: "",
             password: "",
           }}
         >
@@ -70,7 +80,7 @@ function LoginForm(props) {
                   isInvalid={!!errors.email}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.email}
+                  {t(errors.email)}
                 </Form.Control.Feedback>
               </FloatingLabel>
 
@@ -87,7 +97,7 @@ function LoginForm(props) {
                   onChange={handleChange}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.password}
+                  {t(errors.password)}
                 </Form.Control.Feedback>
               </FloatingLabel>
 

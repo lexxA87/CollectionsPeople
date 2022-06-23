@@ -9,5 +9,9 @@
   "close": "Close",
   "email": "Email address",
   "name": "Name",
-  "password": "Password"
+  "password": "Password",
+  "required": "Required field",
+  "invalid_email": "Invalid email address",
+  "field_too_short": "Must be more",
+  "field_too_big": "Must be short"
 }
