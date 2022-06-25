@@ -6,7 +6,7 @@ const handleError = (res, error) => {
 
 const getThemes = (req, res) => {
   Theme.find()
-    .then((tags) => res.status(200).json(tags))
+    .then((themes) => res.status(200).json(themes))
     .catch((error) => handleError(res, error));
 };
 

@@ -9,6 +9,7 @@ const apiCollection = require("./server/routes/api.collection.routes");
 const apiItemCollection = require("./server/routes/api.itemCollection.routes");
 const apiComment = require("./server/routes/api.comment.routes");
 const apiTag = require("./server/routes/api.tag.routes");
+const apiTheme = require("./server/routes/api.theme.routes");
 
 const PORT = process.env.PORT || config.get("serverPort");
 const DB_URL = config.get("MongoDBUrl");
@@ -27,6 +28,7 @@ app.use(apiCollection);
 app.use(apiItemCollection);
 app.use(apiComment);
 app.use(apiTag);
+app.use(apiTheme);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));

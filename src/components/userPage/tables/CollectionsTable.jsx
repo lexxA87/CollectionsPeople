@@ -33,7 +33,6 @@ function CollectionsTable({ collections, isDarkTheme }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const columns = useMemo(() => structureTable, []);
   const data = useMemo(() => collections, [collections]);
-  console.log(data);
 
   return <Table columns={columns} data={data} isDarkTheme={isDarkTheme} />;
 }
