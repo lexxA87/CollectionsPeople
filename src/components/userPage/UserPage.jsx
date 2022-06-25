@@ -8,8 +8,13 @@ import { useThemesStore } from "../../data/stores/useThemesStore";
 
 function UserPage() {
   const currentUser = useCurrentUserStore((state) => state.currentUser);
-  const collections = useCollectionsStore((state) => state.collections);
   const setCollections = useCollectionsStore((state) => state.setCollections);
+  const collectionsForTable = useCollectionsStore(
+    (state) => state.collectionsForTable
+  );
+  const setCollectionsForTable = useCollectionsStore(
+    (state) => state.setCollectionsForTable
+  );
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const themes = useThemesStore((state) => state.themes);
 
@@ -18,6 +23,7 @@ function UserPage() {
   const getSetCollections = async (userId) => {
     const colls = await getCollections(userId);
     setCollections(colls);
+    setCollectionsForTable(updateCollections(colls, themes));
   };
 
   useEffect(() => {
@@ -34,8 +40,6 @@ function UserPage() {
     });
     return collections;
   };
-
-  const collectionsForTable = updateCollections(collections, themes);
 
   return (
     <>
