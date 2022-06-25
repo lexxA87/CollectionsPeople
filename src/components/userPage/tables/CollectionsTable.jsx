@@ -22,10 +22,6 @@ function CollectionsTable({ collections, isDarkTheme }) {
           Header: "Items",
           accessor: "items",
         },
-        {
-          Header: "Date of created",
-          accessor: "dateOfCreated",
-        },
       ],
     },
   ];
