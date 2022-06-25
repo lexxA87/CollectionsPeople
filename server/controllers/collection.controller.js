@@ -11,7 +11,8 @@ const getCollection = (req, res) => {
 };
 
 const getCollections = (req, res) => {
-  Collection.find()
+  const { author } = req.query;
+  Collection.find({ author })
     .then((cols) => res.status(200).json(cols))
     .catch((error) => handleError(res, error));
 };
