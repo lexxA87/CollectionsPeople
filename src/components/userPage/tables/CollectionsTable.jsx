@@ -1,4 +1,6 @@
 import React, { useMemo } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import Table from "./Table";
 
 function CollectionsTable({ collections, isDarkTheme }) {
@@ -9,6 +11,11 @@ function CollectionsTable({ collections, isDarkTheme }) {
         {
           Header: "Name",
           accessor: "title",
+          Cell: ({ cell }) => (
+            <Link to="/" style={{ textDecoration: "none", color: "green" }}>
+              {cell.row.values.title}
+            </Link>
+          ),
         },
         {
           Header: "Theme",
@@ -21,6 +28,20 @@ function CollectionsTable({ collections, isDarkTheme }) {
         {
           Header: "Items",
           accessor: "items",
+        },
+        {
+          Header: "Actions",
+          accessor: "buttons",
+          Cell: ({ cell }) => (
+            <div className="text-center">
+              <Button size="sm" variant="outline-success" className="me-2">
+                <i class="bi bi-pencil-square"></i> Edit
+              </Button>
+              <Button size="sm" variant="outline-danger">
+                <i class="bi bi-trash3"></i>
+              </Button>
+            </div>
+          ),
         },
       ],
     },

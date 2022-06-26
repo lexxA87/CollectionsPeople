@@ -1,7 +1,6 @@
 import React from "react";
 import { useSortBy, useTable } from "react-table";
 import BootstrapTable from "react-bootstrap/Table";
-import { NavLink } from "react-router-dom";
 
 function Table({ columns, data, isDarkTheme }) {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
@@ -37,16 +36,7 @@ function Table({ columns, data, isDarkTheme }) {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                console.log(cell);
-                return (
-                  <td {...cell.getCellProps()}>
-                    {cell.column.Header === "Name" ? (
-                      <NavLink to="/">{cell.render("Cell")}</NavLink>
-                    ) : (
-                      cell.render("Cell")
-                    )}
-                  </td>
-                );
+                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>
           );
