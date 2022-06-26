@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
+import React, { useMemo, useCallback } from "react";
 import { Button } from "react-bootstrap";
 import Table from "./Table";
 
@@ -10,12 +9,16 @@ function CollectionsTable({ collections, isDarkTheme }) {
       columns: [
         {
           Header: "Name",
+          id: "expander",
           accessor: "title",
-          Cell: ({ cell }) => (
-            <Link to="/" style={{ textDecoration: "none", color: "green" }}>
-              {cell.row.values.title}
-            </Link>
-          ),
+          Cell: ({ row }) => {
+            console.log(row);
+            return (
+              <div {...row.getToggleRowExpandedProps()}>
+                {row.original.title}
+              </div>
+            );
+          },
         },
         {
           Header: "Theme",
@@ -51,7 +54,27 @@ function CollectionsTable({ collections, isDarkTheme }) {
   const columns = useMemo(() => structureTable, []);
   const data = useMemo(() => collections, [collections]);
 
-  return <Table columns={columns} data={data} isDarkTheme={isDarkTheme} />;
+  const renderRowSubComponent = useCallback(
+    ({ row }) => (
+      <pre
+        style={{
+          fontSize: "10px",
+        }}
+      >
+        <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
+      </pre>
+    ),
+    []
+  );
+
+  return (
+    <Table
+      columns={columns}
+      data={data}
+      isDarkTheme={isDarkTheme}
+      renderRowSubComponent={renderRowSubComponent}
+    />
+  );
 }
 
 export default CollectionsTable;

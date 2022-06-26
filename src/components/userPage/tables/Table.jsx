@@ -1,14 +1,22 @@
-import React from "react";
-import { useSortBy, useTable } from "react-table";
+import React, { Fragment } from "react";
+import { useSortBy, useTable, useExpanded } from "react-table";
 import BootstrapTable from "react-bootstrap/Table";
 
-function Table({ columns, data, isDarkTheme }) {
-  const { getTableProps, headerGroups, rows, prepareRow } = useTable(
+function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    visibleColumns,
+  } = useTable(
     {
       columns,
       data,
     },
-    useSortBy
+    useSortBy,
+    useExpanded
   );
 
   return (
@@ -30,15 +38,43 @@ function Table({ columns, data, isDarkTheme }) {
           </tr>
         ))}
       </thead>
-      <tbody className="table-group-divider">
+      <tbody {...getTableBodyProps()} className="table-group-divider">
         {rows.map((row, i) => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
-              })}
-            </tr>
+            <Fragment>
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  console.log(cell);
+                  if (cell.column.Header === "Name") {
+                    if (isDarkTheme) {
+                      return (
+                        <td className="text-warning" {...cell.getCellProps()}>
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    } else {
+                      return (
+                        <td className="text-success" {...cell.getCellProps()}>
+                          <b>{cell.render("Cell")}</b>
+                        </td>
+                      );
+                    }
+                  } else {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  }
+                })}
+              </tr>
+              {row.isExpanded ? (
+                <tr {...row.getRowProps()}>
+                  <td colSpan={visibleColumns.length}>
+                    {renderRowSubComponent({ row })}
+                  </td>
+                </tr>
+              ) : null}
+            </Fragment>
           );
         })}
       </tbody>
