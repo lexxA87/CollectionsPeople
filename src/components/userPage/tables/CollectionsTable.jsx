@@ -12,7 +12,6 @@ function CollectionsTable({ collections, isDarkTheme }) {
           id: "expander",
           accessor: "title",
           Cell: ({ row }) => {
-            console.log(row);
             return (
               <div {...row.getToggleRowExpandedProps()}>
                 {row.original.title}

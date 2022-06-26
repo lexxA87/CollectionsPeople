@@ -5,6 +5,7 @@ import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { getCollections } from "../../api/collectionAPI";
 import CollectionsTable from "./tables/CollectionsTable";
 import { useThemesStore } from "../../data/stores/useThemesStore";
+import { Button } from "react-bootstrap";
 
 function UserPage() {
   const currentUser = useCurrentUserStore((state) => state.currentUser);
@@ -44,10 +45,25 @@ function UserPage() {
   return (
     <>
       <h1>UserPage</h1>
-      <CollectionsTable
-        collections={collectionsForTable}
-        isDarkTheme={isDarkTheme}
-      />
+      <div className="justify-content-end hstack gap-3 my-3 mx-2">
+        <Button variant="success">
+          NEW <i class="bi bi-plus-square"></i>
+        </Button>
+      </div>
+      {collectionsForTable.length ? (
+        <CollectionsTable
+          collections={collectionsForTable}
+          isDarkTheme={isDarkTheme}
+        />
+      ) : (
+        <div
+          className={
+            isDarkTheme ? "text-center text-info bg-dark" : "text-center"
+          }
+        >
+          You don't have any collections. Please, create it to press "NEW+"
+        </div>
+      )}
     </>
   );
 }

@@ -45,7 +45,6 @@ function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
             <Fragment>
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
-                  console.log(cell);
                   if (cell.column.Header === "Name") {
                     if (isDarkTheme) {
                       return (
@@ -68,7 +67,7 @@ function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
                 })}
               </tr>
               {row.isExpanded ? (
-                <tr {...row.getRowProps()}>
+                <tr>
                   <td colSpan={visibleColumns.length}>
                     {renderRowSubComponent({ row })}
                   </td>
