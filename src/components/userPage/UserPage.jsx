@@ -12,7 +12,13 @@ import CollectionForm from "../forms/CollectionForm";
 function UserPage() {
   const [showCollectionForm, setShowCollectionForm] = useState(false);
   // const [showItemForm, setShowItemForm] = useState(false);
-  const [collection, setCollection] = useState();
+  const [collection, setCollection] = useState({
+    title: "",
+    description: "",
+    theme: "",
+    _id: "",
+  });
+  const [isPostColl, setIsPostColl] = useState(false);
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
   const [collectionsForTable, setCollectionsForTable] = useState({});
@@ -41,13 +47,18 @@ function UserPage() {
     return collections;
   };
 
+  const addNewCollection = () => {
+    setShowCollectionForm(true);
+    setIsPostColl(true);
+  };
+
   return (
     <>
       <h1>UserPage</h1>
       {!showCollectionForm ? (
         <>
           <div className="justify-content-end hstack gap-3 my-3 mx-2">
-            <Button variant="success">
+            <Button variant="success" onClick={addNewCollection}>
               Add New <i className="bi bi-plus-square"></i>
             </Button>
           </div>
@@ -75,6 +86,8 @@ function UserPage() {
           collection={collection}
           setCollection={setCollection}
           isDarkTheme={isDarkTheme}
+          userId={userId}
+          isPostColl={isPostColl}
         />
       )}
 
