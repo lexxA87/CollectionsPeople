@@ -79,6 +79,7 @@ function UserPage() {
           setShow={setShowCollectionForm}
           collection={collection}
           setCollection={setCollection}
+          isDarkTheme={isDarkTheme}
         />
       )}
 
