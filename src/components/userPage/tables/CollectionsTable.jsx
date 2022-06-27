@@ -1,8 +1,13 @@
 import React, { useMemo, useCallback } from "react";
-import { Button } from "react-bootstrap";
+import ButtonsActionsTable from "./ButtonsActionsTable";
 import Table from "./Table";
 
-function CollectionsTable({ collections, isDarkTheme }) {
+function CollectionsTable({
+  collections,
+  isDarkTheme,
+  setShowCollectionForm,
+  setCollection,
+}) {
   const structureTable = [
     {
       Header: "My Collections",
@@ -34,15 +39,12 @@ function CollectionsTable({ collections, isDarkTheme }) {
         {
           Header: "Actions",
           accessor: "buttons",
-          Cell: ({ cell }) => (
-            <div className="text-center">
-              <Button size="sm" variant="outline-success" className="me-2">
-                <i class="bi bi-pencil-square"></i> Edit
-              </Button>
-              <Button size="sm" variant="outline-danger">
-                <i class="bi bi-trash3"></i>
-              </Button>
-            </div>
+          Cell: ({ row }) => (
+            <ButtonsActionsTable
+              setShowForm={setShowCollectionForm}
+              object={row.original}
+              setObject={setCollection}
+            />
           ),
         },
       ],

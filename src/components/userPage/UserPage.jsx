@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { useCollectionsStore } from "../../data/stores/useCollectionsStore";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
@@ -6,8 +6,13 @@ import { getCollections } from "../../api/collectionAPI";
 import CollectionsTable from "./tables/CollectionsTable";
 import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Button } from "react-bootstrap";
+import CollectionForm from "../forms/CollectionForm";
+import ItemForm from "../forms/ItemForm";
 
 function UserPage() {
+  const [showCollectionForm, setShowCollectionForm] = useState(false);
+  const [showItemForm, setShowItemForm] = useState(false);
+  const [collection, setCollection] = useState();
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
   const collectionsForTable = useCollectionsStore(
@@ -54,6 +59,8 @@ function UserPage() {
         <CollectionsTable
           collections={collectionsForTable}
           isDarkTheme={isDarkTheme}
+          setShowCollectionForm={setShowCollectionForm}
+          setCollection={setCollection}
         />
       ) : (
         <div
@@ -64,6 +71,12 @@ function UserPage() {
           You don't have any collections. Please, create it to press "NEW+"
         </div>
       )}
+      <CollectionForm
+        show={showCollectionForm}
+        setShow={setShowCollectionForm}
+        collection={collection}
+      />
+      <ItemForm show={showItemForm} setShow={setShowItemForm} />
     </>
   );
 }
