@@ -11,7 +11,6 @@ function CollectionForm({ setShow, collection, setCollection }) {
   const { title, description, theme, _id } = collection;
 
   const collectionSubmit = async (values) => {
-    console.log(values);
     setLoading(true);
     const res = await putCollection(values, _id);
     if (res.title) {
@@ -55,7 +54,11 @@ function CollectionForm({ setShow, collection, setCollection }) {
                   value={values.description}
                   onChange={handleChange}
                 />
-                <Form.Select>
+                <Form.Select
+                  aria-label="Default select"
+                  name="theme"
+                  onChange={handleChange}
+                >
                   {/* <option value={theme.name}>{theme.name}</option> */}
                   {themes.map((them) => {
                     return (
