@@ -8,6 +8,7 @@ function CollectionsTable({
   isDarkTheme,
   setShowCollectionForm,
   setCollection,
+  deleteCollection,
 }) {
   const structureTable = [
     {
@@ -51,6 +52,7 @@ function CollectionsTable({
               object={row.original}
               setObject={setCollection}
               subInfo={row}
+              deleteObject={deleteCollection}
             />
           ),
         },

@@ -1,10 +1,22 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-function ButtonsActionsTable({ object, setObject, setShowForm, subInfo }) {
+function ButtonsActionsTable({
+  object,
+  setObject,
+  setShowForm,
+  subInfo,
+  deleteObject,
+}) {
   const editForm = () => {
     setObject(object);
     setShowForm(true);
+  };
+
+  const handleDelete = async () => {
+    const id = object._id;
+    await deleteObject(id);
+    setObject({});
   };
 
   return (
@@ -25,7 +37,7 @@ function ButtonsActionsTable({ object, setObject, setShowForm, subInfo }) {
       >
         <i className="bi bi-pencil-square"></i> Edit
       </Button>
-      <Button size="sm" variant="outline-danger">
+      <Button size="sm" variant="outline-danger" onClick={handleDelete}>
         <i className="bi bi-trash3"></i>
       </Button>
     </div>

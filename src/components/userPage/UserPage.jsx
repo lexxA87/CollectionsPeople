@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { useCollectionsStore } from "../../data/stores/useCollectionsStore";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
-import { getCollections } from "../../api/collectionAPI";
+import { getCollections, deleteCollection } from "../../api/collectionAPI";
 import CollectionsTable from "./tables/CollectionsTable";
 import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Button } from "react-bootstrap";
@@ -15,12 +15,6 @@ function UserPage() {
   const [collection, setCollection] = useState();
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
-  // const collectionsForTable = useCollectionsStore(
-  //   (state) => state.collectionsForTable
-  // );
-  // const setCollectionsForTable = useCollectionsStore(
-  //   (state) => state.setCollectionsForTable
-  // );
   const [collectionsForTable, setCollectionsForTable] = useState({});
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const themes = useThemesStore((state) => state.themes);
@@ -63,6 +57,7 @@ function UserPage() {
               isDarkTheme={isDarkTheme}
               setShowCollectionForm={setShowCollectionForm}
               setCollection={setCollection}
+              deleteCollection={deleteCollection}
             />
           ) : (
             <div

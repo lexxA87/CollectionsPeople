@@ -16,3 +16,18 @@ export const putCollection = async (collection, id) => {
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
 };
+
+export const postCollection = async (collection, author) => {
+  const coll = { ...collection, author };
+  return await axios
+    .post(`${configData.BASE_URL}api/collection`, coll)
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};
+
+export const deleteCollection = async (id) => {
+  return await axios
+    .delete(`${configData.BASE_URL}api/collection?id=${id}`)
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};
