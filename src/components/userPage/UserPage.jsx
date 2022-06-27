@@ -7,11 +7,11 @@ import CollectionsTable from "./tables/CollectionsTable";
 import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Button } from "react-bootstrap";
 import CollectionForm from "../forms/CollectionForm";
-import ItemForm from "../forms/ItemForm";
+// import ItemForm from "../forms/ItemForm";
 
 function UserPage() {
   const [showCollectionForm, setShowCollectionForm] = useState(false);
-  const [showItemForm, setShowItemForm] = useState(false);
+  // const [showItemForm, setShowItemForm] = useState(false);
   const [collection, setCollection] = useState();
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
@@ -50,33 +50,38 @@ function UserPage() {
   return (
     <>
       <h1>UserPage</h1>
-      <div className="justify-content-end hstack gap-3 my-3 mx-2">
-        <Button variant="success">
-          NEW <i class="bi bi-plus-square"></i>
-        </Button>
-      </div>
-      {collectionsForTable.length ? (
-        <CollectionsTable
-          collections={collectionsForTable}
-          isDarkTheme={isDarkTheme}
-          setShowCollectionForm={setShowCollectionForm}
-          setCollection={setCollection}
-        />
+      {!showCollectionForm ? (
+        <>
+          <div className="justify-content-end hstack gap-3 my-3 mx-2">
+            <Button variant="success">
+              Add New <i class="bi bi-plus-square"></i>
+            </Button>
+          </div>
+          {collectionsForTable.length ? (
+            <CollectionsTable
+              collections={collectionsForTable}
+              isDarkTheme={isDarkTheme}
+              setShowCollectionForm={setShowCollectionForm}
+              setCollection={setCollection}
+            />
+          ) : (
+            <div
+              className={
+                isDarkTheme ? "text-center text-info bg-dark" : "text-center"
+              }
+            >
+              You don't have any collections. Please, create it to press "NEW+"
+            </div>
+          )}
+        </>
       ) : (
-        <div
-          className={
-            isDarkTheme ? "text-center text-info bg-dark" : "text-center"
-          }
-        >
-          You don't have any collections. Please, create it to press "NEW+"
-        </div>
+        <CollectionForm
+          setShow={setShowCollectionForm}
+          collection={collection}
+        />
       )}
-      <CollectionForm
-        show={showCollectionForm}
-        setShow={setShowCollectionForm}
-        collection={collection}
-      />
-      <ItemForm show={showItemForm} setShow={setShowItemForm} />
+
+      {/* <ItemForm show={showItemForm} setShow={setShowItemForm} /> */}
     </>
   );
 }

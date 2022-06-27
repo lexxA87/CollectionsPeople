@@ -1,21 +1,20 @@
 import React from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
-function CollectionForm({ show, setShow, collection }) {
+function CollectionForm({ setShow, collection }) {
   const handleClose = () => setShow(false);
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>CollectionForm</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{JSON.stringify(collection, null, 2)}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+      <Card>
+        <Card.Header as="h5">CollectionForm</Card.Header>
+        <Card.Body>
+          <Card.Title>Special title treatment</Card.Title>
+          <Card.Text>{JSON.stringify(collection, null, 2)}</Card.Text>
+          <Button variant="primary" onClick={handleClose}>
             Close
           </Button>
-        </Modal.Footer>
-      </Modal>
+        </Card.Body>
+      </Card>
     </>
   );
 }
