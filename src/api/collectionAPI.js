@@ -9,3 +9,13 @@ export const getCollections = async (userId) => {
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
 };
+
+export const putCollection = async (collection, id) => {
+  return await axios
+    .put(`${configData.BASE_URL}api/collection`, {
+      params: { id: id },
+      body: { collection },
+    })
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};

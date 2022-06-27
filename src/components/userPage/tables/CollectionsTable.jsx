@@ -31,6 +31,7 @@ function CollectionsTable({
         {
           Header: "Theme",
           accessor: "theme",
+          Cell: ({ row }) => <>{row.original.theme.name}</>,
         },
         {
           Header: "Description",
@@ -39,6 +40,7 @@ function CollectionsTable({
         {
           Header: "Items",
           accessor: "items",
+          Cell: ({ row }) => <>{row.original.items.length}</>,
         },
         {
           Header: "Actions",

@@ -15,12 +15,13 @@ function UserPage() {
   const [collection, setCollection] = useState();
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
-  const collectionsForTable = useCollectionsStore(
-    (state) => state.collectionsForTable
-  );
-  const setCollectionsForTable = useCollectionsStore(
-    (state) => state.setCollectionsForTable
-  );
+  // const collectionsForTable = useCollectionsStore(
+  //   (state) => state.collectionsForTable
+  // );
+  // const setCollectionsForTable = useCollectionsStore(
+  //   (state) => state.setCollectionsForTable
+  // );
+  const [collectionsForTable, setCollectionsForTable] = useState({});
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const themes = useThemesStore((state) => state.themes);
 
@@ -41,8 +42,7 @@ function UserPage() {
     collections.forEach((collection) => {
       const themeId = collection.theme;
       const theme = themes.find((el) => el._id === themeId);
-      collection.theme = theme.name;
-      collection.items = collection.items.length;
+      collection.theme = theme;
     });
     return collections;
   };
@@ -54,7 +54,7 @@ function UserPage() {
         <>
           <div className="justify-content-end hstack gap-3 my-3 mx-2">
             <Button variant="success">
-              Add New <i class="bi bi-plus-square"></i>
+              Add New <i className="bi bi-plus-square"></i>
             </Button>
           </div>
           {collectionsForTable.length ? (
