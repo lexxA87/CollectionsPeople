@@ -4,16 +4,18 @@ import { Formik } from "formik";
 import { Button, Card, Form } from "react-bootstrap";
 import { putCollection } from "../../api/collectionAPI";
 
-function CollectionForm({ setShow, collection }) {
+function CollectionForm({ setShow, collection, setCollection }) {
   const themes = useThemesStore((state) => state.themes);
   const [isLoading, setLoading] = useState(false);
   const handleClose = () => setShow(false);
-  const { title, description, theme, id } = collection;
+  const { title, description, theme, _id } = collection;
 
   const collectionSubmit = async (values) => {
+    console.log(values);
     setLoading(true);
-    const res = await putCollection(values, id);
+    const res = await putCollection(values, _id);
     if (res.title) {
+      setCollection(res);
       handleClose();
     }
 
@@ -30,7 +32,7 @@ function CollectionForm({ setShow, collection }) {
             initialValues={{
               title: title,
               description: description,
-              theme: theme.name,
+              theme: theme._id,
             }}
           >
             {({
@@ -58,7 +60,7 @@ function CollectionForm({ setShow, collection }) {
                   {themes.map((them) => {
                     return (
                       <option
-                        value={them.name}
+                        value={them._id}
                         selected={them.name === theme.name ? true : false}
                       >
                         {them.name}

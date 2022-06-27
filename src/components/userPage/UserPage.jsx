@@ -36,7 +36,7 @@ function UserPage() {
   useEffect(() => {
     getSetCollections(userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [collection]);
 
   const updateCollections = (collections, themes) => {
     collections.forEach((collection) => {
@@ -78,6 +78,7 @@ function UserPage() {
         <CollectionForm
           setShow={setShowCollectionForm}
           collection={collection}
+          setCollection={setCollection}
         />
       )}
 
