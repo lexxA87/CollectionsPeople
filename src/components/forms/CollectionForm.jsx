@@ -3,8 +3,6 @@ import { Button, Modal } from "react-bootstrap";
 
 function CollectionForm({ show, setShow, collection }) {
   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
-  console.log(collection);
   return (
     <>
       <Modal show={show} onHide={handleClose}>

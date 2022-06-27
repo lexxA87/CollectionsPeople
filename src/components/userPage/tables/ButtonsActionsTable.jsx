@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-function ButtonsActionsTable({ object, setObject, setShowForm }) {
+function ButtonsActionsTable({ object, setObject, setShowForm, subInfo }) {
   const editForm = () => {
     setObject(object);
     setShowForm(true);
@@ -9,7 +9,12 @@ function ButtonsActionsTable({ object, setObject, setShowForm }) {
 
   return (
     <div className="text-center">
-      <Button size="sm" variant="outline-info" className="me-2">
+      <Button
+        size="sm"
+        variant="outline-info"
+        className="me-2"
+        {...subInfo.getToggleRowExpandedProps()}
+      >
         <i className="bi bi-info-lg"></i>
       </Button>
       <Button

@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from "react";
+import { Link } from "react-router-dom";
 import ButtonsActionsTable from "./ButtonsActionsTable";
 import Table from "./Table";
 
@@ -18,9 +19,12 @@ function CollectionsTable({
           accessor: "title",
           Cell: ({ row }) => {
             return (
-              <div {...row.getToggleRowExpandedProps()}>
+              <Link
+                to={`/collection:${row.original._id}`}
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              >
                 {row.original.title}
-              </div>
+              </Link>
             );
           },
         },
@@ -44,6 +48,7 @@ function CollectionsTable({
               setShowForm={setShowCollectionForm}
               object={row.original}
               setObject={setCollection}
+              subInfo={row}
             />
           ),
         },

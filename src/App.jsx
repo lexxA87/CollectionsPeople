@@ -9,6 +9,7 @@ import LocaleContext from "./data/configLang/LocaleContext.js";
 import Header from "./components/header/Header";
 import UserPage from "./components/userPage/UserPage";
 import MainPage from "./components/mainPage/MainPage";
+import CollectionPage from "./components/collection/CollectionPage";
 import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
 
@@ -49,6 +50,7 @@ function App() {
               <Header />
               <Routes>
                 <Route path="/" element={<MainPage />} />
+                <Route path="/collection:id" element={<CollectionPage />} />
                 {isAuth && <Route path="/userpage" element={<UserPage />} />}
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
