@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Formik } from "formik";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
 import { Button, Card, Form } from "react-bootstrap";
 import { postCollection, putCollection } from "../../api/collectionAPI";
 
@@ -16,11 +18,13 @@ function CollectionForm({
   const themes = useThemesStore((state) => state.themes);
   const [isLoading, setLoading] = useState(false);
   const handleClose = () => setShow(false);
+  const { t } = useTranslation();
 
   const { title, description, theme, _id } = collection;
 
   const collectionSubmit = async (values) => {
     setLoading(true);
+    console.log(values);
     let res;
     if (isPostColl) {
       res = await postCollection(values, userId);
@@ -42,6 +46,17 @@ function CollectionForm({
     setLoading(false);
   };
 
+  Yup.setLocale({
+    mixed: {
+      required: "required",
+    },
+  });
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required(),
+    description: Yup.string().required(),
+  });
+
   return (
     <>
       <Card bg={isDarkTheme && "dark"} text={isDarkTheme && "light"}>
@@ -49,38 +64,50 @@ function CollectionForm({
         <Card.Body>
           <Formik
             onSubmit={collectionSubmit}
+            validationSchema={validationSchema}
             initialValues={{
               title: title,
               description: description,
-              theme: theme._id,
+              theme: theme._id || themes[4]._id,
             }}
           >
-            {({ handleSubmit, handleChange, values }) => (
+            {({ handleSubmit, handleChange, values, errors }) => (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3" controlId="titleInput">
                   <Form.Label>Title</Form.Label>
                   <Form.Control
                     name="title"
                     value={values.title}
                     onChange={handleChange}
+                    isInvalid={!!errors.title}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {t(errors.title)}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3" controlId="descriptionInput">
                   <Form.Label>Description</Form.Label>
                   <Form.Control
+                    as="textarea"
+                    rows={3}
                     name="description"
                     value={values.description}
                     onChange={handleChange}
+                    isInvalid={!!errors.description}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    {t(errors.description)}
+                  </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3" controlId="themesSelect">
                   <Form.Label>Theme</Form.Label>
                   <Form.Select
                     aria-label="Default select"
                     name="theme"
                     onChange={handleChange}
+                    defaultValue={themes[4]._id}
                   >
                     {themes.map((them) => {
                       return (
