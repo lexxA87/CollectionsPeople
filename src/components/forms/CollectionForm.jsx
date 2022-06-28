@@ -11,6 +11,7 @@ function CollectionForm({
   isDarkTheme,
   userId,
   isPostColl,
+  setIsPostColl,
 }) {
   const themes = useThemesStore((state) => state.themes);
   const [isLoading, setLoading] = useState(false);
@@ -33,6 +34,8 @@ function CollectionForm({
         theme: "",
         _id: "",
       });
+      setIsPostColl(false);
+
       handleClose();
     }
 

@@ -88,6 +88,7 @@ function UserPage() {
           isDarkTheme={isDarkTheme}
           userId={userId}
           isPostColl={isPostColl}
+          setIsPostColl={setIsPostColl}
         />
       )}
 
