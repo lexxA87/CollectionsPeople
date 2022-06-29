@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Formik } from "formik";
+import MDEditor from "@uiw/react-md-editor";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 import { Button, Card, Form } from "react-bootstrap";
@@ -24,7 +25,6 @@ function CollectionForm({
 
   const collectionSubmit = async (values) => {
     setLoading(true);
-    console.log(values);
     let res;
     if (isPostColl) {
       res = await postCollection(values, userId);
@@ -71,7 +71,13 @@ function CollectionForm({
               theme: theme._id || themes[4]._id,
             }}
           >
-            {({ handleSubmit, handleChange, values, errors }) => (
+            {({
+              handleSubmit,
+              handleChange,
+              values,
+              errors,
+              setFieldValue,
+            }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="titleInput">
                   <Form.Label>Title</Form.Label>
@@ -86,15 +92,20 @@ function CollectionForm({
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="descriptionInput">
+                <Form.Group
+                  className="mb-3"
+                  controlId="descriptionInput"
+                  data-color-mode="light"
+                >
                   <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    name="description"
+                  <MDEditor
                     value={values.description}
-                    onChange={handleChange}
-                    isInvalid={!!errors.description}
+                    onChange={(content) =>
+                      setFieldValue("description", content)
+                    }
+                    data-color-mode="light"
+                    className="wmde-markdown-var"
+                    textareaProps={{ name: "description" }}
                   />
                   <Form.Control.Feedback type="invalid">
                     {t(errors.description)}
@@ -107,14 +118,11 @@ function CollectionForm({
                     aria-label="Default select"
                     name="theme"
                     onChange={handleChange}
-                    defaultValue={themes[4]._id}
+                    defaultValue={theme._id || themes[4]._id}
                   >
-                    {themes.map((them) => {
+                    {themes.map((them, i) => {
                       return (
-                        <option
-                          value={them._id}
-                          selected={them.name === theme.name ? true : false}
-                        >
+                        <option key={i} value={them._id}>
                           {them.name}
                         </option>
                       );

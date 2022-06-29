@@ -35,10 +35,6 @@ function CollectionsTable({
           Cell: ({ row }) => <>{row.original.theme.name}</>,
         },
         {
-          Header: "Description",
-          accessor: "description",
-        },
-        {
           Header: "Items",
           accessor: "items",
           Cell: ({ row }) => <>{row.original.items.length}</>,

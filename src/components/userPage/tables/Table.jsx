@@ -28,10 +28,13 @@ function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
       {...getTableProps()}
     >
       <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+        {headerGroups.map((headerGroup, i) => (
+          <tr key={i} {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column, i) => (
+              <th
+                key={i}
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+              >
                 {column.render("Header")}
               </th>
             ))}
@@ -42,7 +45,7 @@ function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
         {rows.map((row, i) => {
           prepareRow(row);
           return (
-            <Fragment>
+            <Fragment key={i}>
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   if (cell.column.Header === "Name") {
