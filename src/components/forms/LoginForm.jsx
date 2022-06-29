@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { userLogin } from "../../api/userAPI";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm(props) {
   const { setShowLogin, handleClose } = props;
@@ -12,6 +13,7 @@ function LoginForm(props) {
   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
   const { t } = useTranslation();
+  const redirect = useNavigate();
 
   Yup.setLocale({
     mixed: {
@@ -37,6 +39,7 @@ function LoginForm(props) {
       setCurrentUser(res);
       setIsAuth(true);
       handleClose();
+      redirect("/userpage");
     } else {
       alert(res);
     }
