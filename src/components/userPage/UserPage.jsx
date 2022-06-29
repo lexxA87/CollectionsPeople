@@ -7,6 +7,7 @@ import CollectionsTable from "./tables/CollectionsTable";
 import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Button } from "react-bootstrap";
 import CollectionForm from "../forms/CollectionForm";
+import UserPageWelcome from "./UserPageWelcome";
 // import ItemForm from "../forms/ItemForm";
 
 function UserPage() {
@@ -26,6 +27,7 @@ function UserPage() {
   const themes = useThemesStore((state) => state.themes);
 
   const userId = currentUser.id;
+  const { name } = currentUser;
 
   const getSetCollections = async (userId) => {
     const colls = await getCollections(userId);
@@ -54,10 +56,13 @@ function UserPage() {
 
   return (
     <>
-      <h1>UserPage</h1>
+      <UserPageWelcome userName={name} />
       {!showCollectionForm ? (
         <>
-          <div className="justify-content-end hstack gap-3 my-3 mx-2">
+          <div
+            className="justify-content-end hstack gap-3 my-3 mx-2"
+            bg={isDarkTheme && "dark"}
+          >
             <Button variant="success" onClick={addNewCollection}>
               Add New <i className="bi bi-plus-square"></i>
             </Button>
