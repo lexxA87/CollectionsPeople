@@ -18,7 +18,16 @@ function CollectionForm({
 }) {
   const themes = useThemesStore((state) => state.themes);
   const [isLoading, setLoading] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setCollection({
+      title: "",
+      description: "",
+      theme: "",
+      _id: "",
+    });
+    setIsPostColl(false);
+    setShow(false);
+  };
   const { t } = useTranslation();
 
   const { title, description, theme, _id } = collection;
@@ -32,14 +41,6 @@ function CollectionForm({
       res = await putCollection(values, _id);
     }
     if (res.title) {
-      setCollection({
-        title: "",
-        description: "",
-        theme: "",
-        _id: "",
-      });
-      setIsPostColl(false);
-
       handleClose();
     }
 
@@ -105,11 +106,19 @@ function CollectionForm({
                     }
                     data-color-mode="light"
                     className="wmde-markdown-var"
-                    textareaProps={{ name: "description" }}
+                    textareaProps={{
+                      name: "description",
+                      required: true,
+                    }}
                   />
-                  <Form.Control.Feedback type="invalid">
+                  <div
+                    class="invalid-feedback"
+                    style={{
+                      display: !!errors.description ? "inherit" : "none",
+                    }}
+                  >
                     {t(errors.description)}
-                  </Form.Control.Feedback>
+                  </div>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="themesSelect">
