@@ -39,8 +39,13 @@ function App() {
           ? {
               backgroundImage: `url("images/Background.jpg")`,
               backgroundSize: "cover",
+              backgroundAttachment: "fixed",
             }
-          : null
+          : {
+              backgroundImage: `url("images/Background-light.jpg")`,
+              backgroundSize: "cover",
+              backgroundAttachment: "fixed",
+            }
       }
     >
       <BrowserRouter>
