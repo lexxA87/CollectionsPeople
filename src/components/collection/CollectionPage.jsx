@@ -5,12 +5,11 @@ import { Card } from "react-bootstrap";
 
 function CollectionPage() {
   const params = useParams();
-  const [collection, setCollection] = useState();
+  const [collection, setCollection] = useState({});
   const collectionID = params.id;
 
   const setCurrentCollection = async (id) => {
     const coll = await getCollection(id);
-    console.log(coll);
     setCollection(coll);
   };
 
@@ -19,7 +18,6 @@ function CollectionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(collection);
   const { title, description, theme, createdAt, updatedAt, author } =
     collection;
 

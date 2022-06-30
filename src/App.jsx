@@ -55,7 +55,7 @@ function App() {
               <Header />
               <Routes>
                 <Route path="/" element={<MainPage />} />
-                <Route path="/collection/:id" element={<CollectionPage />} />
+                <Route path="/collection:id" element={<CollectionPage />} />
                 {isAuth && <Route path="/userpage" element={<UserPage />} />}
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

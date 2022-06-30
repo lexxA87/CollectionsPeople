@@ -21,7 +21,7 @@ function CollectionsTable({
           Cell: ({ row }) => {
             return (
               <Link
-                to={`/collection/${row.original._id}`}
+                to={`/collection${row.original._id}`}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               >
                 {row.original.title}
