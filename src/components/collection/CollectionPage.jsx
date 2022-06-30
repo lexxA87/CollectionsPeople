@@ -1,25 +1,46 @@
-import React from "react";
-import { Card, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getCollection } from "../../api/collectionAPI";
+import { Card } from "react-bootstrap";
 
 function CollectionPage() {
+  const params = useParams();
+  const [collection, setCollection] = useState();
+  const collectionID = params.id;
+
+  const setCurrentCollection = async (id) => {
+    const coll = await getCollection(id);
+    console.log(coll);
+    setCollection(coll);
+  };
+
+  useEffect(() => {
+    setCurrentCollection(collectionID);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log(collection);
+  const { title, description, theme, createdAt, updatedAt, author } =
+    collection;
+
   return (
     <Card className="mb-3">
       <div className="row g-0">
         <div className="col-md-4">
-          <Card.Img src="#" />
+          <Card.Img src="/images/Not-image.jpg" style={{ maxwidth: "300px" }} />
         </div>
         <div className="col-md-8">
           <Card.Body>
-            <Card.Title>Card Title</Card.Title>
+            <Card.Title>{title}</Card.Title>
+            <Card.Text>{author}</Card.Text>
+            <Card.Text>{theme}</Card.Text>
+            <Card.Text>{description}</Card.Text>
             <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              <small className="text-muted">{createdAt}</small>
             </Card.Text>
             <Card.Text>
-              <small className="text-muted">Last updated 3 mins ago</small>
+              <small className="text-muted">{updatedAt}</small>
             </Card.Text>
-
-            <Button variant="primary">Go somewhere</Button>
           </Card.Body>
         </div>
       </div>

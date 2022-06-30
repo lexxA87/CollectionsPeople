@@ -10,6 +10,13 @@ export const getCollections = async (userId) => {
     .catch((error) => error.response.data.message);
 };
 
+export const getCollection = async (id) => {
+  return await axios
+    .get(`${configData.BASE_URL}api/collection?id=${id}`)
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};
+
 export const putCollection = async (collection, id) => {
   return await axios
     .put(`${configData.BASE_URL}api/collection?id=${id}`, collection)
