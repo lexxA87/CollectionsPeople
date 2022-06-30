@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
+import Loading from "../helper/Loading";
 import { Card } from "react-bootstrap";
 
 function CollectionPage() {
   const params = useParams();
   const [collection, setCollection] = useState({});
+  const [isLoading, setLoading] = useState(true);
   const collectionID = params.id;
 
   const setCurrentCollection = async (id) => {
     const coll = await getCollection(id);
     setCollection(coll);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -22,7 +25,9 @@ function CollectionPage() {
     collection;
   console.log(collection);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Card className="mb-3">
       <div className="row g-0">
         <div className="col-md-4">
@@ -31,8 +36,8 @@ function CollectionPage() {
         <div className="col-md-8">
           <Card.Body>
             <Card.Title>{title}</Card.Title>
-            <Card.Text>{author}</Card.Text>
-            <Card.Text>{theme}</Card.Text>
+            <Card.Text>{author.name}</Card.Text>
+            <Card.Text>{theme.name}</Card.Text>
             <Card.Text>{description}</Card.Text>
             <Card.Text>
               <small className="text-muted">{createdAt}</small>
