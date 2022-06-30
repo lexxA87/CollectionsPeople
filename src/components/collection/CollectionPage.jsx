@@ -20,6 +20,7 @@ function CollectionPage() {
 
   const { title, description, theme, createdAt, updatedAt, author } =
     collection;
+  console.log(collection);
 
   return (
     <Card className="mb-3">

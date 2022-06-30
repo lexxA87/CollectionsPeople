@@ -6,6 +6,9 @@ const handleError = (res, error) => {
 
 const getCollection = (req, res) => {
   Collection.findById(req.query.id)
+    .populate("theme")
+    .populate("items")
+    .populate("author")
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
 };
@@ -13,6 +16,7 @@ const getCollection = (req, res) => {
 const getCollections = (req, res) => {
   const { author } = req.query;
   Collection.find({ author })
+    .populate("theme")
     .then((cols) => res.status(200).json(cols))
     .catch((error) => handleError(res, error));
 };
