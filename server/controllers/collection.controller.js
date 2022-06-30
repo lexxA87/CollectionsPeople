@@ -8,7 +8,7 @@ const getCollection = (req, res) => {
   Collection.findById(req.query.id)
     .populate("theme")
     .populate("items")
-    .populate("author")
+    .populate("author", "name")
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
 };

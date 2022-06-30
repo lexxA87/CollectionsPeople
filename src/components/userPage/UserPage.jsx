@@ -4,7 +4,7 @@ import { useCollectionsStore } from "../../data/stores/useCollectionsStore";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { getCollections, deleteCollection } from "../../api/collectionAPI";
 import CollectionsTable from "./tables/CollectionsTable";
-import { useThemesStore } from "../../data/stores/useThemesStore";
+// import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Button } from "react-bootstrap";
 import CollectionForm from "../forms/CollectionForm";
 import UserPageWelcome from "./UserPageWelcome";
@@ -22,9 +22,10 @@ function UserPage() {
   const [isPostColl, setIsPostColl] = useState(false);
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
-  const [collectionsForTable, setCollectionsForTable] = useState({});
+  const collections = useCollectionsStore((state) => state.collections);
+  // const [collectionsForTable, setCollectionsForTable] = useState({});
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
-  const themes = useThemesStore((state) => state.themes);
+  // const themes = useThemesStore((state) => state.themes);
 
   const userId = currentUser.id;
   const { name } = currentUser;
@@ -32,7 +33,7 @@ function UserPage() {
   const getSetCollections = async (userId) => {
     const colls = await getCollections(userId);
     setCollections(colls);
-    setCollectionsForTable(updateCollections(colls, themes));
+    // setCollectionsForTable(updateCollections(colls, themes));
   };
 
   useEffect(() => {
@@ -40,14 +41,14 @@ function UserPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collection]);
 
-  const updateCollections = (collections, themes) => {
-    collections.forEach((collection) => {
-      const themeId = collection.theme;
-      const theme = themes.find((el) => el._id === themeId);
-      collection.theme = theme;
-    });
-    return collections;
-  };
+  // const updateCollections = (collections, themes) => {
+  //   collections.forEach((collection) => {
+  //     const themeId = collection.theme;
+  //     const theme = themes.find((el) => el._id === themeId);
+  //     collection.theme = theme;
+  //   });
+  //   return collections;
+  // };
 
   const addNewCollection = () => {
     setShowCollectionForm(true);
@@ -67,9 +68,9 @@ function UserPage() {
               Add New <i className="bi bi-plus-square"></i>
             </Button>
           </div>
-          {collectionsForTable.length ? (
+          {collections.length ? (
             <CollectionsTable
-              collections={collectionsForTable}
+              collections={collections}
               isDarkTheme={isDarkTheme}
               setShowCollectionForm={setShowCollectionForm}
               setCollection={setCollection}
