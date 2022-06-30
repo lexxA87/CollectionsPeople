@@ -2,22 +2,16 @@ import React, { Fragment } from "react";
 import { useSortBy, useTable, useExpanded } from "react-table";
 import BootstrapTable from "react-bootstrap/Table";
 
-function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    visibleColumns,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useSortBy,
-    useExpanded
-  );
+function Table({ columns, data, isDarkTheme }) {
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+      },
+      useSortBy,
+      useExpanded
+    );
 
   return (
     <BootstrapTable
@@ -69,13 +63,6 @@ function Table({ columns, data, isDarkTheme, renderRowSubComponent }) {
                   }
                 })}
               </tr>
-              {row.isExpanded ? (
-                <tr>
-                  <td colSpan={visibleColumns.length}>
-                    {renderRowSubComponent({ row })}
-                  </td>
-                </tr>
-              ) : null}
             </Fragment>
           );
         })}

@@ -1,13 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-function ButtonsActionsTable({
-  object,
-  setObject,
-  setShowForm,
-  subInfo,
-  deleteObject,
-}) {
+function ButtonsActionsTable({ object, setObject, setShowForm, deleteObject }) {
   const editForm = () => {
     setObject(object);
     setShowForm(true);
@@ -21,14 +15,6 @@ function ButtonsActionsTable({
 
   return (
     <div className="text-center">
-      <Button
-        size="sm"
-        variant="outline-info"
-        className="me-2"
-        {...subInfo.getToggleRowExpandedProps()}
-      >
-        <i className="bi bi-info-lg"></i>
-      </Button>
       <Button
         size="sm"
         variant="outline-success"

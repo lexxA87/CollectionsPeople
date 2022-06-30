@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import ButtonsActionsTable from "./ButtonsActionsTable";
 import Table from "./Table";
@@ -47,7 +47,6 @@ function CollectionsTable({
               setShowForm={setShowCollectionForm}
               object={row.original}
               setObject={setCollection}
-              subInfo={row}
               deleteObject={deleteCollection}
             />
           ),
@@ -60,27 +59,7 @@ function CollectionsTable({
   const columns = useMemo(() => structureTable, []);
   const data = useMemo(() => collections, [collections]);
 
-  const renderRowSubComponent = useCallback(
-    ({ row }) => (
-      <pre
-        style={{
-          fontSize: "10px",
-        }}
-      >
-        <code>{JSON.stringify({ values: row.values }, null, 2)}</code>
-      </pre>
-    ),
-    []
-  );
-
-  return (
-    <Table
-      columns={columns}
-      data={data}
-      isDarkTheme={isDarkTheme}
-      renderRowSubComponent={renderRowSubComponent}
-    />
-  );
+  return <Table columns={columns} data={data} isDarkTheme={isDarkTheme} />;
 }
 
 export default CollectionsTable;
