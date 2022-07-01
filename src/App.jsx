@@ -10,6 +10,7 @@ import Header from "./components/header/Header";
 import UserPage from "./components/userPage/UserPage";
 import MainPage from "./components/mainPage/MainPage";
 import CollectionPage from "./components/collection/CollectionPage";
+import ItemPage from "./components/item/ItemPage";
 import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
 
@@ -56,6 +57,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<MainPage />} />
                 <Route path="/collection:id" element={<CollectionPage />} />
+                <Route path="/collection/item:id" element={<ItemPage />} />
                 {isAuth && <Route path="/userpage" element={<UserPage />} />}
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

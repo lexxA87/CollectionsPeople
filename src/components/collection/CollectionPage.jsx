@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
 import Loading from "../helper/Loading";
 import MDEditor from "@uiw/react-md-editor";
@@ -12,6 +12,7 @@ function CollectionPage() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const params = useParams();
+  const redirect = useNavigate();
   const [collection, setCollection] = useState({});
   const [isLoading, setLoading] = useState(true);
   const collectionID = params.id;
@@ -93,7 +94,15 @@ function CollectionPage() {
                   <ListGroup>
                     {items.map((item) => {
                       return (
-                        <ListGroup.Item key={item._id} action variant="dark">
+                        <ListGroup.Item
+                          onClick={() =>
+                            redirect(`/collection/item${item._id}`)
+                          }
+                          key={item._id}
+                          action
+                          variant="dark"
+                          className="text-success"
+                        >
                           <b>{item.title}</b>
                         </ListGroup.Item>
                       );
@@ -109,7 +118,9 @@ function CollectionPage() {
               )}
               {isAuth && (
                 <div className="my-3">
-                  <Button variant="outline-success">Add item</Button>
+                  <Button variant="outline-success">
+                    Add new <i className="bi bi-plus-square"></i>
+                  </Button>
                 </div>
               )}
             </Card.Body>
