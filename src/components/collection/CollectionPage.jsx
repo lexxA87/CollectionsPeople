@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
 import Loading from "../helper/Loading";
+import MDEditor from "@uiw/react-md-editor";
 import { Card } from "react-bootstrap";
 
 function CollectionPage() {
@@ -38,7 +39,13 @@ function CollectionPage() {
             <Card.Title>{title}</Card.Title>
             <Card.Text>{author.name}</Card.Text>
             <Card.Text>{theme.name}</Card.Text>
-            <Card.Text>{description}</Card.Text>
+            <div data-color-mode="dark">
+              <MDEditor.Markdown
+                source={description}
+                style={{ whiteSpace: "pre-wrap" }}
+              />
+            </div>
+
             <Card.Text>
               <small className="text-muted">{createdAt}</small>
             </Card.Text>
