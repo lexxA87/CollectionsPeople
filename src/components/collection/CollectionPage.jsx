@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
 import Loading from "../helper/Loading";
 import MDEditor from "@uiw/react-md-editor";
-import { Card } from "react-bootstrap";
+import { Card, ListGroup, Button } from "react-bootstrap";
 import CollectionPageHeader from "./CollectionPageHeader";
 
 function CollectionPage() {
@@ -27,7 +27,7 @@ function CollectionPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { title, description, theme, createdAt, updatedAt, author } =
+  const { title, description, theme, createdAt, updatedAt, author, items } =
     collection;
   const createdAtDate = new Date(createdAt);
   const updatedAtDate = new Date(updatedAt);
@@ -59,14 +59,14 @@ function CollectionPage() {
           <div className="col-md-8">
             <Card.Body>
               <Card.Title>
-                <h1 class="display-6 text-warning">{title}</h1>
+                <h1 className="display-6 text-warning">{title}</h1>
               </Card.Title>
               <Card.Text>
                 <dl className="row">
-                  <dt class="col-sm-3">Author</dt>
-                  <dd class="col-sm-9">{author.name}</dd>
-                  <dt class="col-sm-3">Theme</dt>
-                  <dd class="col-sm-9">{theme.name}</dd>
+                  <dt className="col-sm-3">Author</dt>
+                  <dd className="col-sm-9">{author.name}</dd>
+                  <dt className="col-sm-3">Theme</dt>
+                  <dd className="col-sm-9">{theme.name}</dd>
                 </dl>
               </Card.Text>
               <dl data-color-mode={isDarkTheme ? "dark" : "light"}>
@@ -79,12 +79,39 @@ function CollectionPage() {
 
               <Card.Text>
                 <dl className="row">
-                  <dt class="col-sm-3">Date of create:</dt>
-                  <dd class="col-sm-9">{createdAtLocale}</dd>
-                  <dt class="col-sm-3">Date of update:</dt>
-                  <dd class="col-sm-9">{updatedAtLocale}</dd>
+                  <dt className="col-sm-3">Date of create:</dt>
+                  <dd className="col-sm-9">{createdAtLocale}</dd>
+                  <dt className="col-sm-3">Date of update:</dt>
+                  <dd className="col-sm-9">{updatedAtLocale}</dd>
                 </dl>
               </Card.Text>
+              {items.length > 0 ? (
+                <Card.Text>
+                  <dl>
+                    <dt className="mb-3">{`Items (${items.length}):`}</dt>
+                  </dl>
+                  <ListGroup>
+                    {items.map((item) => {
+                      return (
+                        <ListGroup.Item key={item._id} action variant="dark">
+                          <b>{item.title}</b>
+                        </ListGroup.Item>
+                      );
+                    })}
+                  </ListGroup>
+                </Card.Text>
+              ) : (
+                <div>
+                  <Card.Text>
+                    Unfortunately, there are no entries yet...
+                  </Card.Text>
+                </div>
+              )}
+              {isAuth && (
+                <div className="my-3">
+                  <Button variant="outline-success">Add item</Button>
+                </div>
+              )}
             </Card.Body>
           </div>
         </div>
