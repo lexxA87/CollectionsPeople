@@ -26,6 +26,11 @@ function CollectionPage() {
 
   const { title, description, theme, createdAt, updatedAt, author } =
     collection;
+  const createdAtDate = new Date(createdAt);
+  const updatedAtDate = new Date(updatedAt);
+  const createdAtLocale = createdAtDate.toLocaleDateString("en-US");
+  const updatedAtLocale = updatedAtDate.toLocaleDateString("en-US");
+
   console.log(collection);
 
   return isLoading ? (
@@ -46,21 +51,32 @@ function CollectionPage() {
         </div>
         <div className="col-md-8">
           <Card.Body>
-            <Card.Title>{title}</Card.Title>
-            <Card.Text>{author.name}</Card.Text>
-            <Card.Text>{theme.name}</Card.Text>
-            <div data-color-mode={isDarkTheme ? "dark" : "light"}>
+            <Card.Title>
+              <h1 class="display-6 text-warning">{title}</h1>
+            </Card.Title>
+            <Card.Text>
+              <dl className="row">
+                <dt class="col-sm-3">Author</dt>
+                <dd class="col-sm-9">{author.name}</dd>
+                <dt class="col-sm-3">Theme</dt>
+                <dd class="col-sm-9">{theme.name}</dd>
+              </dl>
+            </Card.Text>
+            <dl data-color-mode={isDarkTheme ? "dark" : "light"}>
+              <dt className="mb-3">Descripton:</dt>
               <MDEditor.Markdown
                 source={description}
                 style={{ whiteSpace: "pre-wrap" }}
               />
-            </div>
+            </dl>
 
             <Card.Text>
-              <small>{createdAt}</small>
-            </Card.Text>
-            <Card.Text>
-              <small>{updatedAt}</small>
+              <dl className="row">
+                <dt class="col-sm-3">Date of create:</dt>
+                <dd class="col-sm-9">{createdAtLocale}</dd>
+                <dt class="col-sm-3">Date of update:</dt>
+                <dd class="col-sm-9">{updatedAtLocale}</dd>
+              </dl>
             </Card.Text>
           </Card.Body>
         </div>
