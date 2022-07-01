@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
 import Loading from "../helper/Loading";
@@ -6,6 +7,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { Card } from "react-bootstrap";
 
 function CollectionPage() {
+  const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const params = useParams();
   const [collection, setCollection] = useState({});
   const [isLoading, setLoading] = useState(true);
@@ -29,17 +31,25 @@ function CollectionPage() {
   return isLoading ? (
     <Loading />
   ) : (
-    <Card className="mb-3">
-      <div className="row g-0">
+    <Card
+      className="mb-3"
+      bg={isDarkTheme ? "dark" : "light"}
+      text={isDarkTheme ? "white" : "dark"}
+    >
+      <div className="row overflow-hidden">
         <div className="col-md-4">
-          <Card.Img src="/images/Not-image.jpg" style={{ maxwidth: "300px" }} />
+          <Card.Img
+            src="/images/Not-image.jpg"
+            style={{ maxHeight: "300px" }}
+            className="m-md-3"
+          />
         </div>
         <div className="col-md-8">
           <Card.Body>
             <Card.Title>{title}</Card.Title>
             <Card.Text>{author.name}</Card.Text>
             <Card.Text>{theme.name}</Card.Text>
-            <div data-color-mode="dark">
+            <div data-color-mode={isDarkTheme ? "dark" : "light"}>
               <MDEditor.Markdown
                 source={description}
                 style={{ whiteSpace: "pre-wrap" }}
@@ -47,10 +57,10 @@ function CollectionPage() {
             </div>
 
             <Card.Text>
-              <small className="text-muted">{createdAt}</small>
+              <small>{createdAt}</small>
             </Card.Text>
             <Card.Text>
-              <small className="text-muted">{updatedAt}</small>
+              <small>{updatedAt}</small>
             </Card.Text>
           </Card.Body>
         </div>

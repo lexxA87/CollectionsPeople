@@ -4,15 +4,12 @@ import { useCollectionsStore } from "../../data/stores/useCollectionsStore";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { getCollections, deleteCollection } from "../../api/collectionAPI";
 import CollectionsTable from "./tables/CollectionsTable";
-// import { useThemesStore } from "../../data/stores/useThemesStore";
 import { Button } from "react-bootstrap";
 import CollectionForm from "../forms/CollectionForm";
 import UserPageWelcome from "./UserPageWelcome";
-// import ItemForm from "../forms/ItemForm";
 
 function UserPage() {
   const [showCollectionForm, setShowCollectionForm] = useState(false);
-  // const [showItemForm, setShowItemForm] = useState(false);
   const [collection, setCollection] = useState({
     title: "",
     description: "",
@@ -23,9 +20,7 @@ function UserPage() {
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
   const collections = useCollectionsStore((state) => state.collections);
-  // const [collectionsForTable, setCollectionsForTable] = useState({});
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
-  // const themes = useThemesStore((state) => state.themes);
 
   const userId = currentUser.id;
   const { name } = currentUser;
@@ -33,22 +28,12 @@ function UserPage() {
   const getSetCollections = async (userId) => {
     const colls = await getCollections(userId);
     setCollections(colls);
-    // setCollectionsForTable(updateCollections(colls, themes));
   };
 
   useEffect(() => {
     getSetCollections(userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collection]);
-
-  // const updateCollections = (collections, themes) => {
-  //   collections.forEach((collection) => {
-  //     const themeId = collection.theme;
-  //     const theme = themes.find((el) => el._id === themeId);
-  //     collection.theme = theme;
-  //   });
-  //   return collections;
-  // };
 
   const addNewCollection = () => {
     setShowCollectionForm(true);
