@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useCurrentUserStore } from "./data/stores/useCurrentUserStore";
 import { useDarkTheme } from "./data/stores/useDarkTheme";
 import { useThemesStore } from "./data/stores/useThemesStore";
@@ -14,12 +15,14 @@ import ItemPage from "./components/item/ItemPage";
 import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
 
+import "./App.css";
+
 function App() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const setThemes = useThemesStore((state) => state.setThemes);
   const [locale, setLocale] = useState(i18n.language);
-
+  const location = useLocation();
   const setThemesCollection = async () => {
     const themes = await getThemes();
     setThemes(themes);
@@ -49,22 +52,25 @@ function App() {
             }
       }
     >
-      <BrowserRouter>
-        <LocaleContext.Provider value={{ locale, setLocale }}>
-          <Suspense fallback={<Loading />}>
-            <Container>
-              <Header />
-              <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/collection:id" element={<CollectionPage />} />
-                <Route path="/collection/item:id" element={<ItemPage />} />
-                {isAuth && <Route path="/userpage" element={<UserPage />} />}
-                <Route path="*" element={<Navigate to="/" />} />
-              </Routes>
-            </Container>
-          </Suspense>
-        </LocaleContext.Provider>
-      </BrowserRouter>
+      <LocaleContext.Provider value={{ locale, setLocale }}>
+        <Suspense fallback={<Loading />}>
+          <Container>
+            <Header />
+
+            <TransitionGroup component={null}>
+              <CSSTransition key={location.key} classNames="page" timeout={300}>
+                <Routes location={location}>
+                  <Route path="/" element={<MainPage />} />
+                  <Route path="/collection:id" element={<CollectionPage />} />
+                  <Route path="/collection/item:id" element={<ItemPage />} />
+                  {isAuth && <Route path="/userpage" element={<UserPage />} />}
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+              </CSSTransition>
+            </TransitionGroup>
+          </Container>
+        </Suspense>
+      </LocaleContext.Provider>
     </div>
   );
 }
