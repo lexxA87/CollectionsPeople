@@ -12,6 +12,7 @@ import UserPage from "./components/userPage/UserPage";
 import MainPage from "./components/mainPage/MainPage";
 import CollectionPage from "./components/collection/CollectionPage";
 import ItemPage from "./components/item/ItemPage";
+import ItemsTable from "./components/userPage/tables/ItemsTable";
 import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
 
@@ -63,7 +64,15 @@ function App() {
                   <Route path="/" element={<MainPage />} />
                   <Route path="/collection:id" element={<CollectionPage />} />
                   <Route path="/collection/item:id" element={<ItemPage />} />
-                  {isAuth && <Route path="/userpage" element={<UserPage />} />}
+                  {isAuth && (
+                    <>
+                      <Route path="/userpage" element={<UserPage />} />
+                      <Route
+                        path="/userpage/collection:id"
+                        element={<ItemsTable />}
+                      />
+                    </>
+                  )}
                   <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
               </CSSTransition>

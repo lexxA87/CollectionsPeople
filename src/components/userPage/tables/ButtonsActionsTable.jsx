@@ -1,7 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-function ButtonsActionsTable({ object, setObject, setShowForm, deleteObject }) {
+function ButtonsActionsTable({
+  object,
+  setObject,
+  setShowForm,
+  deleteObject,
+  urlTo,
+}) {
+  const redirect = useNavigate();
+
   const editForm = () => {
     setObject(object);
     setShowForm(true);
@@ -15,6 +24,14 @@ function ButtonsActionsTable({ object, setObject, setShowForm, deleteObject }) {
 
   return (
     <div className="text-center">
+      <Button
+        size="sm"
+        variant="outline-info"
+        className="me-2"
+        onClick={() => redirect(`/userpage/${urlTo}${object._id}`)}
+      >
+        <i class="bi bi-info-square"></i> Info
+      </Button>
       <Button
         size="sm"
         variant="outline-success"
