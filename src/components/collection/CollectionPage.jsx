@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
 import Loading from "../helper/Loading";
 import MDEditor from "@uiw/react-md-editor";
-import { Card, ListGroup, Button } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 import CollectionPageHeader from "./CollectionPageHeader";
 
 function CollectionPage() {
@@ -72,13 +72,13 @@ function CollectionPage() {
               </Card.Text>
               <dl data-color-mode={isDarkTheme ? "dark" : "light"}>
                 <dt className="mb-3">Descripton:</dt>
-                <MDEditor.Markdown
-                  source={description}
-                  style={{ whiteSpace: "pre-wrap" }}
-                />
               </dl>
+              <MDEditor.Markdown
+                source={description}
+                style={{ whiteSpace: "pre-wrap" }}
+              />
 
-              <Card.Text>
+              <Card.Text className="mt-3">
                 <dl className="row">
                   <dt className="col-sm-3">Date of create:</dt>
                   <dd className="col-sm-9">{createdAtLocale}</dd>
@@ -87,7 +87,7 @@ function CollectionPage() {
                 </dl>
               </Card.Text>
               {items.length > 0 ? (
-                <Card.Text>
+                <Card.Text className="mb-3">
                   <dl>
                     <dt className="mb-3">{`Items (${items.length}):`}</dt>
                   </dl>
@@ -110,17 +110,10 @@ function CollectionPage() {
                   </ListGroup>
                 </Card.Text>
               ) : (
-                <div>
+                <div className="mb-3">
                   <Card.Text>
                     Unfortunately, there are no entries yet...
                   </Card.Text>
-                </div>
-              )}
-              {isAuth && (
-                <div className="my-3">
-                  <Button variant="outline-success">
-                    Add new <i className="bi bi-plus-square"></i>
-                  </Button>
                 </div>
               )}
             </Card.Body>
