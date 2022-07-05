@@ -1,4 +1,5 @@
 const ItemCollection = require("../models/ItemCollection");
+const Collection = require("../models/Collection");
 
 const handleError = (res, error) => {
   res.status(500).send(error.message);
@@ -16,14 +17,21 @@ const getItems = (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
-const postItem = (req, res) => {
+const postItem = async (req, res) => {
   const { title, author, collectionParent } = req.body;
 
-  const item = new ItemCollection({ title, author, collectionParent });
+  const collection = await Collection.findById(collectionParent);
+  console.log(collection);
+
+  const item = await new ItemCollection({ title, author, collectionParent });
 
   item
     .save()
-    .then((item) => res.status(200).json(item))
+    .then((item) => {
+      collection.items.push(item._id);
+      collection.save();
+      return res.status(200).json(item);
+    })
     .catch((error) => handleError(res, error));
 };
 
@@ -35,9 +43,15 @@ const putItem = (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
-const deleteItem = (req, res) => {
+const deleteItem = async (req, res) => {
+  // const collection = await Collection.findById(req.query.collID)
   ItemCollection.findByIdAndDelete(req.query.id)
-    .then(() => res.status(200).json(req.query.id))
+    .then(() => {
+      Collection.findByIdAndUpdate(req.query.collID, {
+        $pull: { items: req.query.id },
+      });
+      return res.status(200).json(req.query.id);
+    })
     .catch((error) => handleError(res, error));
 };
 
