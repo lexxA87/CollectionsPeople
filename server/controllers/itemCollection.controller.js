@@ -44,12 +44,12 @@ const putItem = (req, res) => {
 };
 
 const deleteItem = async (req, res) => {
-  // const collection = await Collection.findById(req.query.collID)
+  const collection = await Collection.findByIdAndUpdate(req.query.collID, {
+    $pull: { items: req.query.id },
+  });
   ItemCollection.findByIdAndDelete(req.query.id)
     .then(() => {
-      Collection.findByIdAndUpdate(req.query.collID, {
-        $pull: { items: req.query.id },
-      });
+      collection.save();
       return res.status(200).json(req.query.id);
     })
     .catch((error) => handleError(res, error));

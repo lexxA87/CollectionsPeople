@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useDarkTheme } from "../../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../../data/stores/useCurrentUserStore";
 import { getCollection } from "../../../api/collectionAPI";
+import { deleteItem } from "../../../api/itemsAPI";
 import { Button, Card } from "react-bootstrap";
 import ButtonsActionsTable from "./ButtonsActionsTable";
 import Table from "./Table";
@@ -34,10 +35,9 @@ function ItemsTable() {
   useEffect(() => {
     setCurrentCollection(collectionID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showItemForm]);
+  }, [showItemForm, item]);
 
-  const { title, theme, items, author, _id } = collection;
-  console.log(collection);
+  const { title, theme, items, author } = collection;
 
   const structureTable = [
     {
@@ -76,7 +76,7 @@ function ItemsTable() {
               setShowForm={setShowItemForm}
               object={row.original}
               setObject={setItem}
-              // deleteObject={deleteCollection}
+              deleteObject={deleteItemButton}
               urlTo=""
             />
           ),
@@ -94,6 +94,10 @@ function ItemsTable() {
     setShowItemForm(true);
   };
 
+  const deleteItemButton = async (id) => {
+    await deleteItem(id, collectionID);
+  };
+
   return isLoading ? (
     <Loading />
   ) : showItemForm ? (
@@ -103,7 +107,7 @@ function ItemsTable() {
       item={item}
       setItem={setItem}
       author={author._id}
-      collectionID={_id}
+      collectionID={collectionID}
       isPostItem={isPostItem}
       setIsPostItem={setIsPostItem}
     />

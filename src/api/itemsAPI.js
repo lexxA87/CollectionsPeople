@@ -16,4 +16,12 @@ export const putItem = async (item, id) => {
     .catch((error) => error.response.data.message);
 };
 
-// Dont forget collection ID for delete item!!!
+export const deleteItem = async (id, collID) => {
+  console.log(collID);
+  return await axios
+    .delete(
+      `${configData.BASE_URL}api/itemCollection?id=${id}&collID=${collID}`
+    )
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};
