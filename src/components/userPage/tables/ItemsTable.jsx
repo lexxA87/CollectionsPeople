@@ -8,13 +8,20 @@ import ButtonsActionsTable from "./ButtonsActionsTable";
 import Table from "./Table";
 import Loading from "../../helper/Loading";
 import CollectionPageHeader from "../../collection/CollectionPageHeader";
+import ItemForm from "../../forms/ItemForm";
 
 function ItemsTable() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const params = useParams();
   const [collection, setCollection] = useState({});
+  const [item, setItem] = useState({
+    title: "",
+    author: "",
+    collectionParent: "",
+  });
   const [isLoading, setLoading] = useState(true);
+  const [showItemForm, setShowItemForm] = useState(false);
   const collectionID = params.id;
 
   const setCurrentCollection = async (id) => {
@@ -26,9 +33,10 @@ function ItemsTable() {
   useEffect(() => {
     setCurrentCollection(collectionID);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [showItemForm]);
 
-  const { title, theme, items } = collection;
+  const { title, theme, items, author, _id } = collection;
+  console.log(collection);
 
   const structureTable = [
     {
@@ -80,10 +88,21 @@ function ItemsTable() {
   const columns = useMemo(() => structureTable, []);
   const data = useMemo(() => items, [items]);
 
-  const addNewItem = () => {};
+  const addNewItem = () => {
+    setShowItemForm(true);
+  };
 
   return isLoading ? (
     <Loading />
+  ) : showItemForm ? (
+    <ItemForm
+      setShow={setShowItemForm}
+      isDarkTheme={isDarkTheme}
+      item={item}
+      setItem={setItem}
+      author={author._id}
+      collectionID={_id}
+    />
   ) : (
     <>
       <Card

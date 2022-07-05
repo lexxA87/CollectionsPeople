@@ -1,23 +1,104 @@
-import React from "react";
-import { Button, Modal } from "react-bootstrap";
+import React, { useState } from "react";
+import { Formik } from "formik";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+import { postItem } from "../../api/itemsAPI";
+import { Button, Card, Form } from "react-bootstrap";
 
-function ItemForm({ show, setShow }) {
-  const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
+function ItemForm({
+  setShow,
+  isDarkTheme,
+  item,
+  setItem,
+  author,
+  collectionID,
+}) {
+  const [isLoading, setLoading] = useState(false);
+  const { t } = useTranslation();
+
+  const { title } = item;
+
+  const handleClose = () => {
+    setItem({
+      title: "",
+      author: "",
+      collectionParent: "",
+    });
+    setShow(false);
+  };
+
+  const itemFormSubmit = async (values) => {
+    setLoading(true);
+    console.log(values);
+    let res;
+    res = await postItem(values, collectionID, author);
+    if (res.title) {
+      handleClose();
+    }
+
+    setLoading(false);
+  };
+
+  Yup.setLocale({
+    mixed: {
+      required: "required",
+    },
+  });
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required(),
+  });
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>ItemForm</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+      <Card bg={isDarkTheme && "dark"} text={isDarkTheme && "light"}>
+        <Card.Header as="h5">Edit Item</Card.Header>
+        <Card.Body>
+          <Formik
+            onSubmit={itemFormSubmit}
+            validationSchema={validationSchema}
+            initialValues={{
+              title: title,
+            }}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              values,
+              errors,
+              setFieldValue,
+            }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="titleInput">
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    name="title"
+                    value={values.title}
+                    onChange={handleChange}
+                    isInvalid={!!errors.title}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {t(errors.title)}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Button variant="success" type="submit" disabled={isLoading}>
+                  Save
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Card.Body>
+        <Card.Footer className="justify-content-end hstack gap-3 mx-2">
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            disabled={isLoading}
+          >
             Close
           </Button>
-        </Modal.Footer>
-      </Modal>
+        </Card.Footer>
+      </Card>
     </>
   );
 }

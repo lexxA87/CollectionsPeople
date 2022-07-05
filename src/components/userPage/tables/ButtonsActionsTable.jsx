@@ -30,7 +30,7 @@ function ButtonsActionsTable({
         className="me-2"
         onClick={() => redirect(`/userpage/${urlTo}${object._id}`)}
       >
-        <i class="bi bi-info-square"></i> Info
+        <i className="bi bi-info-square"></i> Info
       </Button>
       <Button
         size="sm"
