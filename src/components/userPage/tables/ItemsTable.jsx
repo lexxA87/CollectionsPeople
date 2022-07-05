@@ -22,6 +22,7 @@ function ItemsTable() {
   });
   const [isLoading, setLoading] = useState(true);
   const [showItemForm, setShowItemForm] = useState(false);
+  const [isPostItem, setIsPostItem] = useState(false);
   const collectionID = params.id;
 
   const setCurrentCollection = async (id) => {
@@ -72,11 +73,11 @@ function ItemsTable() {
           accessor: "buttons",
           Cell: ({ row }) => (
             <ButtonsActionsTable
-            // setShowForm={setShowCollectionForm}
-            // object={row.original}
-            // setObject={setCollection}
-            // deleteObject={deleteCollection}
-            // urlTo="collection"
+              setShowForm={setShowItemForm}
+              object={row.original}
+              setObject={setItem}
+              // deleteObject={deleteCollection}
+              urlTo=""
             />
           ),
         },
@@ -89,6 +90,7 @@ function ItemsTable() {
   const data = useMemo(() => items, [items]);
 
   const addNewItem = () => {
+    setIsPostItem(true);
     setShowItemForm(true);
   };
 
@@ -102,6 +104,8 @@ function ItemsTable() {
       setItem={setItem}
       author={author._id}
       collectionID={_id}
+      isPostItem={isPostItem}
+      setIsPostItem={setIsPostItem}
     />
   ) : (
     <>

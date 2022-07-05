@@ -24,14 +24,16 @@ function ButtonsActionsTable({
 
   return (
     <div className="text-center">
-      <Button
-        size="sm"
-        variant="outline-info"
-        className="me-2"
-        onClick={() => redirect(`/userpage/${urlTo}${object._id}`)}
-      >
-        <i className="bi bi-info-square"></i> Info
-      </Button>
+      {urlTo === "collection" && (
+        <Button
+          size="sm"
+          variant="outline-info"
+          className="me-2"
+          onClick={() => redirect(`/userpage/${urlTo}${object._id}`)}
+        >
+          <i className="bi bi-info-square"></i> Info
+        </Button>
+      )}
       <Button
         size="sm"
         variant="outline-success"

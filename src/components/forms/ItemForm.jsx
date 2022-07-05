@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
-import { postItem } from "../../api/itemsAPI";
+import { postItem, putItem } from "../../api/itemsAPI";
 import { Button, Card, Form } from "react-bootstrap";
 
 function ItemForm({
@@ -12,11 +12,13 @@ function ItemForm({
   setItem,
   author,
   collectionID,
+  isPostItem,
+  setIsPostItem,
 }) {
   const [isLoading, setLoading] = useState(false);
   const { t } = useTranslation();
 
-  const { title } = item;
+  const { title, _id } = item;
 
   const handleClose = () => {
     setItem({
@@ -24,6 +26,7 @@ function ItemForm({
       author: "",
       collectionParent: "",
     });
+    setIsPostItem(false);
     setShow(false);
   };
 
@@ -31,7 +34,12 @@ function ItemForm({
     setLoading(true);
     console.log(values);
     let res;
-    res = await postItem(values, collectionID, author);
+    if (isPostItem) {
+      res = await postItem(values, collectionID, author);
+    } else {
+      res = await putItem(values, _id);
+    }
+
     if (res.title) {
       handleClose();
     }
