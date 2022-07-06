@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { CardGroup } from "react-bootstrap";
+import { useDarkTheme } from "../../data/stores/useDarkTheme";
+import { Tabs, Tab, Card, Row, Col } from "react-bootstrap";
 import CollectionCard from "../collection/CollectionCard";
 import { getCollectionsSort } from "../../api/collectionAPI";
 import { useCollectionsStore } from "../../data/stores/useCollectionsStore";
 import Loading from "../helper/Loading";
+import { Link } from "react-router-dom";
 
 function MainPageCollections() {
+  const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+
   const collectionsSort = useCollectionsStore((state) => state.collectionsSort);
   const setCollectionsSort = useCollectionsStore(
     (state) => state.setCollectionsSort
@@ -24,18 +28,58 @@ function MainPageCollections() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(collectionsSort);
-
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        <CardGroup>
-          {collectionsSort.map((collection) => (
-            <CollectionCard collection={collection} key={collection._id} />
-          ))}
-        </CardGroup>
+        <>
+          <Tabs
+            defaultActiveKey="contact"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            <Tab
+              eventKey="contact"
+              title="The bigest collections"
+              tabClassName={isDarkTheme ? "text-bg-dark" : ""}
+              disabled
+            >
+              <Row xs={1} md={3} className="g-4">
+                {collectionsSort.map((collection) => (
+                  <Col key={collection._id}>
+                    <CollectionCard collection={collection} />
+                  </Col>
+                ))}
+                <Col>
+                  <Card
+                    bg={isDarkTheme ? "dark" : "light"}
+                    text={isDarkTheme ? "white" : "dark"}
+                  >
+                    <Card.Img
+                      variant="top"
+                      src="/images/right-arrow.png"
+                      className="p-5"
+                    />
+                    <Card.Body>
+                      <Card.Title className="text-warning text-center">
+                        <Link
+                          to="/collections"
+                          style={{
+                            color: "inherit",
+                            textDecoration: "inherit",
+                          }}
+                        >
+                          View more...
+                        </Link>
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </Tab>
+          </Tabs>
+        </>
       )}
     </>
   );

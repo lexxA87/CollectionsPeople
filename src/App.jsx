@@ -13,6 +13,7 @@ import MainPage from "./components/mainPage/MainPage";
 import CollectionPage from "./components/collection/CollectionPage";
 import ItemPage from "./components/item/ItemPage";
 import ItemsTable from "./components/userPage/tables/ItemsTable";
+import CollectionsPage from "./components/collection/CollectionsPage";
 import SearchPage from "./components/searchResult/SearchPage";
 import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
@@ -63,6 +64,7 @@ function App() {
               <CSSTransition key={location.key} classNames="page" timeout={300}>
                 <Routes location={location}>
                   <Route path="/" element={<MainPage />} />
+                  <Route path="/collections" element={<CollectionsPage />} />
                   <Route path="/collection:id" element={<CollectionPage />} />
                   <Route path="/collection/item:id" element={<ItemPage />} />
                   {isAuth && (
