@@ -24,8 +24,6 @@ function MainPageTagsCloud() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(tags);
-
   const dataTags = tags.map((tag) => {
     return {
       value: tag.title,
