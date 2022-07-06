@@ -21,6 +21,16 @@ const getCollections = (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
+const getCollectionsSort = (req, res) => {
+  const { limit } = req.query;
+  Collection.find()
+    .sort({ items: -1 })
+    .limit(limit)
+    .populate("theme")
+    .then((cols) => res.status(200).json(cols))
+    .catch((error) => handleError(res, error));
+};
+
 const putCollection = (req, res) => {
   const { title, description, theme } = req.body;
   const { id } = req.query;
@@ -56,4 +66,5 @@ module.exports = {
   getCollections,
   putCollection,
   deleteCollection,
+  getCollectionsSort,
 };
