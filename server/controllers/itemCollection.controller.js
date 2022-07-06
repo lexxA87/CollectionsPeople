@@ -17,6 +17,18 @@ const getItems = (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
+const getItemsSort = (req, res) => {
+  const { limit } = req.query;
+  ItemCollection.find()
+    .sort({ $natural: -1 })
+    .limit(limit)
+    .populate("author", "name")
+    .populate("collectionParent", "title")
+    .populate("tags")
+    .then((items) => res.status(200).json(items))
+    .catch((error) => handleError(res, error));
+};
+
 const postItem = async (req, res) => {
   const { title, author, collectionParent } = req.body;
 
@@ -55,4 +67,11 @@ const deleteItem = async (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
-module.exports = { postItem, getItem, getItems, deleteItem, putItem };
+module.exports = {
+  postItem,
+  getItem,
+  getItems,
+  deleteItem,
+  putItem,
+  getItemsSort,
+};
