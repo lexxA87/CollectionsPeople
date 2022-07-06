@@ -1,9 +1,14 @@
 import React from "react";
+import MainPageCollections from "./MainPageCollections";
+import MainPageItems from "./MainPageItems";
+import MainPageTagsCloud from "./MainPageTagsCloud";
 
 function MainPage() {
   return (
     <>
-      <h1>MainPage</h1>
+      <MainPageTagsCloud />
+      <MainPageItems />
+      <MainPageCollections />
     </>
   );
 }
