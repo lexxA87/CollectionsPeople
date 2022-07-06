@@ -48,7 +48,7 @@ function CollectionCard({ item }) {
             <dt className="col-sm-4 col-md-6 col-lg-4">Tags</dt>
             <dd className="col-sm-8 col-md-6 col-lg-8">{tags.length}</dd>
             <dt className="col-sm-4 col-md-6 col-lg-4">Likes</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{likes.length}</dd>
+            <dd className="col-sm-8 col-md-6 col-lg-8">{likes}</dd>
             <dt className="col-sm-4 col-md-6 col-lg-4">Comments</dt>
             <dd className="col-sm-8 col-md-6 col-lg-8">{comments.length}</dd>
           </dl>

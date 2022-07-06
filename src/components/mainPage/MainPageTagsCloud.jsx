@@ -36,7 +36,7 @@ function MainPageTagsCloud() {
     <Card
       bg={isDarkTheme && "dark"}
       text={isDarkTheme && "light"}
-      className="text-center"
+      className="text-center mb-3"
     >
       <Card.Body>
         <TagCloud

@@ -16,6 +16,8 @@ function MainPageCollections() {
   );
   const [isLoading, setLoading] = useState(true);
 
+  console.log(collectionsSort);
+
   const getCollections = async () => {
     setLoading(true);
     const coll = await getCollectionsSort();
@@ -35,12 +37,12 @@ function MainPageCollections() {
       ) : (
         <>
           <Tabs
-            defaultActiveKey="contact"
-            id="uncontrolled-tab-example"
+            defaultActiveKey="collection"
+            id="tab_collection"
             className="mb-3"
           >
             <Tab
-              eventKey="contact"
+              eventKey="collection"
               title="The bigest collections"
               tabClassName={isDarkTheme ? "text-bg-dark" : ""}
               disabled

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 function CollectionCard({ collection }) {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  console.log(collection);
 
   const { title, theme, updatedAt, author, items, _id } = collection;
 
