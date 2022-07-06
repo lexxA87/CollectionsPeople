@@ -13,6 +13,7 @@ import MainPage from "./components/mainPage/MainPage";
 import CollectionPage from "./components/collection/CollectionPage";
 import ItemPage from "./components/item/ItemPage";
 import ItemsTable from "./components/userPage/tables/ItemsTable";
+import SearchPage from "./components/searchResult/SearchPage";
 import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
 
@@ -73,6 +74,7 @@ function App() {
                       />
                     </>
                   )}
+                  <Route path="/searchpage/tag:id" element={<SearchPage />} />
                   <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
               </CSSTransition>
