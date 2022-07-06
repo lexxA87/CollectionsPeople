@@ -1,4 +1,5 @@
 {
   "BASE_URL": "https://collections-people.herokuapp.com/",
-  "limitCollection": "5"
+  "LIMIT_COLLECTION": "5",
+  "LIMIT_ITEMS": "5"
 }

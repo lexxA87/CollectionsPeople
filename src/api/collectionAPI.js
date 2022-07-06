@@ -13,7 +13,7 @@ export const getCollections = async (userId) => {
 export const getCollectionsSort = async () => {
   return await axios
     .get(
-      `${configData.BASE_URL}api/collectionsSort?limit=${configData.limitCollection}`
+      `${configData.BASE_URL}api/collectionsSort?limit=${configData.LIMIT_COLLECTION}`
     )
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
