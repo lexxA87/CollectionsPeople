@@ -19,6 +19,7 @@ import Loading from "./components/helper/Loading";
 import { getThemes } from "./api/themesAPI";
 
 import "./App.css";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
@@ -81,6 +82,7 @@ function App() {
                 </Routes>
               </CSSTransition>
             </TransitionGroup>
+            <Footer />
           </Container>
         </Suspense>
       </LocaleContext.Provider>

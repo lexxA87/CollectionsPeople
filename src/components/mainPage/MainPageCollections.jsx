@@ -16,8 +16,6 @@ function MainPageCollections() {
   );
   const [isLoading, setLoading] = useState(true);
 
-  console.log(collectionsSort);
-
   const getCollections = async () => {
     setLoading(true);
     const coll = await getCollectionsSort();

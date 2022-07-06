@@ -5,11 +5,11 @@ import MainPageTagsCloud from "./MainPageTagsCloud";
 
 function MainPage() {
   return (
-    <>
+    <div className="mb-5">
       <MainPageTagsCloud />
       <MainPageItems />
       <MainPageCollections />
-    </>
+    </div>
   );
 }
 

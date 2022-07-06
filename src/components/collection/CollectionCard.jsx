@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 function CollectionCard({ collection }) {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
-  console.log(collection);
 
   const { title, theme, updatedAt, author, items, _id } = collection;
 
@@ -29,16 +28,15 @@ function CollectionCard({ collection }) {
             {title}
           </Link>
         </Card.Title>
-        <Card.Text>
-          <dl className="row">
-            <dt className="col-sm-4 col-md-6 col-lg-4">Author</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{author.name}</dd>
-            <dt className="col-sm-4 col-md-6 col-lg-4">Theme</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{theme.name}</dd>
-            <dt className="col-sm-4 col-md-6 col-lg-4">Items</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{items.length}</dd>
-          </dl>
-        </Card.Text>
+
+        <dl className="row">
+          <dt className="col-sm-4 col-md-6 col-lg-4">Author</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{author.name}</dd>
+          <dt className="col-sm-4 col-md-6 col-lg-4">Theme</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{theme.name}</dd>
+          <dt className="col-sm-4 col-md-6 col-lg-4">Items</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{items.length}</dd>
+        </dl>
       </Card.Body>
       <Card.Footer>
         <small>Last updated {updatedAtLocale}</small>

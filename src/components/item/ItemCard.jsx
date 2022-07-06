@@ -37,22 +37,21 @@ function CollectionCard({ item }) {
             {title}
           </Link>
         </Card.Title>
-        <Card.Text>
-          <dl className="row">
-            <dt className="col-sm-4 col-md-6 col-lg-4">Collection</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">
-              {collectionParent.title}
-            </dd>
-            <dt className="col-sm-4 col-md-6 col-lg-4">Author</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{author.name}</dd>
-            <dt className="col-sm-4 col-md-6 col-lg-4">Tags</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{tags.length}</dd>
-            <dt className="col-sm-4 col-md-6 col-lg-4">Likes</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{likes}</dd>
-            <dt className="col-sm-4 col-md-6 col-lg-4">Comments</dt>
-            <dd className="col-sm-8 col-md-6 col-lg-8">{comments.length}</dd>
-          </dl>
-        </Card.Text>
+
+        <dl className="row">
+          <dt className="col-sm-4 col-md-6 col-lg-4">Collection</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">
+            {collectionParent.title}
+          </dd>
+          <dt className="col-sm-4 col-md-6 col-lg-4">Author</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{author.name}</dd>
+          <dt className="col-sm-4 col-md-6 col-lg-4">Tags</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{tags.length}</dd>
+          <dt className="col-sm-4 col-md-6 col-lg-4">Likes</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{likes}</dd>
+          <dt className="col-sm-4 col-md-6 col-lg-4">Comments</dt>
+          <dd className="col-sm-8 col-md-6 col-lg-8">{comments.length}</dd>
+        </dl>
       </Card.Body>
       <Card.Footer>
         <small>Last updated {updatedAtLocale}</small>
