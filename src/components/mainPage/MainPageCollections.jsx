@@ -1,9 +1,11 @@
 import React from "react";
+import { CardGroup } from "react-bootstrap";
+import CollectionCard from "../collection/CollectionCard";
 
 function MainPageCollections() {
   return (
     <>
-      <div>The most collection 5</div>
+      <CardGroup></CardGroup>
     </>
   );
 }

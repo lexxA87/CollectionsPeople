@@ -35,8 +35,6 @@ function CollectionPage() {
   const createdAtLocale = createdAtDate.toLocaleDateString("en-US");
   const updatedAtLocale = updatedAtDate.toLocaleDateString("en-US");
 
-  console.log(collection);
-
   return isLoading ? (
     <Loading />
   ) : (
