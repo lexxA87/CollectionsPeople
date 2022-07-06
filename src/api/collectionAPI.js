@@ -10,6 +10,15 @@ export const getCollections = async (userId) => {
     .catch((error) => error.response.data.message);
 };
 
+export const getCollectionsSort = async () => {
+  return await axios
+    .get(
+      `${configData.BASE_URL}api/collectionsSort?limit=${configData.limitCollection}`
+    )
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};
+
 export const getCollection = async (id) => {
   return await axios
     .get(`${configData.BASE_URL}api/collection?id=${id}`)

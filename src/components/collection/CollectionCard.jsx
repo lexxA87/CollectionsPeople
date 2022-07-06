@@ -31,7 +31,7 @@ function CollectionCard({ collection }) {
         </Card.Text>
       </Card.Body>
       <Card.Footer>
-        <small className="text-muted">Last updated {updatedAtLocale}</small>
+        <small>Last updated {updatedAtLocale}</small>
       </Card.Footer>
     </Card>
   );

@@ -27,6 +27,7 @@ const getCollectionsSort = (req, res) => {
     .sort({ items: -1 })
     .limit(limit)
     .populate("theme")
+    .populate("author", "name")
     .then((cols) => res.status(200).json(cols))
     .catch((error) => handleError(res, error));
 };
