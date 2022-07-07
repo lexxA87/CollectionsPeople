@@ -6,8 +6,10 @@ import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { getCollections, deleteCollection } from "../../api/collectionAPI";
 import CollectionsTable from "./tables/CollectionsTable";
 import { Button } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import CollectionForm from "../forms/CollectionForm";
 import UserPageWelcome from "./UserPageWelcome";
+import Loading from "../helper/Loading";
 
 function UserPage() {
   const [showCollectionForm, setShowCollectionForm] = useState(false);
@@ -18,18 +20,22 @@ function UserPage() {
     _id: "",
   });
   const [isPostColl, setIsPostColl] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const currentUser = useCurrentUserStore((state) => state.currentUser);
   const setCollections = useCollectionsStore((state) => state.setCollections);
   const collections = useCollectionsStore((state) => state.collections);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const { t } = useTranslation();
   const redirect = useNavigate();
 
   const userId = currentUser.id;
   const { name } = currentUser;
 
   const getSetCollections = async (userId) => {
+    setIsLoading(true);
     const colls = await getCollections(userId);
     setCollections(colls);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -42,7 +48,9 @@ function UserPage() {
     setIsPostColl(true);
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <>
       <UserPageWelcome userName={name} />
       {!showCollectionForm ? (
@@ -52,10 +60,10 @@ function UserPage() {
             bg={isDarkTheme && "dark"}
           >
             <Button variant="success" onClick={() => redirect("/")}>
-              <i className="bi bi-arrow-up-square"></i> to main
+              <i className="bi bi-arrow-up-square"></i> {t("toMainPage")}
             </Button>
             <Button variant="success" onClick={addNewCollection}>
-              Add New <i className="bi bi-plus-square"></i>
+              {t("addNew")} <i className="bi bi-plus-square"></i>
             </Button>
           </div>
           {collections.length ? (
@@ -72,7 +80,7 @@ function UserPage() {
                 isDarkTheme ? "text-center text-info bg-dark" : "text-center"
               }
             >
-              You don't have any collections. Please, create it to press "NEW+"
+              {t("notCollectionsMessage")}
             </div>
           )}
         </>

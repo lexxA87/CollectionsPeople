@@ -1,9 +1,11 @@
 import React from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
+import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 
 function UserPageWelcome({ userName }) {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const { t } = useTranslation();
 
   return (
     <Card
@@ -13,12 +15,10 @@ function UserPageWelcome({ userName }) {
     >
       <Card.Body>
         <Card.Title>
-          Hey, nice to see you{" "}
+          {t("niceToSeeYou")}
           <span className="fw-bold lh-lg text-warning">{userName}</span>
         </Card.Title>
-        <Card.Text>
-          It's your home page. Here's all your collections. Good luck!
-        </Card.Text>
+        <Card.Text>{t("descUserPage")}</Card.Text>
       </Card.Body>
     </Card>
   );

@@ -13,5 +13,11 @@
   "required": "Required field",
   "invalid_email": "Invalid email address",
   "field_too_short": "Must be more",
-  "field_too_big": "Must be short"
+  "field_too_big": "Must be short",
+  "notCollectionsMessage": "You don't have any collections. Please, create it to press 'NEW+'",
+  "addNew": "Add New",
+  "toMainPage": "To Main",
+  "niceToSeeYou": "Hey, nice to see you ",
+  "descUserPage": "It's your home page. Here's all your collections. Good luck!",
+  "myCollections": "My collections"
 }
