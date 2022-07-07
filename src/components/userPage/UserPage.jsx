@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { useCollectionsStore } from "../../data/stores/useCollectionsStore";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
@@ -21,6 +22,7 @@ function UserPage() {
   const setCollections = useCollectionsStore((state) => state.setCollections);
   const collections = useCollectionsStore((state) => state.collections);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const redirect = useNavigate();
 
   const userId = currentUser.id;
   const { name } = currentUser;
@@ -46,9 +48,12 @@ function UserPage() {
       {!showCollectionForm ? (
         <>
           <div
-            className="justify-content-end hstack gap-3 my-3 mx-2"
+            className="justify-content-between hstack gap-3 my-3 mx-2"
             bg={isDarkTheme && "dark"}
           >
+            <Button variant="success" onClick={() => redirect("/")}>
+              <i className="bi bi-arrow-up-square"></i> to main
+            </Button>
             <Button variant="success" onClick={addNewCollection}>
               Add New <i className="bi bi-plus-square"></i>
             </Button>

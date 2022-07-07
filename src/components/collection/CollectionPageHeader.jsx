@@ -12,7 +12,7 @@ function CollectionPageHeader({ isAuth }) {
           className="me-3"
           onClick={() => redirect("/")}
         >
-          <i class="bi bi-arrow-up-square"></i> to main
+          <i className="bi bi-arrow-up-square"></i> to main
         </Button>
       </div>
       {isAuth && (
@@ -21,7 +21,7 @@ function CollectionPageHeader({ isAuth }) {
             variant="outline-success"
             onClick={() => redirect("/userpage")}
           >
-            <i class="bi bi-house-door"></i> Home
+            <i className="bi bi-house-door"></i> Home
           </Button>
         </div>
       )}
