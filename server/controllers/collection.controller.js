@@ -7,7 +7,7 @@ const handleError = (res, error) => {
 const getCollection = (req, res) => {
   Collection.findById(req.query.id)
     .populate("theme")
-    .populate("items", "title")
+    .populate("items")
     .populate("author", "name")
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
