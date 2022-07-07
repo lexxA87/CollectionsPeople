@@ -61,7 +61,7 @@ function CollectionForm({
   return (
     <>
       <Card bg={isDarkTheme && "dark"} text={isDarkTheme && "light"}>
-        <Card.Header as="h5">Edit Collection</Card.Header>
+        <Card.Header as="h5">{t("collection")}</Card.Header>
         <Card.Body>
           <Formik
             onSubmit={collectionSubmit}
@@ -81,7 +81,7 @@ function CollectionForm({
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="titleInput">
-                  <Form.Label>Title</Form.Label>
+                  <Form.Label>{t("title")}</Form.Label>
                   <Form.Control
                     name="title"
                     value={values.title}
@@ -98,7 +98,7 @@ function CollectionForm({
                   controlId="descriptionInput"
                   data-color-mode="light"
                 >
-                  <Form.Label>Description</Form.Label>
+                  <Form.Label>{t("description")}</Form.Label>
                   <MDEditor
                     value={values.description}
                     onChange={(content) =>
@@ -122,7 +122,7 @@ function CollectionForm({
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="themesSelect">
-                  <Form.Label>Theme</Form.Label>
+                  <Form.Label>{t("theme")}</Form.Label>
                   <Form.Select
                     aria-label="Default select"
                     name="theme"
@@ -140,7 +140,7 @@ function CollectionForm({
                 </Form.Group>
 
                 <Button variant="success" type="submit" disabled={isLoading}>
-                  Save
+                  {t("save")}
                 </Button>
               </Form>
             )}
@@ -152,7 +152,7 @@ function CollectionForm({
             onClick={handleClose}
             disabled={isLoading}
           >
-            Close
+            {t("close")}
           </Button>
         </Card.Footer>
       </Card>

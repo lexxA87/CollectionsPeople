@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
+import { useTranslation } from "react-i18next";
 import { Tabs, Tab, Card, Row, Col } from "react-bootstrap";
 import CollectionCard from "../collection/CollectionCard";
 import { getCollectionsSort } from "../../api/collectionAPI";
@@ -9,6 +10,7 @@ import { Link } from "react-router-dom";
 
 function MainPageCollections() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const { t } = useTranslation();
 
   const collectionsSort = useCollectionsStore((state) => state.collectionsSort);
   const setCollectionsSort = useCollectionsStore(
@@ -41,7 +43,7 @@ function MainPageCollections() {
           >
             <Tab
               eventKey="collection"
-              title="The bigest collections"
+              title={t("theBigestCollection")}
               tabClassName={isDarkTheme ? "text-bg-dark" : ""}
               disabled
             >
@@ -70,7 +72,7 @@ function MainPageCollections() {
                             textDecoration: "inherit",
                           }}
                         >
-                          View more...
+                          {t("viewMore")}
                         </Link>
                       </Card.Title>
                     </Card.Body>

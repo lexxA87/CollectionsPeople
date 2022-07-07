@@ -7,6 +7,7 @@
   "registration": "Registraton",
   "orGoTo": "Or go to ",
   "close": "Close",
+  "save": "Save",
   "email": "Email address",
   "name": "Name",
   "password": "Password",
@@ -19,5 +20,18 @@
   "toMainPage": "To Main",
   "niceToSeeYou": "Hey, nice to see you ",
   "descUserPage": "It's your home page. Here's all your collections. Good luck!",
-  "myCollections": "My collections"
+  "myCollections": "My collections",
+  "viewMore": "View More...",
+  "theLatestItem": "The latest items",
+  "theBigestCollection": "The bigest collections",
+  "lastUpdated": "Last updated",
+  "collection": "Collection",
+  "author": "Author",
+  "theme": "Theme",
+  "items": "Items",
+  "tags": "Tags",
+  "likes": "Likes",
+  "comments": "Comments",
+  "description": "Description",
+  "title": "Title"
 }

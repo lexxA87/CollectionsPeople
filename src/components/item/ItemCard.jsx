@@ -1,10 +1,12 @@
 import React from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
+import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function CollectionCard({ item }) {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const { t } = useTranslation();
 
   const {
     title,
@@ -39,22 +41,24 @@ function CollectionCard({ item }) {
         </Card.Title>
 
         <dl className="row">
-          <dt className="col-sm-4 col-md-6 col-lg-4">Collection</dt>
+          <dt className="col-sm-4 col-md-6 col-lg-4">{t("collection")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">
             {collectionParent.title}
           </dd>
-          <dt className="col-sm-4 col-md-6 col-lg-4">Author</dt>
+          <dt className="col-sm-4 col-md-6 col-lg-4">{t("author")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">{author.name}</dd>
-          <dt className="col-sm-4 col-md-6 col-lg-4">Tags</dt>
+          <dt className="col-sm-4 col-md-6 col-lg-4">{t("tags")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">{tags.length}</dd>
-          <dt className="col-sm-4 col-md-6 col-lg-4">Likes</dt>
+          <dt className="col-sm-4 col-md-6 col-lg-4">{t("likes")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">{likes}</dd>
-          <dt className="col-sm-4 col-md-6 col-lg-4">Comments</dt>
+          <dt className="col-sm-4 col-md-6 col-lg-4">{t("comments")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">{comments.length}</dd>
         </dl>
       </Card.Body>
       <Card.Footer>
-        <small>Last updated {updatedAtLocale}</small>
+        <small>
+          {t("lastUpdated")} {updatedAtLocale}
+        </small>
       </Card.Footer>
     </Card>
   );

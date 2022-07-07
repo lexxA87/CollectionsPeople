@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
+import { useTranslation } from "react-i18next";
 import { Tabs, Tab, Card, Row, Col } from "react-bootstrap";
 import ItemCard from "../item/ItemCard";
 import { getItemsSort } from "../../api/itemsAPI";
@@ -8,6 +9,7 @@ import { Link } from "react-router-dom";
 
 function MainPageCollections() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
+  const { t } = useTranslation();
 
   const [itemsSort, setItemsSort] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -33,7 +35,7 @@ function MainPageCollections() {
           <Tabs defaultActiveKey="items" id="tab_items" className="mb-3">
             <Tab
               eventKey="items"
-              title="The latest items"
+              title={t("theLatestItem")}
               tabClassName={isDarkTheme ? "text-bg-dark" : ""}
               disabled
             >
@@ -62,7 +64,7 @@ function MainPageCollections() {
                             textDecoration: "inherit",
                           }}
                         >
-                          View more...
+                          {t("viewMore")}
                         </Link>
                       </Card.Title>
                     </Card.Body>
