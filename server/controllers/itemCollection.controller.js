@@ -33,7 +33,6 @@ const postItem = async (req, res) => {
   const { title, author, collectionParent } = req.body;
 
   const collection = await Collection.findById(collectionParent);
-  console.log(collection);
 
   const item = await new ItemCollection({ title, author, collectionParent });
 
@@ -41,6 +40,7 @@ const postItem = async (req, res) => {
     .save()
     .then((item) => {
       collection.items.push(item._id);
+      collection.itemsCount++;
       collection.save();
       return res.status(200).json(item);
     })
@@ -61,6 +61,7 @@ const deleteItem = async (req, res) => {
   });
   ItemCollection.findByIdAndDelete(req.query.id)
     .then(() => {
+      collection.itemsCount--;
       collection.save();
       return res.status(200).json(req.query.id);
     })

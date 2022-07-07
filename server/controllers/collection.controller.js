@@ -7,7 +7,7 @@ const handleError = (res, error) => {
 const getCollection = (req, res) => {
   Collection.findById(req.query.id)
     .populate("theme")
-    .populate("items")
+    .populate("items", "title")
     .populate("author", "name")
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
@@ -24,7 +24,7 @@ const getCollections = (req, res) => {
 const getCollectionsSort = (req, res) => {
   const { limit } = req.query;
   Collection.find()
-    .sort()
+    .sort({ itemsCount: -1 })
     .limit(limit)
     .populate("theme")
     .populate("author", "name")

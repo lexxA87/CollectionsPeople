@@ -7,6 +7,7 @@ const Collection = new Schema(
     description: { type: String, required: true },
     theme: { type: ObjectId, ref: "Theme", required: true },
     author: { type: ObjectId, ref: "User", required: true },
+    itemsCount: { type: Number, default: 0 },
     items: [{ type: ObjectId, ref: "ItemCollection" }],
     // image: { type: ObjectId, ref: "Image" },
   },
