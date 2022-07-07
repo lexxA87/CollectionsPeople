@@ -24,7 +24,7 @@ const getCollections = (req, res) => {
 const getCollectionsSort = (req, res) => {
   const { limit } = req.query;
   Collection.find()
-    .sort({ items: -1 })
+    .sort()
     .limit(limit)
     .populate("theme")
     .populate("author", "name")

@@ -2,7 +2,6 @@ import React from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { Container } from "react-bootstrap";
 import configData from "../../data/config.json";
-import { Link } from "react-router-dom";
 
 function Footer() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);

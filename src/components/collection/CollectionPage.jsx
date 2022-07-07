@@ -60,14 +60,14 @@ function CollectionPage() {
               <Card.Title>
                 <h1 className="display-6 text-warning">{title}</h1>
               </Card.Title>
-              <Card.Text>
-                <dl className="row">
-                  <dt className="col-sm-3">Author</dt>
-                  <dd className="col-sm-9">{author.name}</dd>
-                  <dt className="col-sm-3">Theme</dt>
-                  <dd className="col-sm-9">{theme.name}</dd>
-                </dl>
-              </Card.Text>
+
+              <dl className="row">
+                <dt className="col-sm-3">Author</dt>
+                <dd className="col-sm-9">{author.name}</dd>
+                <dt className="col-sm-3">Theme</dt>
+                <dd className="col-sm-9">{theme.name}</dd>
+              </dl>
+
               <dl data-color-mode={isDarkTheme ? "dark" : "light"}>
                 <dt className="mb-3">Descripton:</dt>
               </dl>
@@ -76,16 +76,15 @@ function CollectionPage() {
                 style={{ whiteSpace: "pre-wrap" }}
               />
 
-              <Card.Text className="mt-3">
-                <dl className="row">
-                  <dt className="col-sm-3">Date of create:</dt>
-                  <dd className="col-sm-9">{createdAtLocale}</dd>
-                  <dt className="col-sm-3">Date of update:</dt>
-                  <dd className="col-sm-9">{updatedAtLocale}</dd>
-                </dl>
-              </Card.Text>
+              <dl className="row mt-3">
+                <dt className="col-sm-3">Date of create:</dt>
+                <dd className="col-sm-9">{createdAtLocale}</dd>
+                <dt className="col-sm-3">Date of update:</dt>
+                <dd className="col-sm-9">{updatedAtLocale}</dd>
+              </dl>
+
               {items.length > 0 ? (
-                <Card.Text className="mb-3">
+                <div className="mb-3">
                   <dl>
                     <dt className="mb-3">{`Items (${items.length}):`}</dt>
                   </dl>
@@ -106,7 +105,7 @@ function CollectionPage() {
                       );
                     })}
                   </ListGroup>
-                </Card.Text>
+                </div>
               ) : (
                 <div className="mb-3">
                   <Card.Text>
