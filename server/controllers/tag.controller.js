@@ -6,12 +6,22 @@ const handleError = (res, error) => {
 
 const getTag = (req, res) => {
   Tag.findById(req.query.id)
+    .populate("itemsCollection")
     .then((tag) => res.status(200).json(tag))
     .catch((error) => handleError(res, error));
 };
 
 const getTags = (req, res) => {
   Tag.find()
+    .then((tags) => res.status(200).json(tags))
+    .catch((error) => handleError(res, error));
+};
+
+const getTagsForCloud = (req, res) => {
+  const { limit } = req.query;
+  Tag.find()
+    .sort({ itemCollectionCount: -1 })
+    .limit(limit)
     .then((tags) => res.status(200).json(tags))
     .catch((error) => handleError(res, error));
 };
@@ -48,4 +58,5 @@ module.exports = {
   getTags,
   putTag,
   deleteTag,
+  getTagsForCloud,
 };
