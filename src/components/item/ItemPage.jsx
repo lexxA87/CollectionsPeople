@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getItem } from "../../api/itemsAPI";
 import Loading from "../helper/Loading";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import CollectionPageHeader from "../collection/CollectionPageHeader";
+import Comment from "./Comment";
 
 function ItemPage() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const params = useParams();
-  const redirect = useNavigate();
   const [item, setItem] = useState({});
   const [isLoading, setLoading] = useState(true);
   const itemID = params.id;
@@ -37,6 +37,7 @@ function ItemPage() {
     tags,
     comments,
   } = item;
+
   const createdAtDate = new Date(createdAt);
   const updatedAtDate = new Date(updatedAt);
   const createdAtLocale = createdAtDate.toLocaleDateString("en-US");
@@ -68,50 +69,45 @@ function ItemPage() {
                 <h1 className="display-6 text-warning">{title}</h1>
               </Card.Title>
 
-              <dl className="row">
+              <dl className="row mb-3">
                 <dt className="col-sm-3">Collection</dt>
-                <dd className="col-sm-9">{collectionParent.name}</dd>
+                <dd className="col-sm-9">{collectionParent.title}</dd>
                 <dt className="col-sm-3">Author</dt>
                 <dd className="col-sm-9">{author.name}</dd>
                 <dt className="col-sm-3">Likes</dt>
-                <dd className="col-sm-9">{likes.length}</dd>
-              </dl>
-
-              <dl className="row mt-3">
+                <dd className="col-sm-9">{likes}</dd>
                 <dt className="col-sm-3">Date of create:</dt>
                 <dd className="col-sm-9">{createdAtLocale}</dd>
                 <dt className="col-sm-3">Date of update:</dt>
                 <dd className="col-sm-9">{updatedAtLocale}</dd>
+                <dt className="col-sm-3">Tags</dt>
+                <dd className="col-sm-9">
+                  {tags.length ? (
+                    tags.map((tag) => {
+                      return (
+                        <p>
+                          <Link to={`/searchpage/tag${tag._id}`}>
+                            {tag.title}
+                          </Link>
+                        </p>
+                      );
+                    })
+                  ) : (
+                    <span>No tags yet...</span>
+                  )}
+                </dd>
               </dl>
 
-              {tags.length > 0 ? (
-                <div className="mb-3">
-                  {/* <dl>
-                    <dt className="mb-3">{`Items (${items.length}):`}</dt>
-                  </dl>
-                  <ListGroup>
-                    {items.map((item) => {
-                      return (
-                        <ListGroup.Item
-                          onClick={() =>
-                            redirect(`/collection/item${item._id}`)
-                          }
-                          key={item._id}
-                          action
-                          variant="dark"
-                          className="text-success"
-                        >
-                          <b>{item.title}</b>
-                        </ListGroup.Item>
-                      );
-                    })}
-                  </ListGroup> */}
-                </div>
+              <dl className="row">
+                <dt className="col-sm-3">Comments</dt>
+              </dl>
+              {comments.length ? (
+                comments.map((comment) => {
+                  return <Comment comment={comment} />;
+                })
               ) : (
                 <div className="mb-3">
-                  <Card.Text>
-                    Unfortunately, there are no entries yet...
-                  </Card.Text>
+                  <Card.Text>No comments yet...</Card.Text>
                 </div>
               )}
             </Card.Body>
