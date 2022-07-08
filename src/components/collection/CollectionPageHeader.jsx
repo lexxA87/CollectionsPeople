@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "react-bootstrap";
 
 function CollectionPageHeader({ isAuth }) {
+  const { t } = useTranslation();
   const redirect = useNavigate();
   return (
     <div className="row mt-2">
@@ -12,7 +14,7 @@ function CollectionPageHeader({ isAuth }) {
           className="me-3"
           onClick={() => redirect("/")}
         >
-          <i className="bi bi-arrow-up-square"></i> to main
+          <i className="bi bi-arrow-up-square"></i> {t("toMainPage")}
         </Button>
       </div>
       {isAuth && (
@@ -21,7 +23,7 @@ function CollectionPageHeader({ isAuth }) {
             variant="outline-success"
             onClick={() => redirect("/userpage")}
           >
-            <i className="bi bi-house-door"></i> Home
+            <i className="bi bi-house-door"></i> {t("toHomePage")}
           </Button>
         </div>
       )}

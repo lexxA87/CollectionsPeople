@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useDarkTheme } from "../../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../../data/stores/useCurrentUserStore";
 import { getCollection } from "../../../api/collectionAPI";
@@ -14,6 +15,7 @@ import ItemForm from "../../forms/ItemForm";
 function ItemsTable() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const isAuth = useCurrentUserStore((state) => state.isAuth);
+  const { t } = useTranslation();
   const params = useParams();
   const [collection, setCollection] = useState({});
   const [item, setItem] = useState({
@@ -136,7 +138,7 @@ function ItemsTable() {
               </Card.Title>
               <Card.Text>
                 <dl className="row">
-                  <dt className="col-sm-3">Theme</dt>
+                  <dt className="col-sm-3">{t("theme")}</dt>
                   <dd className="col-sm-9">{theme.name}</dd>
                 </dl>
               </Card.Text>
@@ -149,7 +151,7 @@ function ItemsTable() {
         bg={isDarkTheme && "dark"}
       >
         <Button variant="success" onClick={addNewItem}>
-          Add New <i className="bi bi-plus-square"></i>
+          {t("addNew")} <i className="bi bi-plus-square"></i>
         </Button>
       </div>
       <Table columns={columns} data={data} isDarkTheme={isDarkTheme} />

@@ -60,7 +60,7 @@ function ItemForm({
   return (
     <>
       <Card bg={isDarkTheme && "dark"} text={isDarkTheme && "light"}>
-        <Card.Header as="h5">Edit Item</Card.Header>
+        <Card.Header as="h5">{t("item")}</Card.Header>
         <Card.Body>
           <Formik
             onSubmit={itemFormSubmit}
@@ -78,7 +78,7 @@ function ItemForm({
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="titleInput">
-                  <Form.Label>Title</Form.Label>
+                  <Form.Label>{t("title")}</Form.Label>
                   <Form.Control
                     name="title"
                     value={values.title}
@@ -91,7 +91,7 @@ function ItemForm({
                 </Form.Group>
 
                 <Button variant="success" type="submit" disabled={isLoading}>
-                  Save
+                  {t("save")}
                 </Button>
               </Form>
             )}
@@ -103,7 +103,7 @@ function ItemForm({
             onClick={handleClose}
             disabled={isLoading}
           >
-            Close
+            {t("close")}
           </Button>
         </Card.Footer>
       </Card>
