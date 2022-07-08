@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
+import { Typeahead } from "react-bootstrap-typeahead";
+import { useTagsStore } from "../../data/stores/useTagsStore";
 import { postItem, putItem } from "../../api/itemsAPI";
 import { Button, Card, Form } from "react-bootstrap";
+
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import "react-bootstrap-typeahead/css/Typeahead.bs5.css";
 
 function ItemForm({
   setShow,
@@ -16,7 +21,12 @@ function ItemForm({
   setIsPostItem,
 }) {
   const [isLoading, setLoading] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const tagsCloud = useTagsStore((state) => state.tags);
+
   const { t } = useTranslation();
+
+  console.log(item);
 
   const { title, _id } = item;
 
@@ -32,6 +42,7 @@ function ItemForm({
 
   const itemFormSubmit = async (values) => {
     setLoading(true);
+    console.log(selectedTags);
     console.log(values);
     let res;
     if (isPostItem) {
@@ -75,6 +86,8 @@ function ItemForm({
               values,
               errors,
               setFieldValue,
+              touched,
+              setFieldTouched,
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="titleInput">
@@ -88,6 +101,22 @@ function ItemForm({
                   <Form.Control.Feedback type="invalid">
                     {t(errors.title)}
                   </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Tags</Form.Label>
+
+                  <Typeahead
+                    id="basic-typeahead-multiple"
+                    labelKey="title"
+                    multiple
+                    onChange={setSelectedTags}
+                    // onChange={handleChange}
+                    // onInputChange={(content) => setFieldValue("tags", content)}
+                    options={tagsCloud}
+                    placeholder="Add tags..."
+                    selected={selectedTags}
+                  />
                 </Form.Group>
 
                 <Button variant="success" type="submit" disabled={isLoading}>

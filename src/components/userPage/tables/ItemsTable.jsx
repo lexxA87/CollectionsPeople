@@ -136,12 +136,11 @@ function ItemsTable() {
               <Card.Title>
                 <h1 className="display-6 text-warning">{title}</h1>
               </Card.Title>
-              <Card.Text>
-                <dl className="row">
-                  <dt className="col-sm-3">{t("theme")}</dt>
-                  <dd className="col-sm-9">{theme.name}</dd>
-                </dl>
-              </Card.Text>
+
+              <dl className="row">
+                <dt className="col-sm-3">{t("theme")}</dt>
+                <dd className="col-sm-9">{theme.name}</dd>
+              </dl>
             </Card.Body>
           </div>
         </div>

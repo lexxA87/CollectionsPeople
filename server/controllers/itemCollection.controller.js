@@ -7,6 +7,7 @@ const handleError = (res, error) => {
 
 const getItem = (req, res) => {
   ItemCollection.findById(req.query.id)
+    .populate("tags")
     .then((item) => res.status(200).json(item))
     .catch((error) => handleError(res, error));
 };
