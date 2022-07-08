@@ -31,9 +31,10 @@
   "author": "Автор",
   "theme": "Тема",
   "items": "Экземп.",
-  "tags": "Tags",
+  "tags": "Тэги",
   "likes": "Likes",
   "comments": "Коммент.",
   "description": "Описание",
-  "title": "Название"
+  "title": "Название",
+  "addTags": "Добавить тэги..."
 }

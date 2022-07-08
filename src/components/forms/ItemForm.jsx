@@ -40,8 +40,6 @@ function ItemForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(item);
-
   const { title, _id } = item;
 
   const handleClose = () => {
@@ -55,11 +53,9 @@ function ItemForm({
 
   const itemFormSubmit = async (values) => {
     setLoading(true);
-    console.log(selectedTags);
     const tags = selectedTags.map((t) => {
       return t._id;
     });
-    console.log(values);
     let res;
     if (isPostItem) {
       res = await postItem(values, collectionID, author, tags);
@@ -119,8 +115,8 @@ function ItemForm({
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Tags</Form.Label>
+                <Form.Group className="mb-5">
+                  <Form.Label>{t("tags")}</Form.Label>
 
                   <Typeahead
                     id="basic-typeahead-multiple"
@@ -130,7 +126,7 @@ function ItemForm({
                     // onChange={handleChange}
                     // onInputChange={(content) => setFieldValue("tags", content)}
                     options={tagsCloud}
-                    placeholder="Add tags..."
+                    placeholder={t("addTags")}
                     selected={selectedTags}
                   />
                 </Form.Group>

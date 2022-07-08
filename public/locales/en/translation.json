@@ -35,5 +35,6 @@
   "likes": "Likes",
   "comments": "Comments",
   "description": "Description",
-  "title": "Title"
+  "title": "Title",
+  "addTags": "Add tags..."
 }
