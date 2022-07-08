@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getItem } from "../../api/itemsAPI";
 import { Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
@@ -15,16 +16,29 @@ function ItemForm({
   isDarkTheme,
   item,
   setItem,
-  author,
-  collectionID,
   isPostItem,
   setIsPostItem,
+  collectionID,
+  author,
 }) {
   const [isLoading, setLoading] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const tagsCloud = useTagsStore((state) => state.tags);
 
   const { t } = useTranslation();
+
+  const getItemForForm = async () => {
+    if (item._id) {
+      const i = await getItem(item._id);
+      setItem(i);
+      setSelectedTags(i.tags);
+    }
+  };
+
+  useEffect(() => {
+    getItemForForm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   console.log(item);
 
@@ -33,8 +47,7 @@ function ItemForm({
   const handleClose = () => {
     setItem({
       title: "",
-      author: "",
-      collectionParent: "",
+      _id: "",
     });
     setIsPostItem(false);
     setShow(false);
@@ -43,12 +56,15 @@ function ItemForm({
   const itemFormSubmit = async (values) => {
     setLoading(true);
     console.log(selectedTags);
+    const tags = selectedTags.map((t) => {
+      return t._id;
+    });
     console.log(values);
     let res;
     if (isPostItem) {
-      res = await postItem(values, collectionID, author);
+      res = await postItem(values, collectionID, author, tags);
     } else {
-      res = await putItem(values, _id);
+      res = await putItem(values, _id, tags);
     }
 
     if (res.title) {

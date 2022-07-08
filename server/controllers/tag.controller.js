@@ -19,7 +19,6 @@ const getTags = (req, res) => {
 const getTagsForCloud = (req, res) => {
   const { limit } = req.query;
   Tag.find()
-    .sort({ itemCollectionCount: -1 })
     .limit(limit)
     .then((tags) => res.status(200).json(tags))
     .catch((error) => handleError(res, error));

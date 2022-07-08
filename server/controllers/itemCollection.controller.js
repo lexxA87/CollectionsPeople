@@ -31,11 +31,16 @@ const getItemsSort = (req, res) => {
 };
 
 const postItem = async (req, res) => {
-  const { title, author, collectionParent } = req.body;
+  const { title, author, collectionParent, tags } = req.body;
 
   const collection = await Collection.findById(collectionParent);
 
-  const item = await new ItemCollection({ title, author, collectionParent });
+  const item = await new ItemCollection({
+    title,
+    author,
+    collectionParent,
+    tags,
+  });
 
   item
     .save()
@@ -49,9 +54,9 @@ const postItem = async (req, res) => {
 };
 
 const putItem = (req, res) => {
-  const { title } = req.body;
+  const { title, tags } = req.body;
   const { id } = req.query;
-  ItemCollection.findByIdAndUpdate(id, { title }, { new: true })
+  ItemCollection.findByIdAndUpdate(id, { title, tags }, { new: true })
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
 };

@@ -20,8 +20,7 @@ function ItemsTable() {
   const [collection, setCollection] = useState({});
   const [item, setItem] = useState({
     title: "",
-    author: "",
-    collectionParent: "",
+    _id: "",
   });
   const [isLoading, setLoading] = useState(true);
   const [showItemForm, setShowItemForm] = useState(false);
@@ -108,10 +107,10 @@ function ItemsTable() {
       isDarkTheme={isDarkTheme}
       item={item}
       setItem={setItem}
-      author={author._id}
-      collectionID={collectionID}
       isPostItem={isPostItem}
       setIsPostItem={setIsPostItem}
+      author={author}
+      collectionID={collectionID}
     />
   ) : (
     <>
