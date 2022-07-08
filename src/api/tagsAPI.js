@@ -7,3 +7,10 @@ export const getTags = async () => {
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
 };
+
+export const getTagsCloud = async () => {
+  return await axios
+    .get(`${configData.BASE_URL}api/tagsCloud?limit=${configData.LIMIT_TAGS}`)
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};

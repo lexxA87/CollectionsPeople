@@ -3,20 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { TagCloud } from "react-tagcloud";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useTagsStore } from "../../data/stores/useTagsStore";
-import { getTags } from "../../api/tagsAPI";
+import { getTagsCloud } from "../../api/tagsAPI";
 import { Card } from "react-bootstrap";
 
 import "./MainPage.css";
 
 function MainPageTagsCloud() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
-  const tags = useTagsStore((state) => state.tags);
-  const setTags = useTagsStore((state) => state.setTags);
+  const tagsCloud = useTagsStore((state) => state.tags);
+  const setTagsCloud = useTagsStore((state) => state.setTags);
   const redirect = useNavigate();
 
   const getAllTags = async () => {
-    const tags = await getTags();
-    setTags(tags);
+    const tags = await getTagsCloud();
+    setTagsCloud(tags);
   };
 
   useEffect(() => {
@@ -24,10 +24,10 @@ function MainPageTagsCloud() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dataTags = tags.map((tag) => {
+  const dataTags = tagsCloud.map((tag) => {
     return {
       value: tag.title,
-      count: tag.itemsCollection.length,
+      count: tag.itemCollectionCount,
       key: tag._id,
     };
   });

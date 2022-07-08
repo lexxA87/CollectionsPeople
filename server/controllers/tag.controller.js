@@ -6,7 +6,6 @@ const handleError = (res, error) => {
 
 const getTag = (req, res) => {
   Tag.findById(req.query.id)
-    .populate("itemsCollection")
     .then((tag) => res.status(200).json(tag))
     .catch((error) => handleError(res, error));
 };
