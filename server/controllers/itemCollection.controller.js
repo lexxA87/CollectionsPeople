@@ -34,9 +34,22 @@ const getItemsSort = (req, res) => {
 
 const getItemsSortByTag = (req, res) => {
   const { id } = req.query;
-  console.log(id);
   ItemCollection.find({ tags: id })
     .sort({ $natural: -1 })
+    .populate("author", "name")
+    .populate("collectionParent", "title")
+    .populate("tags")
+    .then((items) => res.status(200).json(items))
+    .catch((error) => handleError(res, error));
+};
+
+const getItemsSearch = (req, res) => {
+  const { text } = req.query;
+  ItemCollection.find(
+    { $text: { $search: text } },
+    { score: { $meta: "textScore" } }
+  )
+    .sort({ score: { $meta: "textScore" } })
     .populate("author", "name")
     .populate("collectionParent", "title")
     .populate("tags")
@@ -96,4 +109,5 @@ module.exports = {
   putItem,
   getItemsSort,
   getItemsSortByTag,
+  getItemsSearch,
 };

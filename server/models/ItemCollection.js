@@ -13,4 +13,6 @@ const ItemCollection = new Schema(
   { timestamps: true }
 );
 
+ItemCollection.index({ "$**": "text" });
+
 module.exports = model("ItemCollection", ItemCollection);
