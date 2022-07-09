@@ -1,11 +1,11 @@
 import React from "react";
 import { Figure } from "react-bootstrap";
 
-function CollectionsPage() {
+function ItemsPage() {
   return (
     <>
       <div className="text-center">
-        <h1 className="display-6 text-warning">All Collections Page</h1>
+        <h1 className="display-6 text-warning">All Items Page</h1>
       </div>
       <div className="text-center">
         <Figure>
@@ -24,4 +24,4 @@ function CollectionsPage() {
   );
 }
 
-export default CollectionsPage;
+export default ItemsPage;

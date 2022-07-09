@@ -20,6 +20,7 @@ import { getThemes } from "./api/themesAPI";
 
 import "./App.css";
 import Footer from "./components/footer/Footer";
+import ItemsPage from "./components/item/ItemsPage";
 
 function App() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
@@ -66,6 +67,7 @@ function App() {
                 <Routes location={location}>
                   <Route path="/" element={<MainPage />} />
                   <Route path="/collections" element={<CollectionsPage />} />
+                  <Route path="/items" element={<ItemsPage />} />
                   <Route path="/collection:id" element={<CollectionPage />} />
                   <Route path="/collection/item:id" element={<ItemPage />} />
                   {isAuth && (

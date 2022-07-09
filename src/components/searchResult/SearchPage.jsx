@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getItemsSortByTag } from "../../api/itemsAPI";
 import Loading from "../helper/Loading";
 import ItemCard from "../item/ItemCard";
-import { Link, useParams } from "react-router-dom";
-import { Tabs, Tab, Card, Row, Col } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Figure, Card, Row, Col } from "react-bootstrap";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import CollectionPageHeader from "../collection/CollectionPageHeader";
@@ -54,7 +54,19 @@ function SearchPage() {
           </Row>
         </>
       ) : (
-        <h1>Not found...</h1>
+        <div className="text-center">
+          <Figure>
+            <Figure.Image
+              width={300}
+              height={300}
+              alt="Not Found"
+              src="/images/noSearchResult.jpg"
+            />
+            <Figure.Caption>
+              <h1 className="display-6 text-warning">Not Found...</h1>
+            </Figure.Caption>
+          </Figure>
+        </div>
       )}
     </>
   );
