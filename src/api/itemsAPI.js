@@ -35,9 +35,9 @@ export const getItemsSort = async () => {
     .catch((error) => error.response.data.message);
 };
 
-export const getItemsSortByTag = async () => {
+export const getItemsSortByTag = async (id) => {
   return await axios
-    .get(`${configData.BASE_URL}api/itemCollectionsSort`)
+    .get(`${configData.BASE_URL}api/itemCollectionsSortByTag?id=${id}`)
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
 };
