@@ -3,19 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { TagCloud } from "react-tagcloud";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useTagsStore } from "../../data/stores/useTagsStore";
-import { getTagsCloud } from "../../api/tagsAPI";
+import { getTags, getTagsCloud } from "../../api/tagsAPI";
 import { Card } from "react-bootstrap";
 
 import "./MainPage.css";
 
 function MainPageTagsCloud() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
-  const tagsCloud = useTagsStore((state) => state.tags);
-  const setTagsCloud = useTagsStore((state) => state.setTags);
+  const tagsCloud = useTagsStore((state) => state.tagsCloud);
+  const setTagsCloud = useTagsStore((state) => state.setTagsCloud);
+  const setTags = useTagsStore((state) => state.setTags);
   const redirect = useNavigate();
 
   const getAllTags = async () => {
+    const tagsMain = await getTags();
     const tags = await getTagsCloud();
+    setTags(tagsMain);
     setTagsCloud(tags);
   };
 

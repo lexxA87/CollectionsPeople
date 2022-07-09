@@ -10,7 +10,7 @@ export const useTagsStore = create((set) => ({
   },
   setTagsCloud: (tags) => {
     set({
-      tags: [...tags],
+      tagsCloud: [...tags],
     });
   },
 }));

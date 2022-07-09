@@ -23,7 +23,7 @@ function ItemForm({
 }) {
   const [isLoading, setLoading] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const tagsCloud = useTagsStore((state) => state.tags);
+  const tags = useTagsStore((state) => state.tags);
 
   const { t } = useTranslation();
 
@@ -125,7 +125,7 @@ function ItemForm({
                     onChange={setSelectedTags}
                     // onChange={handleChange}
                     // onInputChange={(content) => setFieldValue("tags", content)}
-                    options={tagsCloud}
+                    options={tags}
                     placeholder={t("addTags")}
                     selected={selectedTags}
                   />
