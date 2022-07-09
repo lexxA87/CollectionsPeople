@@ -21,6 +21,7 @@ import { getThemes } from "./api/themesAPI";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import ItemsPage from "./components/item/ItemsPage";
+import SearchPageBy from "./components/searchResult/SearchPageBy";
 
 function App() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
@@ -80,6 +81,10 @@ function App() {
                     </>
                   )}
                   <Route path="/searchpage/tag:id" element={<SearchPage />} />
+                  <Route
+                    path="/searchpage/search:text"
+                    element={<SearchPageBy />}
+                  />
                   <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
               </CSSTransition>

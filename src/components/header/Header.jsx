@@ -4,7 +4,6 @@ import {
   Navbar,
   Container,
   Form,
-  FormControl,
   Button,
   ToggleButtonGroup,
   ToggleButton,
@@ -18,6 +17,7 @@ import { userAuth } from "../../api/userAPI.js";
 import { useTranslation } from "react-i18next";
 import LocaleContext from "../../data/configLang/LocaleContext";
 import i18n from "../../data/configLang/i18n";
+import SearchForm from "../forms/SearchForm";
 
 function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -77,15 +77,7 @@ function Header() {
         </NavLink>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" className="row">
-          <Form className="d-flex mx-auto my-3 col-lg-4">
-            <FormControl
-              type="search"
-              placeholder={t("search")}
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">{t("search")}</Button>
-          </Form>
+          <SearchForm />
 
           <Form className="d-flex mx-auto my-3 col-lg-3 justify-content-center">
             <Form.Switch

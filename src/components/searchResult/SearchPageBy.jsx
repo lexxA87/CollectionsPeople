@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getItemsSortByTag } from "../../api/itemsAPI";
+import { getItemsSearch } from "../../api/itemsAPI";
 import Loading from "../helper/Loading";
 import ItemCard from "../item/ItemCard";
 import { useParams } from "react-router-dom";
@@ -9,23 +9,23 @@ import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import CollectionPageHeader from "../collection/CollectionPageHeader";
 import NotFound from "../helper/NotFound";
 
-function SearchPage() {
+function SearchPageBy() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const [isLoading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
 
   const params = useParams();
-  const tagID = params.id;
+  const text = params.text;
 
-  const getItems = async (id) => {
-    const items = await getItemsSortByTag(id);
+  const getItems = async (text) => {
+    const items = await getItemsSearch(text);
     setItems(items);
     setLoading(false);
   };
 
   useEffect(() => {
-    getItems(tagID);
+    getItems(text);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,4 +59,4 @@ function SearchPage() {
   );
 }
 
-export default SearchPage;
+export default SearchPageBy;
