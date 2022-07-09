@@ -35,6 +35,13 @@ export const getItemsSort = async () => {
     .catch((error) => error.response.data.message);
 };
 
+export const getItemsSortByTag = async () => {
+  return await axios
+    .get(`${configData.BASE_URL}api/itemCollectionsSort`)
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};
+
 export const getItems = async () => {
   return await axios
     .get(`${configData.BASE_URL}api/itemCollections`)
