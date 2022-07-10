@@ -15,7 +15,6 @@ const PORT = process.env.PORT || config.get("serverPort");
 const DB_URL = config.get("MongoDBUrl");
 
 const app = express();
-
 app.use(express.json());
 app.use(cors());
 
