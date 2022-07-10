@@ -8,18 +8,22 @@ import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import CollectionPageHeader from "../collection/CollectionPageHeader";
 import NotFound from "../helper/NotFound";
+import { getTag } from "../../api/tagsAPI";
 
 function SearchPage() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const [isLoading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
+  const [tag, setTag] = useState({});
 
   const params = useParams();
   const tagID = params.id;
 
   const getItems = async (id) => {
     const items = await getItemsSortByTag(id);
+    const tag = await getTag(id);
+    setTag(tag);
     setItems(items);
     setLoading(false);
   };
@@ -40,6 +44,9 @@ function SearchPage() {
       >
         <Card.Header>
           <CollectionPageHeader isAuth={isAuth} />
+          <div className="mt-3">
+            Search by tag: <b>{tag.title}</b>
+          </div>
         </Card.Header>
       </Card>
       {items.length ? (

@@ -14,3 +14,10 @@ export const getTagsCloud = async () => {
     .then((res) => res.data)
     .catch((error) => error.response.data.message);
 };
+
+export const getTag = async (id) => {
+  return await axios
+    .get(`${configData.BASE_URL}api/tag?id=${id}`)
+    .then((res) => res.data)
+    .catch((error) => error.response.data.message);
+};

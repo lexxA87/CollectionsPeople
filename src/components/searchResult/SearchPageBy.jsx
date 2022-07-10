@@ -40,6 +40,9 @@ function SearchPageBy() {
       >
         <Card.Header>
           <CollectionPageHeader isAuth={isAuth} />
+          <div className="mt-3">
+            Search by text: <b>{text}</b>
+          </div>
         </Card.Header>
       </Card>
       {items.length ? (
