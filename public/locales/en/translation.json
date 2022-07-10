@@ -1,4 +1,5 @@
 {
+  "timeFormat": "en-US",
   "search": "Search",
   "darkTheme": "Dark Theme",
   "greeting": "Welcome",
@@ -26,6 +27,7 @@
   "theLatestItem": "The latest items",
   "theBigestCollection": "The bigest collections",
   "lastUpdated": "Last updated",
+  "dateOfCreate": "Date of create",
   "collection": "Collection",
   "item": "Item",
   "author": "Author",
@@ -36,5 +38,9 @@
   "comments": "Comments",
   "description": "Description",
   "title": "Title",
-  "addTags": "Add tags..."
+  "addTags": "Add tags...",
+  "searchByText": "Search by text: ",
+  "searchByTag": "Search by tag: ",
+  "noComments": "No comments yet...",
+  "noTags": "No tags yet..."
 }

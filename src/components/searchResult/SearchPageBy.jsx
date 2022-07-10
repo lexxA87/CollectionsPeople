@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getItemsSearch } from "../../api/itemsAPI";
+import { useTranslation } from "react-i18next";
 import Loading from "../helper/Loading";
 import ItemCard from "../item/ItemCard";
 import { useParams } from "react-router-dom";
@@ -14,6 +15,7 @@ function SearchPageBy() {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const [isLoading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
+  const { t } = useTranslation();
 
   const params = useParams();
   const text = params.text;
@@ -41,7 +43,8 @@ function SearchPageBy() {
         <Card.Header>
           <CollectionPageHeader isAuth={isAuth} />
           <div className="mt-3">
-            Search by text: <b>{text}</b>
+            {t("searchByText")}
+            <b>{text}</b>
           </div>
         </Card.Header>
       </Card>

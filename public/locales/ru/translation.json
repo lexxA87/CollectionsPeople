@@ -1,4 +1,5 @@
 {
+  "timeFormat": "ru",
   "search": "Поиск",
   "darkTheme": "Тёмная тема",
   "greeting": "Привет, ",
@@ -26,6 +27,7 @@
   "theLatestItem": "Последние добавленные экземпляры",
   "theBigestCollection": "Самые большие коллекции",
   "lastUpdated": "Последнее обновление",
+  "dateOfCreate": "Дата создания",
   "collection": "Коллекция",
   "item": "Экземпляр",
   "author": "Автор",
@@ -36,5 +38,9 @@
   "comments": "Коммент.",
   "description": "Описание",
   "title": "Название",
-  "addTags": "Добавить тэги..."
+  "addTags": "Добавить тэги...",
+  "searchByText": "Поиск по тексту: ",
+  "searchByTag": "Поиск по тэгу: ",
+  "noComments": "Пока нет комментариев...",
+  "noTags": "Пока нет тэгов..."
 }

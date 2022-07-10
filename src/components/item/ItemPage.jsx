@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getItem } from "../../api/itemsAPI";
 import Loading from "../helper/Loading";
-import { Card } from "react-bootstrap";
+import { Card, Badge } from "react-bootstrap";
 import CollectionPageHeader from "../collection/CollectionPageHeader";
 import Comment from "./Comment";
 
@@ -12,6 +13,7 @@ function ItemPage() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const params = useParams();
+  const { t } = useTranslation();
   const [item, setItem] = useState({});
   const [isLoading, setLoading] = useState(true);
   const itemID = params.id;
@@ -40,8 +42,8 @@ function ItemPage() {
 
   const createdAtDate = new Date(createdAt);
   const updatedAtDate = new Date(updatedAt);
-  const createdAtLocale = createdAtDate.toLocaleDateString("en-US");
-  const updatedAtLocale = updatedAtDate.toLocaleDateString("en-US");
+  const createdAtLocale = createdAtDate.toLocaleDateString(t("timeFormat"));
+  const updatedAtLocale = updatedAtDate.toLocaleDateString(t("timeFormat"));
 
   return isLoading ? (
     <Loading />
@@ -69,18 +71,26 @@ function ItemPage() {
                 <h1 className="display-6 text-warning">{title}</h1>
               </Card.Title>
 
+              <div className="mb-3">
+                <i className="bi bi-heart-fill" role="button"></i>
+                {"  "}
+                <Badge pill bg="danger">
+                  {likes}
+                </Badge>
+              </div>
+
               <dl className="row mb-3">
-                <dt className="col-sm-3">Collection</dt>
+                <dt className="col-sm-3">{t("collection")}</dt>
                 <dd className="col-sm-9">{collectionParent.title}</dd>
-                <dt className="col-sm-3">Author</dt>
+                <dt className="col-sm-3">{t("author")}</dt>
                 <dd className="col-sm-9">{author.name}</dd>
-                <dt className="col-sm-3">Likes</dt>
+                <dt className="col-sm-3">{t("likes")}</dt>
                 <dd className="col-sm-9">{likes}</dd>
-                <dt className="col-sm-3">Date of create:</dt>
+                <dt className="col-sm-3">{t("dateOfCreate")}</dt>
                 <dd className="col-sm-9">{createdAtLocale}</dd>
-                <dt className="col-sm-3">Date of update:</dt>
+                <dt className="col-sm-3">{t("lastUpdated")}</dt>
                 <dd className="col-sm-9">{updatedAtLocale}</dd>
-                <dt className="col-sm-3">Tags</dt>
+                <dt className="col-sm-3">{t("tags")}</dt>
                 <dd className="col-sm-9">
                   {tags.length ? (
                     tags.map((tag) => {
@@ -93,13 +103,13 @@ function ItemPage() {
                       );
                     })
                   ) : (
-                    <span>No tags yet...</span>
+                    <span>{t("noTags")}</span>
                   )}
                 </dd>
               </dl>
 
               <dl className="row">
-                <dt className="col-sm-3">Comments</dt>
+                <dt className="col-sm-3">{t("comments")}</dt>
               </dl>
               {comments.length ? (
                 comments.map((comment) => {
@@ -107,7 +117,7 @@ function ItemPage() {
                 })
               ) : (
                 <div className="mb-3">
-                  <Card.Text>No comments yet...</Card.Text>
+                  <Card.Text>{t("noComments")}</Card.Text>
                 </div>
               )}
             </Card.Body>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getItemsSortByTag } from "../../api/itemsAPI";
+import { useTranslation } from "react-i18next";
 import Loading from "../helper/Loading";
 import ItemCard from "../item/ItemCard";
 import { useParams } from "react-router-dom";
@@ -16,6 +17,7 @@ function SearchPage() {
   const [isLoading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [tag, setTag] = useState({});
+  const { t } = useTranslation();
 
   const params = useParams();
   const tagID = params.id;
@@ -45,7 +47,8 @@ function SearchPage() {
         <Card.Header>
           <CollectionPageHeader isAuth={isAuth} />
           <div className="mt-3">
-            Search by tag: <b>{tag.title}</b>
+            {t("searchByTag")}
+            <b>{tag.title}</b>
           </div>
         </Card.Header>
       </Card>

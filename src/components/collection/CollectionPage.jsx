@@ -3,6 +3,7 @@ import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCollection } from "../../api/collectionAPI";
+import { useTranslation } from "react-i18next";
 import Loading from "../helper/Loading";
 import MDEditor from "@uiw/react-md-editor";
 import { Card, ListGroup } from "react-bootstrap";
@@ -12,6 +13,7 @@ function CollectionPage() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
   const params = useParams();
+  const { t } = useTranslation();
   const redirect = useNavigate();
   const [collection, setCollection] = useState({});
   const [isLoading, setLoading] = useState(true);
@@ -32,8 +34,8 @@ function CollectionPage() {
     collection;
   const createdAtDate = new Date(createdAt);
   const updatedAtDate = new Date(updatedAt);
-  const createdAtLocale = createdAtDate.toLocaleDateString("en-US");
-  const updatedAtLocale = updatedAtDate.toLocaleDateString("en-US");
+  const createdAtLocale = createdAtDate.toLocaleDateString(t("timeFormat"));
+  const updatedAtLocale = updatedAtDate.toLocaleDateString(t("timeFormat"));
 
   return isLoading ? (
     <Loading />
@@ -62,14 +64,14 @@ function CollectionPage() {
               </Card.Title>
 
               <dl className="row">
-                <dt className="col-sm-3">Author</dt>
+                <dt className="col-sm-3">{t("author")}</dt>
                 <dd className="col-sm-9">{author.name}</dd>
-                <dt className="col-sm-3">Theme</dt>
+                <dt className="col-sm-3">{t("theme")}</dt>
                 <dd className="col-sm-9">{theme.name}</dd>
               </dl>
 
               <dl data-color-mode={isDarkTheme ? "dark" : "light"}>
-                <dt className="mb-3">Descripton:</dt>
+                <dt className="mb-3">{t("description")}</dt>
               </dl>
               <MDEditor.Markdown
                 source={description}
@@ -77,16 +79,18 @@ function CollectionPage() {
               />
 
               <dl className="row mt-3">
-                <dt className="col-sm-3">Date of create:</dt>
+                <dt className="col-sm-3">{t("dateOfCreate")}</dt>
                 <dd className="col-sm-9">{createdAtLocale}</dd>
-                <dt className="col-sm-3">Date of update:</dt>
+                <dt className="col-sm-3">{t("lastUpdated")}</dt>
                 <dd className="col-sm-9">{updatedAtLocale}</dd>
               </dl>
 
               {items.length > 0 ? (
                 <div className="mb-3">
                   <dl>
-                    <dt className="mb-3">{`Items (${items.length}):`}</dt>
+                    <dt className="mb-3">{`${t("items")} (${
+                      items.length
+                    }):`}</dt>
                   </dl>
                   <ListGroup>
                     {items.map((item) => {
