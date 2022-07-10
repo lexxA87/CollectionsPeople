@@ -88,6 +88,19 @@ const putItem = (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
+const addFieldItem = (req, res) => {
+  // const { fields } = req.body;
+  // console.log(req.body);
+  const { collID } = req.query;
+  ItemCollection.updateMany(
+    { collectionParent: collID },
+    { $set: req.body },
+    { multi: true }
+  )
+    .then((post) => res.status(200).json(post))
+    .catch((error) => handleError(res, error));
+};
+
 const deleteItem = async (req, res) => {
   const collection = await Collection.findByIdAndUpdate(req.query.collID, {
     $pull: { items: req.query.id },
@@ -110,4 +123,5 @@ module.exports = {
   getItemsSort,
   getItemsSortByTag,
   getItemsSearch,
+  addFieldItem,
 };
