@@ -3,6 +3,7 @@ import { useDarkTheme } from "../../data/stores/useDarkTheme";
 import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Likes from "./Likes";
 
 function CollectionCard({ item }) {
   const isDarkTheme = useDarkTheme((state) => state.isDarkTheme);
@@ -40,6 +41,8 @@ function CollectionCard({ item }) {
           </Link>
         </Card.Title>
 
+        <Likes likes={likes} />
+
         <dl className="row">
           <dt className="col-sm-4 col-md-6 col-lg-4">{t("collection")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">
@@ -49,8 +52,6 @@ function CollectionCard({ item }) {
           <dd className="col-sm-8 col-md-6 col-lg-8">{author.name}</dd>
           <dt className="col-sm-4 col-md-6 col-lg-4">{t("tags")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">{tags.length}</dd>
-          <dt className="col-sm-4 col-md-6 col-lg-4">{t("likes")}</dt>
-          <dd className="col-sm-8 col-md-6 col-lg-8">{likes}</dd>
           <dt className="col-sm-4 col-md-6 col-lg-4">{t("comments")}</dt>
           <dd className="col-sm-8 col-md-6 col-lg-8">{comments.length}</dd>
         </dl>

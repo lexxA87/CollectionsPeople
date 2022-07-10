@@ -5,9 +5,10 @@ import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getItem } from "../../api/itemsAPI";
 import Loading from "../helper/Loading";
-import { Card, Badge } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import CollectionPageHeader from "../collection/CollectionPageHeader";
 import Comment from "./Comment";
+import Likes from "./Likes";
 
 function ItemPage() {
   const isAuth = useCurrentUserStore((state) => state.isAuth);
@@ -71,21 +72,13 @@ function ItemPage() {
                 <h1 className="display-6 text-warning">{title}</h1>
               </Card.Title>
 
-              <div className="mb-3">
-                <i className="bi bi-heart-fill" role="button"></i>
-                {"  "}
-                <Badge pill bg="danger">
-                  {likes}
-                </Badge>
-              </div>
+              <Likes likes={likes} />
 
               <dl className="row mb-3">
                 <dt className="col-sm-3">{t("collection")}</dt>
                 <dd className="col-sm-9">{collectionParent.title}</dd>
                 <dt className="col-sm-3">{t("author")}</dt>
                 <dd className="col-sm-9">{author.name}</dd>
-                <dt className="col-sm-3">{t("likes")}</dt>
-                <dd className="col-sm-9">{likes}</dd>
                 <dt className="col-sm-3">{t("dateOfCreate")}</dt>
                 <dd className="col-sm-9">{createdAtLocale}</dd>
                 <dt className="col-sm-3">{t("lastUpdated")}</dt>
@@ -95,7 +88,7 @@ function ItemPage() {
                   {tags.length ? (
                     tags.map((tag) => {
                       return (
-                        <p>
+                        <p key={tag._id}>
                           <Link to={`/searchpage/tag${tag._id}`}>
                             {tag.title}
                           </Link>
