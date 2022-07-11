@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly Loading component 1`] = `
+<Spinner
+  animation="border"
+  role="status"
+>
+  <span
+    className="visually-hidden"
+  >
+    Loading...
+  </span>
+</Spinner>
+`;
+
+exports[`renders correctly NotFound component 1`] = `
+<div
+  className="text-center"
+>
+  <Figure>
+    <FigureImage
+      alt="Not Found"
+      fluid={true}
+      height={300}
+      src="/images/noSearchResult.jpg"
+      width={300}
+    />
+    <FigureCaption>
+      <h1
+        className="display-6 text-warning"
+      >
+        noFound
+      </h1>
+    </FigureCaption>
+  </Figure>
+</div>
+`;

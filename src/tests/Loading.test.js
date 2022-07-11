@@ -1,8 +1,10 @@
-import { render, screen } from "@testing-library/react";
 import Loading from "../components/helper/Loading";
+import ShallowRenderer from "react-test-renderer/shallow";
 
-test("renders learn react link", () => {
-  render(<Loading />);
-  const linkElement = screen.getByText(/Loading.../i);
-  expect(linkElement).toBeInTheDocument();
+it("renders correctly Loading component", () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<Loading />);
+  const view = renderer.getRenderOutput();
+
+  expect(view).toMatchSnapshot();
 });

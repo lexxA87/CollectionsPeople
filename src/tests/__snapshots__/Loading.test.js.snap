@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly Loading component 1`] = `
+<Spinner
+  animation="border"
+  role="status"
+>
+  <span
+    className="visually-hidden"
+  >
+    Loading...
+  </span>
+</Spinner>
+`;
+
+exports[`renders correctly react-test-renderer 1`] = `
+<Spinner
+  animation="border"
+  role="status"
+>
+  <span
+    className="visually-hidden"
+  >
+    Loading...
+  </span>
+</Spinner>
+`;

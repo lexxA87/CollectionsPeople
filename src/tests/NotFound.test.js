@@ -1,9 +1,9 @@
+import NotFound from "../components/helper/NotFound";
 import ShallowRenderer from "react-test-renderer/shallow";
-import App from "../App";
 
-it("renders correctly App component", () => {
+it("renders correctly NotFound component", () => {
   const renderer = new ShallowRenderer();
-  renderer.render(<App />);
+  renderer.render(<NotFound />);
   const view = renderer.getRenderOutput();
 
   expect(view).toMatchSnapshot();
