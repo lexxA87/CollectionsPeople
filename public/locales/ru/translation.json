@@ -16,7 +16,7 @@
   "invalid_email": "Неккоректный адресс почты",
   "field_too_short": "Слишком коротко",
   "field_too_big": "Слишком длинно",
-  "notCollectionsMessage": "У тебя ещё ни одной коллекции! Добавь, нажав 'NEW+'",
+  "notCollectionsMessage": "У тебя ещё ни одной коллекции! Добавь, нажав 'Добавить +'",
   "addNew": "Добавить",
   "toMainPage": "На главную",
   "toHomePage": "Домой",
