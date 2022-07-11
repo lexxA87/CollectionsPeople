@@ -42,5 +42,8 @@
   "searchByText": "Search by text: ",
   "searchByTag": "Search by tag: ",
   "noComments": "No comments yet...",
-  "noTags": "No tags yet..."
+  "noTags": "No tags yet...",
+  "noFound": "Not found...",
+  "allCollectionsPage": "Collections Page",
+  "allItemsPage": "Items Page"
 }

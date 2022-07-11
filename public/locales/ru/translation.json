@@ -42,5 +42,8 @@
   "searchByText": "Поиск по тексту: ",
   "searchByTag": "Поиск по тэгу: ",
   "noComments": "Пока нет комментариев...",
-  "noTags": "Пока нет тэгов..."
+  "noTags": "Пока нет тэгов...",
+  "noFound": "Не найдено...",
+  "allCollectionsPage": "Коллекции",
+  "allItemsPage": "Экземпляры"
 }

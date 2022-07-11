@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Figure } from "react-bootstrap";
 
 function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <div className="text-center">
       <Figure>
@@ -12,7 +15,7 @@ function NotFound() {
           src="/images/noSearchResult.jpg"
         />
         <Figure.Caption>
-          <h1 className="display-6 text-warning">Not Found...</h1>
+          <h1 className="display-6 text-warning">{t("noFound")}</h1>
         </Figure.Caption>
       </Figure>
     </div>
