@@ -90,13 +90,41 @@ const putItem = (req, res) => {
 
 const addFieldItem = (req, res) => {
   const { collID } = req.query;
-  ItemCollection.updateMany(
-    { collectionParent: collID },
-    { $set: req.body },
-    { multi: true }
-  )
-    .then((post) => res.status(200).json(post))
-    .catch((error) => handleError(res, error));
+  const fields = req.body;
+  // const items = await ItemCollection.find({ collectionParent: collID });
+
+  ItemCollection.aggregate([
+    { $match: { collectionParent: collID } },
+    {
+      $addFields: {
+        additionalFields: {
+          $concatArrays: ["$additionalFields", [fields]],
+        },
+      },
+    },
+  ]);
+  // .then(() => console.log(res))
+  // .catch((error) => handleError(res, error));
+
+  // await items
+  //   .aggregate([
+  //     {
+  //       $addFields: {
+  //         additionalFields: {
+  //           $concatArrays: ["$additionalFields", [fields]],
+  //         },
+  //       },
+  //     },
+  //   ])
+  //   .then(() => console.log(res))
+  //   .catch((error) => handleError(res, error));
+  // ItemCollection.updateMany(
+  //   { collectionParent: collID },
+  //   { $set: req.body },
+  //   { multi: true }
+  // )
+  //   .then((post) => res.status(200).json(post))
+  //   .catch((error) => handleError(res, error));
 };
 
 const deleteItem = async (req, res) => {

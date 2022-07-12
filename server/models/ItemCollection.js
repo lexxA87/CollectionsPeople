@@ -9,6 +9,7 @@ const ItemCollection = new Schema(
     likes: { type: Number, default: 0 },
     tags: [{ type: ObjectId, ref: "Tag" }],
     comments: [{ type: ObjectId, ref: "Comment" }],
+    additionalFields: [],
   },
   { timestamps: true }
 );
