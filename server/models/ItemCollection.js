@@ -11,7 +11,7 @@ const ItemCollection = new Schema(
     comments: [{ type: ObjectId, ref: "Comment" }],
     additionalFields: [],
   },
-  { timestamps: true }
+  { timestamps: true, strict: false }
 );
 
 ItemCollection.index({ "$**": "text" });

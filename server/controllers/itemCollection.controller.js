@@ -94,61 +94,11 @@ const addFieldItem = async (req, res) => {
 
   await ItemCollection.updateMany(
     { collectionParent: collID },
-    { $set: { newField2: "foo" } },
-    { upsert: true }
+    { newField2: "foo" },
+    { returnNewDocument: true, new: true, strict: false }
   )
     .then((post) => res.status(200).json(post))
     .catch((error) => handleError(res, error));
-  // console.log(req.body);
-  // ItemCollection.updateMany(
-  //   { collectionParent: collID },
-  //   {
-  //     newField2: String,
-  //   },
-  //   {
-  //     upsert: true,
-  //   }
-  // )
-  //   .then((post) => res.status(200).json(post))
-  //   .catch((error) => handleError(res, error));
-
-  // ItemCollection.aggregate([
-  //   { $match: { collectionParent: collID } },
-  //   {
-  //     $addFields: {
-  //       newField: field,
-  //     },
-  //   },
-  // {
-  //   $addFields: {
-  //     additionalFields: {
-  //       $concatArrays: ["$additionalFields", [req.body]],
-  //     },
-  //   },
-  // },
-  // ]);
-  // .then(() => console.log(res))
-  // .catch((error) => handleError(res, error));
-
-  // await items
-  //   .aggregate([
-  //     {
-  //       $addFields: {
-  //         additionalFields: {
-  //           $concatArrays: ["$additionalFields", [fields]],
-  //         },
-  //       },
-  //     },
-  //   ])
-  //   .then(() => console.log(res))
-  //   .catch((error) => handleError(res, error));
-  // ItemCollection.updateMany(
-  //   { collectionParent: collID },
-  //   { $set: req.body },
-  //   { multi: true }
-  // )
-  //   .then((post) => res.status(200).json(post))
-  //   .catch((error) => handleError(res, error));
 };
 
 const deleteItem = async (req, res) => {
