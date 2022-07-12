@@ -89,8 +89,6 @@ const putItem = (req, res) => {
 };
 
 const addFieldItem = (req, res) => {
-  // const { fields } = req.body;
-  // console.log(req.body);
   const { collID } = req.query;
   ItemCollection.updateMany(
     { collectionParent: collID },

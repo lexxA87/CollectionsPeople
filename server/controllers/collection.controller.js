@@ -1,4 +1,5 @@
 const Collection = require("../models/Collection");
+const ItemCollection = require("../models/ItemCollection");
 
 const handleError = (res, error) => {
   res.status(500).send(error.message);
@@ -41,8 +42,12 @@ const putCollection = (req, res) => {
 };
 
 const deleteCollection = (req, res) => {
-  Collection.findByIdAndDelete(req.query.id)
-    .then(() => res.status(200).json(req.query.id))
+  const id = req.query.id;
+  Collection.findByIdAndDelete(id)
+    .then(async () => {
+      await ItemCollection.deleteMany({ collectionParent: id });
+      return res.status(200).json(id);
+    })
     .catch((error) => handleError(res, error));
 };
 
