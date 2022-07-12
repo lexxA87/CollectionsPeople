@@ -88,21 +88,45 @@ const putItem = (req, res) => {
     .catch((error) => handleError(res, error));
 };
 
-const addFieldItem = (req, res) => {
+const addFieldItem = async (req, res) => {
   const { collID } = req.query;
-  const fields = req.body;
-  // const items = await ItemCollection.find({ collectionParent: collID });
+  // const field = req.body;
 
-  ItemCollection.aggregate([
-    { $match: { collectionParent: collID } },
-    {
-      $addFields: {
-        additionalFields: {
-          $concatArrays: ["$additionalFields", [fields]],
-        },
-      },
-    },
-  ]);
+  await ItemCollection.updateMany(
+    { collectionParent: collID },
+    { $set: { newField2: "foo" } },
+    { upsert: true }
+  )
+    .then((post) => res.status(200).json(post))
+    .catch((error) => handleError(res, error));
+  // console.log(req.body);
+  // ItemCollection.updateMany(
+  //   { collectionParent: collID },
+  //   {
+  //     newField2: String,
+  //   },
+  //   {
+  //     upsert: true,
+  //   }
+  // )
+  //   .then((post) => res.status(200).json(post))
+  //   .catch((error) => handleError(res, error));
+
+  // ItemCollection.aggregate([
+  //   { $match: { collectionParent: collID } },
+  //   {
+  //     $addFields: {
+  //       newField: field,
+  //     },
+  //   },
+  // {
+  //   $addFields: {
+  //     additionalFields: {
+  //       $concatArrays: ["$additionalFields", [req.body]],
+  //     },
+  //   },
+  // },
+  // ]);
   // .then(() => console.log(res))
   // .catch((error) => handleError(res, error));
 
